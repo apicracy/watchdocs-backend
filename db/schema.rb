@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405125104) do
+ActiveRecord::Schema.define(version: 20170405125552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,17 @@ ActiveRecord::Schema.define(version: 20170405125104) do
     t.index ["endpoint_id"], name: "index_requests_on_endpoint_id", using: :btree
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.integer  "endpoint_id"
+    t.integer  "status_code"
+    t.integer  "status"
+    t.jsonb    "body"
+    t.jsonb    "body_draft"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["endpoint_id"], name: "index_responses_on_endpoint_id", using: :btree
+  end
+
   create_table "url_params", force: :cascade do |t|
     t.integer  "endpoint_id"
     t.string   "key"
@@ -88,5 +99,6 @@ ActiveRecord::Schema.define(version: 20170405125104) do
   add_foreign_key "groups", "projects"
   add_foreign_key "projects", "users"
   add_foreign_key "requests", "endpoints"
+  add_foreign_key "responses", "endpoints"
   add_foreign_key "url_params", "endpoints"
 end

@@ -5,35 +5,25 @@ class ProcessExternalEndpointSchemas
               :schemas,
               :endpoint_data
 
-  # TODO: Change format of data in sinatra app
   # TODO: Add json schema validation for params
   def initialize(endpoint_schema_params)
     @project = Project.find(endpoint_schema_params[:project_id])
-    @endpoint_data = {
-      url: endpoint_schema_params[:endpoint],
-      method: endpoint_schema_params[:method]
-    }
+    @endpoint_data = endpoint_schema_params[:endpoint]
     @schemas = {
-      request: {
-        body: endpoint_schema_params[:request],
-        headers: endpoint_schema_params[:request_headers],
-        url_params: endpoint_schema_params[:query_string_params]
-      },
-      response: {
-        body: endpoint_schema_params[:request],
-        headers: endpoint_schema_params[:response_headers],
-        status: endpoint_schema_params[:status]
-      }
+      request: endpoint_schema_params[:request],
+      response: endpoint_schema_params[:response]
     }
   rescue ActiveRecord::RecordNotFound
     raise ProjectNotFound
   end
 
   def call
-    update_url_params
-    create_or_update_request
     create_or_update_response
-    update_headers
+    update_response_headers
+    return unless @schemas[:request]
+    create_or_update_request
+    update_request_headers
+    update_url_params
   end
 
   private
@@ -73,9 +63,12 @@ class ProcessExternalEndpointSchemas
     end
   end
 
-  def update_headers
-    create_or_update_headers(endpoint.request, schemas[:request][:headers])
+  def update_response_headers
     create_or_update_headers(response, schemas[:response][:headers])
+  end
+
+  def update_request_headers
+    create_or_update_headers(endpoint.request, schemas[:request][:headers])
   end
 
   def endpoint

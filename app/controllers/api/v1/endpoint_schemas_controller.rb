@@ -16,13 +16,8 @@ module Api
           only: [
             :project_id,
             :endpoint,
-            :method,
-            :status,
             :request,
-            :response,
-            :query_string_params,
-            :response_headers,
-            :request_headers
+            :response
           ],
           key_transform: :unaltered
         )

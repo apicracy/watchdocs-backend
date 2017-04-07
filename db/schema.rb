@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405132211) do
+ActiveRecord::Schema.define(version: 20170407062749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170405132211) do
     t.integer  "group_id"
     t.integer  "project_id"
     t.string   "url"
-    t.integer  "method"
+    t.string   "method"
     t.integer  "status"
     t.string   "title"
     t.text     "summary"
@@ -46,8 +46,9 @@ ActiveRecord::Schema.define(version: 20170405132211) do
     t.boolean  "required"
     t.text     "description"
     t.string   "example_value"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.boolean  "required_draft"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -107,12 +108,13 @@ ActiveRecord::Schema.define(version: 20170405132211) do
     t.string   "key"
     t.integer  "status"
     t.boolean  "required"
-    t.integer  "type"
+    t.string   "type"
     t.text     "description"
     t.string   "example_value"
     t.boolean  "query_string"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.boolean  "required_draft"
     t.index ["endpoint_id"], name: "index_url_params_on_endpoint_id", using: :btree
   end
 

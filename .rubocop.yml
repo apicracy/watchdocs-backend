@@ -1,0 +1,25 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - config/routes.rb
+  TargetRubyVersion: 2.3
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics/LineLength:
+  Max: 99
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*_spec.rb
+    - spec/rails_helper.rb
+    - config/routes.rb
+Rails:
+  Enabled: true
+Rails/HasAndBelongsToMany:
+  Enabled: false
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - spec/acceptance/**/*.rb

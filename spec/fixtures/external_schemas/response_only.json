@@ -1,0 +1,51 @@
+{
+  "project_id": 0,
+  "endpoint": {
+    "url": "/api/v1/users/withdrawals",
+    "method": "POST"
+  },
+  "response": {
+    "status": 401,
+    "headers": {
+      "schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "X-FRAME-OPTIONS": {
+          "type": "string"
+        },
+        "X-XSS-PROTECTION": {
+          "type": "string"
+        },
+        "X-CONTENT-TYPE-OPTIONS": {
+          "type": "string"
+        },
+        "CONTENT-TYPE": {
+          "type": "string"
+        },
+        "CACHE-CONTROL": {
+          "type": "string"
+        },
+        "X-REQUEST-ID": {
+          "type": "string"
+        },
+        "X-RUNTIME": {
+          "type": "string"
+        }
+      },
+      "required": ["X-FRAME-OPTIONS", "X-XSS-PROTECTION", "X-CONTENT-TYPE-OPTIONS", "CONTENT-TYPE", "CACHE-CONTROL", "X-REQUEST-ID", "X-RUNTIME"]
+    },
+    "body": {
+      "schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["errors"]
+    }
+  }
+}

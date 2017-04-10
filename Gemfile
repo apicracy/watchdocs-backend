@@ -34,6 +34,9 @@ group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails', '~> 3.5'
+  gem 'fabrication', '~> 2.14', '>= 2.14.1'
+  gem 'faker', '~> 1.7', '>= 1.7.3'
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
 end
 
 group :development do

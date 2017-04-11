@@ -1,24 +1,21 @@
 class ProcessExternalEndpointSchemas
   attr_reader :project,
-              :schemas,
+              :request_data,
+              :response_data,
               :endpoint_data,
               :response
 
   # TODO: Add json schema validation for params
   def initialize(endpoint_schema_params)
-    @project = Project.find(endpoint_schema_params[:project_id])
+    @project = find_project(endpoint_schema_params[:project_id])
     @endpoint_data = endpoint_schema_params[:endpoint]
-    @schemas = {
-      request: endpoint_schema_params[:request],
-      response: endpoint_schema_params[:response]
-    }
-  rescue ActiveRecord::RecordNotFound => e
-    raise ProjectNotFound, e.message
+    @request_data = endpoint_schema_params[:request]
+    @response_data = endpoint_schema_params[:response]
   end
 
   def call
     update_response
-    return unless @schemas[:request]
+    return unless request_data
     update_url_params
     update_request
   end
@@ -26,27 +23,33 @@ class ProcessExternalEndpointSchemas
   private
 
   def update_response
-    @response = endpoint.update_response(
-      schemas[:response][:status],
-      schemas[:response][:body],
-      parse_headers(schemas[:response][:headers])
+    @response = endpoint.update_response_for_status(
+      response_data[:status],
+      body: response_data[:body],
+      headers: parse_headers(response_data[:headers])
     )
   end
 
   # TODO: Create card for changes in gem: filter query params and support types
   def update_url_params
-    params = ParseUrlParamsSchema.new(schemas[:request][:url_params]).call
+    params = UrlParamsSchema.new(request_data[:url_params]).params
     params.each { |key, required| create_or_update_url_param(key, required) }
   end
 
   def update_request
     endpoint.update_request(
-      schemas[:request][:body],
-      parse_headers(schemas[:request][:headers])
+      body: request_data[:body],
+      headers: parse_headers(request_data[:headers])
     )
   end
 
   ## Helpers:
+
+  def find_project(project_id)
+    Project.find(project_id)
+  rescue ActiveRecord::RecordNotFound => e
+    raise ProjectNotFound, e.message
+  end
 
   def endpoint
     @endpoint ||= project.endpoints.find_or_create_by(endpoint_data)

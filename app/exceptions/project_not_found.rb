@@ -1,0 +1,1 @@
+class ProjectNotFound < StandardError; end

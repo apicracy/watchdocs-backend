@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407062749) do
+ActiveRecord::Schema.define(version: 20170411135856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,11 @@ ActiveRecord::Schema.define(version: 20170407062749) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.boolean  "required_draft"
+  end
+
+  create_table "jwt_blacklist", force: :cascade do |t|
+    t.string "jti", null: false
+    t.index ["jti"], name: "index_jwt_blacklist_on_jti", using: :btree
   end
 
   create_table "projects", force: :cascade do |t|
@@ -120,8 +125,15 @@ ActiveRecord::Schema.define(version: 20170407062749) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "encrypted_password", default: "", null: false
+    t.integer  "sign_in_count",      default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
   add_foreign_key "endpoints", "groups"

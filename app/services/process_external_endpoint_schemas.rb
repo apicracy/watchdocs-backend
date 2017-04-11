@@ -1,5 +1,3 @@
-class ProjectNotFound < StandardError; end
-
 class ProcessExternalEndpointSchemas
   attr_reader :project,
               :schemas,
@@ -14,8 +12,8 @@ class ProcessExternalEndpointSchemas
       request: endpoint_schema_params[:request],
       response: endpoint_schema_params[:response]
     }
-  rescue ActiveRecord::RecordNotFound
-    raise ProjectNotFound
+  rescue ActiveRecord::RecordNotFound => e
+    raise ProjectNotFound, e.message
   end
 
   def call

@@ -3,7 +3,8 @@ class ProjectNotFound < StandardError; end
 class ProcessExternalEndpointSchemas
   attr_reader :project,
               :schemas,
-              :endpoint_data
+              :endpoint_data,
+              :response
 
   # TODO: Add json schema validation for params
   def initialize(endpoint_schema_params)
@@ -18,108 +19,50 @@ class ProcessExternalEndpointSchemas
   end
 
   def call
-    create_or_update_response
-    update_response_headers
+    update_response
     return unless @schemas[:request]
-    create_or_update_request
-    update_request_headers
     update_url_params
+    update_request
   end
 
   private
 
+  def update_response
+    @response = endpoint.update_response(
+      schemas[:response][:status],
+      schemas[:response][:body],
+      parse_headers(schemas[:response][:headers])
+    )
+  end
+
   # TODO: Create card for changes in gem: filter query params and support types
   def update_url_params
-    url_params = schemas[:request][:url_params]
-    url_params['properties'].each do |param, schema|
-      if schema['type'] == 'object'
-        children = dig_into_url_param_hash(schema)
-        children.each do |child|
-          key, required = build_url_param(param, child)
-          create_or_update_url_param(key, required)
-        end
-      else
-        create_or_update_url_param(
-          param,
-          url_params['required'].include?(param)
-        )
-      end
-    end
+    params = ParseUrlParamsSchema.new(schemas[:request][:url_params]).call
+    params.each { |key, required| create_or_update_url_param(key, required) }
   end
 
-  def create_or_update_request
-    if endpoint.request
-      endpoint.request.update(body_draft: schemas[:request][:body])
-    else
-      endpoint.create_request(body: schemas[:request][:body])
-    end
+  def update_request
+    endpoint.update_request(
+      schemas[:request][:body],
+      parse_headers(schemas[:request][:headers])
+    )
   end
 
-  def create_or_update_response
-    if response.body.present?
-      response.update(body_draft: schemas[:response][:body])
-    else
-      response.update(body: schemas[:response][:body])
-    end
-  end
-
-  def update_response_headers
-    create_or_update_headers(response, schemas[:response][:headers])
-  end
-
-  def update_request_headers
-    create_or_update_headers(endpoint.request, schemas[:request][:headers])
-  end
+  ## Helpers:
 
   def endpoint
     @endpoint ||= project.endpoints.find_or_create_by(endpoint_data)
   end
 
-  def response
-    @response ||= endpoint.responses.find_or_initialize_by(
-      status: schemas[:response][:status]
-    )
-  end
-
-  def dig_into_url_param_hash(param_hash)
-    params = []
-    param_hash['properties'].each do |param, schema|
-      if schema['type'] == 'object'
-        children = dig_into_url_param_hash(schema)
-        children.each { |c| params << [param, c] }
-      else
-        params << [param, param_hash['required'].include?(param)]
-      end
-    end
-    params
-  end
-
-  def build_url_param(root, children)
-    param = root
-    children.flatten!
-    required = children.pop # last element says if param is required
-    children.each { |c| param += "[#{c}]" }
-    [param, required]
-  end
-
   def create_or_update_url_param(key, required)
-    param = endpoint.url_params.find_or_initialize_by(key: key)
-    if param.required.present?
-      param.update(required_draft: required)
-    else
-      param.update(required: required)
-    end
+    endpoint.url_params
+            .find_or_initialize_by(key: key)
+            .update_required(required)
   end
 
-  def create_or_update_headers(object, headers)
-    headers['properties'].each do |k, _v|
-      header = object.headers.find_or_create_by(key: k)
-      required = headers['required'].include?(k)
-      if header.required.present?
-        header.update(required_draft: required)
-      else
-        header.update(required: required)
-      end
-    end
+  def parse_headers(headers)
+    headers['properties'].map do |header, _v|
+      [header, headers['required'].include?(header)]
+    end.to_h
   end
 end

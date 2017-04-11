@@ -1,6 +1,10 @@
 module Api
   module V1
     class EndpointSchemasController < ApplicationController
+      include ActionController::HttpAuthentication::Basic::ControllerMethods
+      http_basic_authenticate_with name: ENV['HTTP_AUTH_NAME'],
+                                   password: ENV['HTTP_AUTH_PASSWORD']
+
       def create
         ProcessExternalEndpointSchemas.new(endpoint_schema_params).call
         render :ok

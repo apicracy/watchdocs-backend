@@ -6,9 +6,7 @@ RSpec.describe 'GET /projects', type: :request do
   context 'guest user' do
     before { get endpoint_path }
 
-    it 'returns unauthorized response' do
-      expect(response.status).to eq 100
-    end
+    it_behaves_like 'unauthorized request'
   end
 
   context 'authenticated user' do

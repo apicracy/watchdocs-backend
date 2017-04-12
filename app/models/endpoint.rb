@@ -5,6 +5,8 @@ class Endpoint < ApplicationRecord
   has_many :url_params
   has_many :responses
 
+  METHODS = %w(GET POST PUT DELETE).freeze
+
   def update_request(body: nil, headers: nil)
     request ||= build_request
     request.update_body(body) if body

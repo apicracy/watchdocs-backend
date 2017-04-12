@@ -5,6 +5,10 @@ class ApplicationController < ActionController::API
   include CanCan::ControllerAdditions
   check_authorization
 
+  rescue_from CanCan::AccessDenied do |exception|
+    record_not_found(exception)
+  end
+
   def record_not_found(e)
     render json: {
       errors: [

@@ -28,7 +28,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include ExternalSchemasFixturesHelper
-  config.include Requests::JsonHelpers, type: :request
+  config.include RequestHelpers, type: :request
   config.include Warden::Test::Helpers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

@@ -47,6 +47,7 @@ GEM
     bcrypt (3.1.11)
     builder (3.2.3)
     byebug (9.0.6)
+    cancan (1.6.10)
     case_transform (0.2)
       activesupport
     coderay (1.1.1)
@@ -161,6 +162,8 @@ GEM
     slop (3.6.0)
     spring (2.0.1)
       activesupport (>= 4.2)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
@@ -192,6 +195,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.4)
   byebug
+  cancan
   database_cleaner (~> 1.5, >= 1.5.3)
   devise-jwt (~> 0.1.1)
   dotenv-rails (~> 2.1, >= 2.1.1)
@@ -206,6 +210,7 @@ DEPENDENCIES
   rails (~> 5.0.2)
   rspec-rails (~> 3.5)
   spring
+  spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
 

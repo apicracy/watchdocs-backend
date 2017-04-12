@@ -5,15 +5,16 @@ class Endpoint < ApplicationRecord
   has_many :url_params
   has_many :responses
 
-  def update_request(body, headers)
+  def update_request(body: nil, headers: nil)
     request ||= build_request
-    request.update_body(body)
-    request.update_headers(headers)
+    request.update_body(body) if body
+    request.update_headers(headers) if headers
   end
 
-  def update_response(status, body, headers)
+  def update_response_for_status(status, body: nil, headers: nil)
     response = responses.find_or_initialize_by(status: status)
-    response.update_body(body)
-    response.update_headers(headers)
+    response.update_body(body) if body
+    response.update_headers(headers) if headers
+    response
   end
 end

@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::API
+  # Needed for Cancan ControllerAdditions
+  include ActionController::Helpers
+  # We need to make sure all resources are authorized with CanCan
+  include CanCan::ControllerAdditions
+  check_authorization unless: :devise_controller?
+
   def record_not_found(e)
     render json: {
       errors: [

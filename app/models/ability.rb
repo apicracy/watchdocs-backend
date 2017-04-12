@@ -6,7 +6,11 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, to: :crud
 
+    # Project
     can :index, Project
     can :crud, Project, user: user
+
+    # User
+    can :read, User, id: user.id
   end
 end

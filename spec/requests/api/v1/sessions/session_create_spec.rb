@@ -20,8 +20,8 @@ RSpec.describe 'POST /login', type: :request do
     end
   end
 
-  # context 'when user is not logged in' do
-  #   before { post url }
-  #   it_behaves_like 'respond to unauthorised'
-  # end
+  context 'when login params are incorrect' do
+    before { post url }
+    it_behaves_like 'unauthorized request'
+  end
 end

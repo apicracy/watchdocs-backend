@@ -5,6 +5,10 @@ class ApplicationController < ActionController::API
   include CanCan::ControllerAdditions
   check_authorization unless: :devise_controller?
 
+  rescue_from CanCan::AccessDenied do
+    head :forbidden, content_type: 'text/html'
+  end
+
   def record_not_found(e)
     render json: {
       errors: [
@@ -13,4 +17,6 @@ class ApplicationController < ActionController::API
       ]
     }, status: :not_found
   end
+
+
 end

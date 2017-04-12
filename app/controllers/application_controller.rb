@@ -17,6 +17,4 @@ class ApplicationController < ActionController::API
       ]
     }, status: :not_found
   end
-
-
 end

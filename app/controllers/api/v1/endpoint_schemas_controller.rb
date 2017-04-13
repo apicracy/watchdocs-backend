@@ -8,8 +8,8 @@ module Api
       def create
         ProcessExternalEndpointSchemas.new(endpoint_schema_params).call
         render :ok
-      rescue ProjectNotFound => e
-        record_not_found(e)
+      rescue ProjectNotFound => exception
+        record_not_found(exception)
       end
 
       private

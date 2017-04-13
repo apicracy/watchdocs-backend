@@ -6,7 +6,7 @@ RSpec.describe 'GET /projects', type: :request do
   context 'guest user' do
     before { get endpoint_path }
 
-    it_behaves_like 'unauthorized request'
+    it_behaves_like 'unauthorized'
   end
 
   context 'authenticated user' do

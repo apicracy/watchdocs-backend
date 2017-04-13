@@ -14,8 +14,10 @@ Rails.application.routes.draw do
       post '/endpoint_schemas', to: 'endpoint_schemas#create'
 
       resources :projects
-      namespace :users do
-        get '/me', to: 'users#me'
+      resources :users, only: [] do
+        collection do
+          get :me
+        end
       end
     end
   end

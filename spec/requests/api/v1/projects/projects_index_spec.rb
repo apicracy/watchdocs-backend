@@ -32,7 +32,7 @@ RSpec.describe 'GET /projects', type: :request do
     end
 
     it 'returns required fields' do
-      expect(json.first.keys).to eq %w(id name base_url updated_at)
+      expect(json.first).to eq serialized(owned_project)
     end
   end
 end

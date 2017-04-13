@@ -1,4 +1,4 @@
-require: rubocop-rspec
+# require: rubocop-rspec
 
 AllCops:
   Exclude:

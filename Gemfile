@@ -39,6 +39,7 @@ group :development, :test do
   gem 'fabrication', '~> 2.14', '>= 2.14.1'
   gem 'faker', '~> 1.7', '>= 1.7.3'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
+  gem 'rubocop', '~> 0.39.0'
 end
 
 group :development do

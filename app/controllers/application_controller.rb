@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   include ActionController::Helpers
   # We need to make sure all resources are authorized with CanCan
   include CanCan::ControllerAdditions
-  check_authorization
+  check_authorization unless: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
     record_not_found(exception)

@@ -11,7 +11,7 @@ class ProjectDetailedSerializer < ActiveModel::Serializer
 
   # Class for generating an entry for group on a tree json
   class GroupItem < ActiveModel::Serializer
-    attributes :id, :type, :items
+    attributes :id, :type, :items, :name, :description
 
     def type
       object.class.name.freeze

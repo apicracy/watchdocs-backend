@@ -37,6 +37,8 @@ RSpec.describe ProjectDetailedSerializer do
       expected_json = [{
         'id' => group.id,
         'type' => 'Group',
+        'name' => group.name,
+        'description' => group.description,
         'items' => [
           {
             'id' => endpoint1.id,

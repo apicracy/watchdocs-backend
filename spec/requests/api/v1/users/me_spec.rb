@@ -21,6 +21,6 @@ RSpec.describe 'GET /users/me', type: :request do
 
   context 'when uses is unauthenticated' do
     before { get url }
-    it_behaves_like 'unauthorized request'
+    it_behaves_like 'unauthorized'
   end
 end

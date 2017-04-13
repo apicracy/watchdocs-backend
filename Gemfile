@@ -40,6 +40,7 @@ group :development, :test do
   gem 'faker', '~> 1.7', '>= 1.7.3'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'rubocop', '~> 0.39.0'
+  gem 'rubocop-rspec', '~> 1.4', '>= 1.4.1'
 end
 
 group :development do

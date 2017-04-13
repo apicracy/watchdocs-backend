@@ -20,13 +20,20 @@ RSpec.describe 'POST /login', type: :request do
       expect(json).to eq(serialized(user))
     end
 
-    xit 'returns JTW token in authorization header' do
-      expect(response).to have_http_status(200)
+    it 'returns JTW token in authorization header' do
+      expect(response.headers['Authorization']).to be_present
+    end
+
+    it 'returns valid JWT token' do
+      token = response.headers['Authorization'].split(' ').last
+      hmac_secret = ENV['DEVISE_JWT_SECRET_KEY']
+      decoded_token = JWT.decode token, hmac_secret, true
+      expect(decoded_token.first['sub']).to be_present
     end
   end
 
   context 'when login params are incorrect' do
     before { post url }
-    it_behaves_like 'unauthorized request'
+    it_behaves_like 'unauthorized'
   end
 end

@@ -5,6 +5,8 @@ class Endpoint < ApplicationRecord
   has_many :url_params
   has_many :responses
 
+  enum status: %i(incomplete completed full)
+
   METHODS = %w(GET POST PUT DELETE).freeze
 
   def update_request(body: nil, headers: nil)

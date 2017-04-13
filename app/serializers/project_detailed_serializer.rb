@@ -6,11 +6,15 @@ class ProjectDetailedSerializer < ActiveModel::Serializer
       object.groups.map { |group| GroupItem.new(group) }
   end
 
+  # We don't want GroupItem and EndpointItem to be reused
+  private
+
+  # Class for generating an entry for group on a tree json
   class GroupItem < ActiveModel::Serializer
     attributes :id, :type, :items
 
     def type
-      'Group'.freeze
+      object.class.name.freeze
     end
 
     def items
@@ -19,15 +23,16 @@ class ProjectDetailedSerializer < ActiveModel::Serializer
     end
   end
 
+  # Class for generating an entry for endpoint on a tree json
   class EndpointItem < ActiveModel::Serializer
     attributes :id, :type, :method, :url
 
-    def type
-      'Endpoint'.freeze
-    end
+    # If not used, this will throw an error as 'method' is available within
+    # ActiveModel::Serializer scope
+    delegate :method, to: :object
 
-    def method
-      object.method
+    def type
+      object.class.name.freeze
     end
   end
 end

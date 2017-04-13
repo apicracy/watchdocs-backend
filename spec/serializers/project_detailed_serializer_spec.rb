@@ -4,22 +4,56 @@ RSpec.describe ProjectDetailedSerializer do
   subject(:serializer) { described_class.new(project) }
   let(:project) { Fabricate :project }
 
-  describe '#to_json' do
-    subject(:json) { JSON.parse(serializer.to_json) }
+  describe '#tree' do
+    subject(:json_tree) { JSON.parse(serializer.to_json)['tree'] }
 
     it 'returns not grouped endpoints' do
-      Fabricate :endpoint, url: '/contributions', project: project
-      Fabricate :endpoint, url: '/pledges', project: project
+      endpoint1 = Fabricate :endpoint, url: '/contributions', project: project
+      endpoint2 = Fabricate :endpoint, url: '/pledges', project: project
 
-      expect(json['tree']).to eq([{"id"=>1, "type"=>"Endpoint", "url"=>"/contributions", "method"=>"GET"}, {"id"=>2, "type"=>"Endpoint", "url"=>"/pledges", "method"=>"GET"}])
+      expected_json = [
+        {
+          'id' => endpoint1.id,
+          'type' => 'Endpoint',
+          'url' => endpoint1.url,
+          'method' => endpoint1.method
+        },
+        {
+          'id' => endpoint2.id,
+          'type' => 'Endpoint',
+          'url' => endpoint2.url,
+          'method' => endpoint2.method
+        }
+      ]
+
+      expect(json_tree).to eq(expected_json)
     end
 
     it 'returns grouped endpoints' do
       group = Fabricate :group, project: project
-      Fabricate :endpoint, url: '/contributions', group: group
-      Fabricate :endpoint, url: '/contributions/:id', group: group
+      endpoint1 = Fabricate :endpoint, url: '/contributions', group: group
+      endpoint2 = Fabricate :endpoint, url: '/contributions/:id', group: group
 
-      expect(json['tree']).to eq([{"id"=>1, "type"=>"Group", "items"=>[{"id"=>3, "type"=>"Endpoint", "url"=>"/contributions", "method"=>"GET"}, {"id"=>4, "type"=>"Endpoint", "url"=>"/contributions/:id", "method"=>"GET"}]}])
+      expected_json = [{
+        'id' => group.id,
+        'type' => 'Group',
+        'items' => [
+          {
+            'id' => endpoint1.id,
+            'type' => 'Endpoint',
+            'url' => endpoint1.url,
+            'method' => endpoint1.method
+          },
+          {
+            'id' => endpoint2.id,
+            'type' => 'Endpoint',
+            'url' => endpoint2.url,
+            'method' => endpoint2.method
+          }
+        ]
+      }]
+
+      expect(json_tree).to eq(expected_json)
     end
   end
 end

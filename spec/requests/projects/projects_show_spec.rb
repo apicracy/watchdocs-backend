@@ -19,6 +19,15 @@ RSpec.describe 'GET /projects', type: :request do
     it_behaves_like 'not found'
   end
 
+  context 'not existing project' do
+    before do
+      login_as Fabricate :user
+      get '/api/v1/projects/xyz'
+    end
+
+    it_behaves_like 'not found'
+  end
+
   context 'owner user' do
     let(:user) { project.user }
     before do

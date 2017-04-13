@@ -13,10 +13,15 @@ RSpec.describe 'POST /login', type: :request do
   end
 
   context 'when params are correct' do
+    before { post url, params: params }
+
     it 'returns 200' do
-      post url, params: params
       expect(response).to have_http_status(200)
       expect(json).to eq(serialized(user))
+    end
+
+    xit 'returns JTW token in authorization header' do
+      expect(response).to have_http_status(200)
     end
   end
 

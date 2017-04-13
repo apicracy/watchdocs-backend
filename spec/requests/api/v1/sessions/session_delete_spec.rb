@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'POST /logout', type: :request do
+RSpec.describe 'DELETE /logout', type: :request do
   let(:url) { '/logout' }
 
   it 'returns 204, no content' do

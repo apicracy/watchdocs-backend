@@ -5,10 +5,6 @@ class ApplicationController < ActionController::API
   include CanCan::ControllerAdditions
   check_authorization unless: :devise_controller?
 
-  rescue_from CanCan::AccessDenied do
-    head :forbidden, content_type: 'text/html'
-  end
-
   rescue_from CanCan::AccessDenied do |exception|
     record_not_found(exception)
   end

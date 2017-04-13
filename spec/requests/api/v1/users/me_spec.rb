@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'POST /users/me', type: :request do
+RSpec.describe 'GET /users/me', type: :request do
   let(:user) { Fabricate(:user) }
   let(:url) { '/api/v1/users/me' }
 

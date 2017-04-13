@@ -12,7 +12,7 @@ RSpec.describe Ability, type: :model do
     it { is_expected.not_to be_able_to(:crud, Project.new) }
 
     # User
-    it { is_expected.not_to be_able_to(:read, User.create) }
+    it { is_expected.not_to be_able_to(:read, User.new(id: 1)) }
   end
 
   context 'when is a signed in user' do
@@ -25,6 +25,6 @@ RSpec.describe Ability, type: :model do
 
     # User
     it { is_expected.to be_able_to(:read, user) }
-    it { is_expected.not_to be_able_to(:read, User.create) }
+    it { is_expected.not_to be_able_to(:read, User.new(id: 10)) }
   end
 end

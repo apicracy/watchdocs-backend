@@ -5,5 +5,5 @@ class Response < ApplicationRecord
   has_many :response_headers
   has_many :headers, through: :response_headers
 
-  enum status: %i(incomplete completed full)
+  enum status: %i(outdated up_to_date)
 end

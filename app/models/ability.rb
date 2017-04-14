@@ -12,5 +12,8 @@ class Ability
 
     # User
     can :read, User, id: user.id
+
+    # Endpoint
+    can :read, Endpoint, project: { user_id: user.id }
   end
 end

@@ -6,10 +6,10 @@
       "description": {
           "properties": {
               "content": {
-                  "type": "string"
+                  "type": ["string", null]
               },
               "title": {
-                  "type": "string"
+                  "type": ["string", null]
               }
           },
           "required": [
@@ -71,13 +71,13 @@
           "items": {
               "properties": {
                   "data_type": {
-                      "type": "string"
+                      "type": ["string", null]
                   },
                   "description": {
-                      "type": "string"
+                      "type": ["string", null]
                   },
                   "example": {
-                      "type": "string"
+                      "type": ["string", null]
                   },
                   "id": {
                       "type": "integer"

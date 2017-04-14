@@ -7,6 +7,8 @@ class Endpoint < ApplicationRecord
 
   enum status: %i(incomplete completed full)
 
+  alias_attribute :method, :request_method
+
   METHODS = %w(GET POST PUT DELETE).freeze
 
   def update_request(body: nil, headers: nil)
@@ -15,8 +17,8 @@ class Endpoint < ApplicationRecord
     request.update_headers(headers) if headers
   end
 
-  def update_response_for_status(status, body: nil, headers: nil)
-    response = responses.find_or_initialize_by(status: status)
+  def update_response_for_status(status_code, body: nil, headers: nil)
+    response = responses.find_or_initialize_by(status_code: status_code)
     response.update_body(body) if body
     response.update_headers(headers) if headers
     response

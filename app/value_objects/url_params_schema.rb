@@ -52,19 +52,26 @@ class UrlParamsSchema
     params = {}
     schema['properties'].each do |param, schema|
       if schema['type'] == 'object'
-        children = params_from_hash(schema)
-        children.each do |child|
-          key, required = build_url_param(param, child)
-          params[key] = required
-        end
+        params.merge(build_params_recursively(root, descendants))
       else
-        params[param] = schema['required'].include?(param)
+        params[param] = schema['required'].present? &&
+                        schema['required'].include?(param)
       end
     end
     params
   end
 
   private
+
+  def build_params_recursively(parent, children)
+    params = {}
+    params_data = params_from_hash(children)
+    params_data.each do |param_data|
+      key, required = build_url_param(parent, param_data)
+      params[key] = required
+    end
+    params
+  end
 
   def params_from_hash(param_hash)
     params = []

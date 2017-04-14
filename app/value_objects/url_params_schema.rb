@@ -52,7 +52,7 @@ class UrlParamsSchema
     params = {}
     schema['properties'].each do |param, schema|
       if schema['type'] == 'object'
-        params.merge(build_params_recursively(root, descendants))
+        params.merge(build_params_recursively(param, schema))
       else
         params[param] = schema['required'].present? &&
                         schema['required'].include?(param)

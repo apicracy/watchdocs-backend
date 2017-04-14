@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe EndpointSerializer do
+RSpec.describe EndpointSerializer, type: :serializer do
   let(:endpoint) { Fabricate(:endpoint) }
   let(:serializer) { serializer_for(endpoint) }
   subject { serialized_json(serializer) }

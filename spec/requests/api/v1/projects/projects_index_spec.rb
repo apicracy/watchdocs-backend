@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'GET /projects', type: :request do
-  let(:endpoint_path) { '/api/v1/projects' }
+  let(:url) { '/api/v1/projects' }
 
   context 'guest user' do
-    before { get endpoint_path }
+    before { get url }
 
     it_behaves_like 'unauthorized'
   end
@@ -16,7 +16,7 @@ RSpec.describe 'GET /projects', type: :request do
 
     before do
       login_as user, scope: :user
-      get endpoint_path
+      get url
     end
 
     it 'returns OK status' do

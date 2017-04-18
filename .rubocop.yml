@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     - db/schema.rb
     - config/routes.rb
+    - models/ability.rb
   TargetRubyVersion: 2.3
 Style/Documentation:
   Enabled: false

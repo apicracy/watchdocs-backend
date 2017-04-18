@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     - db/schema.rb
     - config/routes.rb
+    - models/ability.rb
   TargetRubyVersion: 2.3
 Style/Documentation:
   Enabled: false
@@ -16,6 +17,7 @@ Metrics/BlockLength:
     - spec/**/*_spec.rb
     - spec/rails_helper.rb
     - config/routes.rb
+    - db/schema.rb
 Rails:
   Enabled: true
 Rails/HasAndBelongsToMany:

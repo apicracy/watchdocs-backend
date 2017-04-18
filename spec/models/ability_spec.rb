@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Ability, type: :model do
   let(:user) { nil }
-  subject(:ability) { Ability.new(user) }
+  subject(:ability) { described_class.new(user) }
 
   # Guest
   # ----
@@ -13,6 +13,12 @@ RSpec.describe Ability, type: :model do
 
     # User
     it { is_expected.not_to be_able_to(:read, User.new(id: 1)) }
+
+    # Endpoint
+    it { is_expected.not_to be_able_to(:crud, Endpoint.new) }
+
+    # Request
+    it { is_expected.not_to be_able_to(:crud, Request.new) }
   end
 
   context 'when is a signed in user' do
@@ -31,6 +37,11 @@ RSpec.describe Ability, type: :model do
 
     # Request
     it { is_expected.to be_able_to(:crud, Request.new(endpoint: owned_endpoint)) }
-    it { is_expected.to be_able_to(:crud, owned_endpoint) }
+
+    # Endpoint
+    it { is_expected.to be_able_to(:read, Endpoint.new(project: owned_project)) }
+    it do
+      is_expected.not_to be_able_to(:crud, Endpoint.new(project: Project.new))
+    end
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProjectDetailedSerializer do
+RSpec.describe ProjectDetailedSerializer, type: :serializer do
   subject(:serializer) { described_class.new(project) }
   let(:project) { Fabricate :project }
 
@@ -16,13 +16,13 @@ RSpec.describe ProjectDetailedSerializer do
           'id' => endpoint1.id,
           'type' => 'Endpoint',
           'url' => endpoint1.url,
-          'method' => endpoint1.method
+          'method' => endpoint1.http_method
         },
         {
           'id' => endpoint2.id,
           'type' => 'Endpoint',
           'url' => endpoint2.url,
-          'method' => endpoint2.method
+          'method' => endpoint2.http_method
         }
       ]
 
@@ -44,13 +44,13 @@ RSpec.describe ProjectDetailedSerializer do
             'id' => endpoint1.id,
             'type' => 'Endpoint',
             'url' => endpoint1.url,
-            'method' => endpoint1.method
+            'method' => endpoint1.http_method
           },
           {
             'id' => endpoint2.id,
             'type' => 'Endpoint',
             'url' => endpoint2.url,
-            'method' => endpoint2.method
+            'method' => endpoint2.http_method
           }
         ]
       }]

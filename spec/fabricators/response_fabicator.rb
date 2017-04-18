@@ -1,6 +1,7 @@
-Fabricator(:request) do
+Fabricator(:response) do
   endpoint
-  status { Request.statuses[:up_to_date] }
+  status_code { 200 }
+  status { Response.statuses['up_to_date'] }
   body do
     {
       schema: 'http://json-schema.org/draft-04/schema#',
@@ -16,5 +17,4 @@ Fabricator(:request) do
       required: ['types']
     }
   end
-  headers(count: 1, inverse_of: :headerable)
 end

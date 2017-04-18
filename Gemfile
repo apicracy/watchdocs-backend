@@ -41,6 +41,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'rubocop', '~> 0.39.0'
   gem 'rubocop-rspec', '~> 1.4', '>= 1.4.1'
+  gem 'json-schema', '~> 2.7'
 end
 
 group :development do

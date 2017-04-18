@@ -14,6 +14,9 @@ Rails.application.routes.draw do
       post '/endpoint_schemas', to: 'endpoint_schemas#create'
 
       resources :projects
+      resources :endpoints do
+        resource :request
+      end
       resources :users, only: [] do
         collection do
           get :me

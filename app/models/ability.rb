@@ -12,5 +12,14 @@ class Ability
 
     # User
     can :read, User, id: user.id
+
+    can :crud, Endpoint do |endpoint|
+      endpoint.project.user == user
+    end
+
+    # Request
+    can :crud, Request do |request|
+      can? :crud, request.endpoint
+    end
   end
 end

@@ -22,5 +22,10 @@ class Ability
     can :crud, Request do |request|
       can? :crud, request.endpoint
     end
+
+    # Response
+    can :crud, Response do |response|
+      can? :crud, response.endpoint
+    end
   end
 end

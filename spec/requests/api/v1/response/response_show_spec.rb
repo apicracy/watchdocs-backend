@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'GET /responses/:id', type: :request do
-  let(:url) { "/api/v1/responses/#{id}" }
-  let(:endpoint) { Fabricate :endpoint }
-  let(:project) { endpoint.project }
+  let(:url) { "/api/v1/responses/#{response_id}" }
+  let(:response_object) { Fabricate :response }
+  let(:response_id) { response_object.id }
+  let(:project) { response_object.endpoint.project }
 
   context 'when uses is unauthenticated' do
     before { get url }
@@ -12,7 +13,6 @@ RSpec.describe 'GET /responses/:id', type: :request do
 
   context 'when user is not the owner of the project that response belongs to' do
     before do
-      Fabricate :response, endpoint: endpoint
       login_as Fabricate :user
       get url
     end
@@ -21,6 +21,8 @@ RSpec.describe 'GET /responses/:id', type: :request do
   end
 
   context 'when response doesnt exist' do
+    let(:response_id) { '-100' }
+
     before do
       login_as project.user
       get url
@@ -31,7 +33,6 @@ RSpec.describe 'GET /responses/:id', type: :request do
 
   context 'when user is authenticated and have access to response' do
     before do
-      Fabricate :response, endpoint: endpoint
       login_as project.user, scope: :user
       get url
     end

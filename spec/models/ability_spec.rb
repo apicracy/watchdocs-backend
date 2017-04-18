@@ -44,7 +44,10 @@ RSpec.describe Ability, type: :model do
       is_expected.not_to be_able_to(:crud, Endpoint.new(project: Project.new))
     end
 
-    # Response
+    # Request
     it { is_expected.to be_able_to(:crud, Request.new(endpoint: owned_endpoint)) }
+
+    # Response
+    it { is_expected.to be_able_to(:crud, Response.new(endpoint: owned_endpoint)) }
   end
 end

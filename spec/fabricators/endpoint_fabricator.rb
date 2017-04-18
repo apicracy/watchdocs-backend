@@ -1,4 +1,8 @@
 Fabricator(:endpoint) do
-  method { Endpoint::METHODS.first }
+  project
+  http_method { Endpoint::METHODS.first }
   url { '/contributions' }
+  status { Endpoint.statuses[:up_to_date] }
+  title { Faker::Lorem.sentence }
+  summary { Faker::Lorem.paragraph }
 end

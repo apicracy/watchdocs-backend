@@ -16,6 +16,7 @@ Metrics/BlockLength:
     - spec/**/*_spec.rb
     - spec/rails_helper.rb
     - config/routes.rb
+    - db/schema.rb
 Rails:
   Enabled: true
 Rails/HasAndBelongsToMany:

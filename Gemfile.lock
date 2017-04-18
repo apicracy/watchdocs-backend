@@ -43,6 +43,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.1)
+      public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
     ast (2.3.0)
     bcrypt (3.1.11)
@@ -83,6 +85,8 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.8.1)
+    json-schema (2.8.0)
+      addressable (>= 2.4)
     jsonapi-renderer (0.1.2)
     jwt (1.5.6)
     listen (3.0.8)
@@ -112,6 +116,7 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
+    public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.1)
     rack-cors (0.4.1)
@@ -216,6 +221,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.1, >= 2.1.1)
   fabrication (~> 2.14, >= 2.14.1)
   faker (~> 1.7, >= 1.7.3)
+  json-schema (~> 2.7)
   listen (~> 3.0.5)
   pg
   pry

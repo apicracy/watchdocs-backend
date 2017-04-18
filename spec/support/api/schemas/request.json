@@ -47,6 +47,9 @@
         },
         "id": {
             "type": "integer"
+        },
+        "status": {
+            "type": "string"
         }
     },
     "required": [

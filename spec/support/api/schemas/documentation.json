@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "documentation": {
+      "items": {
+        "anyOf": [
+          {
+            "properties": {
+              "description": {
+                "properties": {
+                  "content": {
+                    "type": "null"
+                  },
+                  "title": {
+                    "type": "null"
+                  }
+                },
+                "required": [
+                  "content",
+                  "title"
+                ],
+                "type": "object"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "method": {
+                "type": "string"
+              },
+              "request": {
+                "properties": {
+                  "body": {
+                    "properties": {},
+                    "type": "object"
+                  },
+                  "body_draft": {
+                    "properties": {},
+                    "type": "object"
+                  },
+                  "headers": {
+                    "items": {},
+                    "type": "array",
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "body",
+                  "status",
+                  "body_draft",
+                  "id",
+                  "headers"
+                ],
+                "type": "object"
+              },
+              "responses": {
+                "items": {},
+                "type": "array",
+              },
+              "status": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "url_params": {
+                "items": {},
+                "type": "array",
+              }
+            },
+            "required": [
+              "status",
+              "url_params",
+              "description",
+              "url",
+              "request",
+              "method",
+              "type",
+              "id",
+              "responses"
+            ],
+            "type": "object"
+          },
+          {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "items": {
+                    "items": {},
+                    "type": "array"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "items",
+                "description",
+                "type",
+                "id",
+                "name"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "type": "array",
+    },
+    "id": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "documentation",
+    "id"
+  ],
+  "type": "object"
+}

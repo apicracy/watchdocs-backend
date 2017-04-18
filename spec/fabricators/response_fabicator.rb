@@ -17,4 +17,5 @@ Fabricator(:response) do
       required: ['types']
     }
   end
+  headers(count: 1, inverse_of: :headerable)
 end

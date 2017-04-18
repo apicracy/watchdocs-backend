@@ -2,10 +2,12 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "properties": {
         "body": {
-            "type": "[object, null]"
+            "properties": {},
+            "type": ["object", null]
         },
         "body_draft": {
-            "type": "[object, null]"
+            "properties": {},
+            "type": ["object", null]
         },
         "headers": {
             "items": {
@@ -47,11 +49,18 @@
         },
         "id": {
             "type": "integer"
+        },
+        "status": {
+            "type": "string"
+        },
+        "status_code": {
+            "type": "integer"
         }
     },
     "required": [
         "status",
         "body",
+        "status_code",
         "headers",
         "body_draft",
         "id"

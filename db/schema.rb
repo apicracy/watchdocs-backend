@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414122420) do
+ActiveRecord::Schema.define(version: 20170418065601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,12 @@ ActiveRecord::Schema.define(version: 20170414122420) do
     t.integer  "group_id"
     t.integer  "project_id"
     t.string   "url"
-    t.string   "request_method"
+    t.string   "http_method"
     t.integer  "status"
     t.string   "title"
     t.text     "summary"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["group_id"], name: "index_endpoints_on_group_id", using: :btree
     t.index ["project_id"], name: "index_endpoints_on_project_id", using: :btree
   end

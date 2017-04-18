@@ -23,7 +23,7 @@ class ProjectDetailedSerializer < ActiveModel::Serializer
   # Class for generating an entry for endpoint on a tree json
   class EndpointItem < ActiveModel::Serializer
     attributes :id, :type, :url
-    attribute :request_method, key: :method
+    attribute :http_method, key: :method
 
     def type
       object.class.name.freeze

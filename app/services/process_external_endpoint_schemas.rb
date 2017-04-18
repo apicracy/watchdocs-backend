@@ -52,7 +52,10 @@ class ProcessExternalEndpointSchemas
   end
 
   def endpoint
-    @endpoint ||= project.endpoints.find_or_create_by(endpoint_data)
+    @endpoint ||= project.endpoints.find_or_create_by(
+      url: endpoint_data[:url],
+      http_method: endpoint_data[:method]
+    )
   end
 
   def create_or_update_url_param(key, required)

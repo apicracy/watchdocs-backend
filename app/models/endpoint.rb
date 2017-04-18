@@ -7,8 +7,6 @@ class Endpoint < ApplicationRecord
 
   enum status: %i(outdated up_to_date)
 
-  alias_attribute :method, :request_method
-
   METHODS = %w(GET POST PUT DELETE).freeze
 
   def update_request(body: nil, headers: nil)

@@ -4,7 +4,7 @@ class EndpointSerializer < ActiveModel::Serializer
              :status,
              :description
 
-  attribute :request_method, key: :method
+  attribute :http_method, key: :method
 
   has_one :request
   has_many :responses

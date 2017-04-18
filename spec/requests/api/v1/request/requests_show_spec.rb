@@ -25,6 +25,7 @@ RSpec.describe 'GET /projects', type: :request do
     before do
       login_as project.user
       get tested_path
+      puts response.body
     end
 
     it_behaves_like 'not found'

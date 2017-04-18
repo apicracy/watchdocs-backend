@@ -9,7 +9,7 @@ RSpec.describe Ability, type: :model do
   # ----
   context 'when is a guest' do
     # Project
-    it { is_expected.not_to be_able_to(:crud, Project.new) }
+    it { is_expected.not_to be_able_to(:crud, Project.new(user_id: 3)) }
 
     # User
     it { is_expected.not_to be_able_to(:read, User.new(id: 1)) }

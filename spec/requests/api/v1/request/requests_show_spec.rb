@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'GET /projects', type: :request do
-  let(:tested_path) { "/api/v1/endpoints/#{endpoint.id}/request" }
+RSpec.describe 'GET /endpoints/:endpoint_id/request', type: :request do
+  let(:url) { "/api/v1/endpoints/#{endpoint.id}/request" }
   let(:endpoint) { Fabricate :endpoint, project: project }
   let(:project) { Fabricate :project }
 
   context 'guest user' do
-    before { get tested_path }
+    before { get url }
 
     it_behaves_like 'unauthorized'
   end
@@ -15,7 +15,7 @@ RSpec.describe 'GET /projects', type: :request do
     before do
       Fabricate :request, endpoint: endpoint
       login_as Fabricate :user
-      get tested_path
+      get url
     end
 
     it_behaves_like 'not found'
@@ -24,8 +24,7 @@ RSpec.describe 'GET /projects', type: :request do
   context 'non existing request' do
     before do
       login_as project.user
-      get tested_path
-      puts response.body
+      get url
     end
 
     it_behaves_like 'not found'
@@ -33,11 +32,11 @@ RSpec.describe 'GET /projects', type: :request do
 
   context 'authenticated user' do
     let(:user) { project.user }
-    let!(:request) { Fabricate :request, endpoint: endpoint }
 
     before do
+      Fabricate :request, endpoint: endpoint
       login_as user, scope: :user
-      get tested_path
+      get url
     end
 
     it 'returns OK status' do
@@ -45,7 +44,6 @@ RSpec.describe 'GET /projects', type: :request do
     end
 
     it 'returns required fields' do
-      puts response.body
       expect(json).to match_schema('request')
     end
   end

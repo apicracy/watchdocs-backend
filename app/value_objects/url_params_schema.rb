@@ -50,15 +50,11 @@ class UrlParamsSchema
 
   def params
     params = {}
-    schema['properties'].each do |param, schema|
-      if schema['type'] == 'object'
-        children = params_from_hash(schema)
-        children.each do |child|
-          key, required = build_url_param(param, child)
-          params[key] = required
-        end
+    schema['properties'].each do |param, details|
+      if details['type'] == 'object'
+        params.merge!(build_params_recursively(param, details))
       else
-        params[param] = schema['required'].include?(param)
+        params[param] = param_required?(schema, param)
       end
     end
     params
@@ -66,24 +62,38 @@ class UrlParamsSchema
 
   private
 
+  def build_params_recursively(parent, children)
+    params = {}
+    params_data = params_from_hash(children)
+    params_data.each do |param_data|
+      key, required = build_param(parent, param_data)
+      params[key] = required
+    end
+    params
+  end
+
   def params_from_hash(param_hash)
     params = []
-    param_hash['properties'].each do |param, schema|
-      if schema['type'] == 'object'
-        children = params_from_hash(schema)
+    param_hash['properties'].each do |param, details|
+      if details['type'] == 'object'
+        children = params_from_hash(details)
         children.each { |c| params << [param, c] }
       else
-        params << [param, param_hash['required'].include?(param)]
+        params << [param, param_required?(param_hash, param)]
       end
     end
     params
   end
 
-  def build_url_param(root, children)
-    param = root
+  def build_param(parent, children)
+    param = parent
     children.flatten!
     required = children.pop # last element says if param is required
     children.each { |c| param += "[#{c}]" }
     [param, required]
+  end
+
+  def param_required?(schema, param)
+    schema['required'].present? && schema['required'].include?(param)
   end
 end

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post '/endpoint_schemas', to: 'endpoint_schemas#create'
 
       resources :projects
+      resources :responses
       resources :endpoints do
         resource :request
       end

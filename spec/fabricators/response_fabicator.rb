@@ -1,6 +1,6 @@
 Fabricator(:response) do
   endpoint
-  status_code { 200 }
+  http_status_code { 200 }
   status { Response.statuses['up_to_date'] }
   body do
     {
@@ -17,4 +17,5 @@ Fabricator(:response) do
       required: ['types']
     }
   end
+  headers(count: 1, inverse_of: :headerable)
 end

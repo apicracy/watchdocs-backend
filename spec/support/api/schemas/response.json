@@ -51,14 +51,14 @@
         "status": {
             "type": "string"
         },
-        "status_code": {
+        "http_status_code": {
             "type": "integer"
         }
     },
     "required": [
         "status",
         "body",
-        "status_code",
+        "http_status_code",
         "headers",
         "body_draft",
         "id"

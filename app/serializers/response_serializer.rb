@@ -3,7 +3,7 @@ class ResponseSerializer < ActiveModel::Serializer
              :body,
              :body_draft,
              :status,
-             :status_code
+             :http_status_code
 
   has_many :headers
 end

@@ -1,6 +1,6 @@
 Fabricator(:request) do
   endpoint
-  status { 0 }
+  status { Request.statuses[:fresh] }
   body do
     {
       schema: 'http://json-schema.org/draft-04/schema#',

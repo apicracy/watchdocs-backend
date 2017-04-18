@@ -1,7 +1,7 @@
 Fabricator(:response) do
   endpoint
   status_code { 200 }
-  status { 0 }
+  status { Response.statuses[:fresh] }
   body do
     {
       schema: 'http://json-schema.org/draft-04/schema#',

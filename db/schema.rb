@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413120904) do
+ActiveRecord::Schema.define(version: 20170414122420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,13 +42,17 @@ ActiveRecord::Schema.define(version: 20170413120904) do
   end
 
   create_table "headers", force: :cascade do |t|
+    t.string   "headerable_type"
+    t.integer  "headerable_id"
     t.string   "key"
     t.boolean  "required"
-    t.text     "description"
-    t.string   "example_value"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
     t.boolean  "required_draft"
+    t.string   "description"
+    t.string   "example_value"
+    t.integer  "status"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["headerable_type", "headerable_id"], name: "index_headers_on_headerable_type_and_headerable_id", using: :btree
   end
 
   create_table "jwt_blacklist", force: :cascade do |t|
@@ -67,16 +71,6 @@ ActiveRecord::Schema.define(version: 20170413120904) do
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
   end
 
-  create_table "request_headers", force: :cascade do |t|
-    t.integer  "request_id"
-    t.integer  "header_id"
-    t.integer  "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["header_id"], name: "index_request_headers_on_header_id", using: :btree
-    t.index ["request_id"], name: "index_request_headers_on_request_id", using: :btree
-  end
-
   create_table "requests", force: :cascade do |t|
     t.integer  "endpoint_id"
     t.integer  "status"
@@ -85,16 +79,6 @@ ActiveRecord::Schema.define(version: 20170413120904) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["endpoint_id"], name: "index_requests_on_endpoint_id", using: :btree
-  end
-
-  create_table "response_headers", force: :cascade do |t|
-    t.integer  "response_id"
-    t.integer  "header_id"
-    t.integer  "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["header_id"], name: "index_response_headers_on_header_id", using: :btree
-    t.index ["response_id"], name: "index_response_headers_on_response_id", using: :btree
   end
 
   create_table "responses", force: :cascade do |t|
@@ -141,11 +125,7 @@ ActiveRecord::Schema.define(version: 20170413120904) do
   add_foreign_key "groups", "groups"
   add_foreign_key "groups", "projects"
   add_foreign_key "projects", "users"
-  add_foreign_key "request_headers", "headers"
-  add_foreign_key "request_headers", "requests"
   add_foreign_key "requests", "endpoints"
-  add_foreign_key "response_headers", "headers"
-  add_foreign_key "response_headers", "responses"
   add_foreign_key "responses", "endpoints"
   add_foreign_key "url_params", "endpoints"
 end

@@ -5,7 +5,7 @@ class Endpoint < ApplicationRecord
   has_many :url_params
   has_many :responses
 
-  enum status: %i(incomplete completed full)
+  enum status: %i(outdated up_to_date)
 
   alias_attribute :method, :request_method
 

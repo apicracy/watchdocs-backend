@@ -2,223 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "properties": {
     "documentation": {
-      "items": {
-        "anyOf": [
-          {
-            "properties": {
-              "description": {
-                "properties": {
-                  "content": {
-                    "type": "null"
-                  },
-                  "title": {
-                    "type": "null"
-                  }
-                },
-                "required": [
-                  "content",
-                  "title"
-                ],
-                "type": "object"
-              },
-              "id": {
-                "type": "integer"
-              },
-              "method": {
-                "type": "string"
-              },
-              "request": {
-                "properties": {
-                  "body": {
-                    "properties": {},
-                    "type": "object"
-                  },
-                  "body_draft": {
-                    "properties": {},
-                    "type": "object"
-                  },
-                  "headers": {
-                    "items": {
-                      "properties": {
-                        "description": {
-                          "type": ["string", null]
-                        },
-                        "example_value": {
-                          "type": ["string", null]
-                        },
-                        "id": {
-                          "type": "integer"
-                        },
-                        "key": {
-                          "type": "string"
-                        },
-                        "required": {
-                          "type": "boolean"
-                        },
-                        "required_draft": {
-                          "type": ["boolean", null]
-                        },
-                        "status": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "status",
-                        "description",
-                        "required",
-                        "id",
-                        "required_draft",
-                        "key",
-                        "example_value"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "array",
-                  },
-                  "id": {
-                    "type": "integer"
-                  },
-                  "status": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "body",
-                  "status",
-                  "body_draft",
-                  "id",
-                  "headers"
-                ],
-                "type": "object"
-              },
-              "responses": {
-                "items": {
-                  "properties": {
-                    "body": {
-                      "type": ["object", null]
-                    },
-                    "body_draft": {
-                      "type": ["object", null]
-                    },
-                    "headers": {
-                      "items": {
-                        "properties": {
-                          "description": {
-                            "type": ["string", null]
-                          },
-                          "example_value": {
-                            "type": ["string", null]
-                          },
-                          "id": {
-                            "type": "integer"
-                          },
-                          "key": {
-                            "type": "string"
-                          },
-                          "required": {
-                            "type": "boolean"
-                          },
-                          "required_draft": {
-                            "type": ["boolean", null]
-                          },
-                          "status": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "status",
-                          "description",
-                          "required",
-                          "id",
-                          "required_draft",
-                          "key",
-                          "example_value"
-                        ],
-                        "type": "object"
-                      },
-                      "type": "array"
-                    },
-                    "id": {
-                      "type": "integer"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
-                    "http_status_code": {
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "body",
-                    "http_status_code",
-                    "headers",
-                    "body_draft",
-                    "id"
-                  ],
-                  "type": "object"
-
-                },
-                "type": "array",
-              },
-              "status": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "url_params": {
-                "items": {},
-                "type": "array",
-              }
-            },
-            "required": [
-              "status",
-              "url_params",
-              "description",
-              "url",
-              "request",
-              "method",
-              "type",
-              "id",
-              "responses"
-            ],
-            "type": "object"
-          },
-          {
-            "properties": {
-                "description": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "items": {
-                    "items": {},
-                    "type": "array"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "items",
-                "description",
-                "type",
-                "id",
-                "name"
-            ],
-            "type": "object"
-          }
-        ]
-      },
-      "type": ["array", null],
+      "$ref": "#/definitions/documentation_items"
     },
     "id": {
       "type": "integer"
@@ -228,5 +12,235 @@
     "documentation",
     "id"
   ],
-  "type": "object"
+  "type": "object",
+
+  // Definitions
+
+  "definitions":{
+    "documentation_items":{
+      "items": {
+        "type": "object",
+        "oneOf": [
+          { "$ref": "#/definitions/endpoint" },
+          { "$ref": "#/definitions/group" }
+        ],
+        "minItems": 0
+      },
+      "type": "array"
+    },
+    "endpoint":{
+      "properties": {
+        "description": {
+          "properties": {
+            "content": {
+              "type": ["string", "null"]
+            },
+            "title": {
+              "type": ["string", "null"]
+            }
+          },
+          "required": [
+            "content",
+            "title"
+          ],
+          "type": "object"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "method": {
+          "type": "string"
+        },
+        "request": {
+          "$ref": "#/definitions/request"
+        },
+        "responses": {
+          "$ref": "#/definitions/responses"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "url_params": {
+          "$ref": "#/definitions/url_params"
+           }
+      },
+      "required": [
+        "status",
+        "url_params",
+        "description",
+        "url",
+        "request",
+        "method",
+        "type",
+        "id",
+        "responses"
+      ]
+    },
+    "group":{
+      "properties": {
+        "description": {
+            "type": "string"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "items": {
+          "$ref": "#/definitions/documentation_items"
+        },
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        }
+      },
+      "required": [
+        "items",
+        "description",
+        "type",
+        "id",
+        "name"
+      ]
+    },
+    "request": {
+      "properties": {
+        "body": {
+          "type": "object"
+        },
+        "body_draft": {
+          "type": ["object", "null"]
+        },
+        "headers": {
+          "$ref": "#/definitions/headers"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "body",
+        "status",
+        "body_draft",
+        "id",
+        "headers"
+      ],
+      "type": "object"
+    },
+    "responses": {
+      "items": {
+        "properties": {
+          "body": {
+            "type": ["object", "null"]
+          },
+          "body_draft": {
+            "type": ["object", "null"]
+          },
+          "headers": {
+            "$ref": "#/definitions/headers"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "http_status_code": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status",
+          "body",
+          "http_status_code",
+          "headers",
+          "body_draft",
+          "id"
+        ],
+        "type": "object"
+
+      },
+      "type": "array"
+    },
+    "headers": {
+      "items": {
+        "properties": {
+          "description": {
+            "type": ["string", "null"]
+          },
+          "example_value": {
+            "type": ["string", "null"]
+          },
+          "id": {
+            "type": "integer"
+          },
+          "key": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "required_draft": {
+            "type": ["boolean", "null"]
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "description",
+          "required",
+          "id",
+          "required_draft",
+          "key",
+          "example_value"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "url_params":{
+      "items": {
+          "properties": {
+              "data_type": {
+                  "type": "null"
+              },
+              "description": {
+                  "type": "null"
+              },
+              "example": {
+                  "type": "null"
+              },
+              "id": {
+                  "type": "integer"
+              },
+              "is_part_of_url": {
+                  "type": "boolean"
+              },
+              "name": {
+                  "type": "string"
+              }
+          },
+          "required": [
+              "name",
+              "data_type",
+              "id",
+              "is_part_of_url",
+              "example",
+              "description"
+          ],
+          "type": "object"
+      },
+      "type": "array"
+    }
+  }
 }

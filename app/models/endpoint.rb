@@ -21,4 +21,12 @@ class Endpoint < ApplicationRecord
     response.update_headers(headers) if headers
     response
   end
+
+  # TODO: Move to decorator in the future
+  def description
+    {
+      title: title,
+      content: summary
+    }
+  end
 end

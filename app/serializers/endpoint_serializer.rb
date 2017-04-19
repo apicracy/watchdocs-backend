@@ -10,13 +10,6 @@ class EndpointSerializer < ActiveModel::Serializer
   has_many :responses
   has_many :url_params
 
-  def description
-    {
-      title: object.title,
-      content: object.summary
-    }
-  end
-
   class RequestSerializer < ActiveModel::Serializer
     attributes :id,
                :status

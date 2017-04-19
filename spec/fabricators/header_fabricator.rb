@@ -5,10 +5,10 @@ Fabricator(:header) do
   status { 0 }
 end
 
-Fabricator(:request_header) do
+Fabricator(:request_header, from: :header) do
   headerable(fabricator: :request)
 end
 
-Fabricator(:response_header) do
+Fabricator(:response_header, from: :header) do
   headerable(fabricator: :response)
 end

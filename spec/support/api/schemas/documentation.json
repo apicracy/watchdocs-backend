@@ -38,7 +38,41 @@
                     "type": "object"
                   },
                   "headers": {
-                    "items": {},
+                    "items": {
+                      "properties": {
+                        "description": {
+                          "type": ["string", null]
+                        },
+                        "example_value": {
+                          "type": ["string", null]
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "key": {
+                          "type": "string"
+                        },
+                        "required": {
+                          "type": "boolean"
+                        },
+                        "required_draft": {
+                          "type": ["boolean", null]
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "description",
+                        "required",
+                        "id",
+                        "required_draft",
+                        "key",
+                        "example_value"
+                      ],
+                      "type": "object"
+                    },
                     "type": "array",
                   },
                   "id": {
@@ -58,7 +92,73 @@
                 "type": "object"
               },
               "responses": {
-                "items": {},
+                "items": {
+                  "properties": {
+                    "body": {
+                      "type": ["object", null]
+                    },
+                    "body_draft": {
+                      "type": ["object", null]
+                    },
+                    "headers": {
+                      "items": {
+                        "properties": {
+                          "description": {
+                            "type": ["string", null]
+                          },
+                          "example_value": {
+                            "type": ["string", null]
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "key": {
+                            "type": "string"
+                          },
+                          "required": {
+                            "type": "boolean"
+                          },
+                          "required_draft": {
+                            "type": ["boolean", null]
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "status",
+                          "description",
+                          "required",
+                          "id",
+                          "required_draft",
+                          "key",
+                          "example_value"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "http_status_code": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body",
+                    "http_status_code",
+                    "headers",
+                    "body_draft",
+                    "id"
+                  ],
+                  "type": "object"
+
+                },
                 "type": "array",
               },
               "status": {

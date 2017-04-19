@@ -25,6 +25,6 @@ class EndpointSerializer < ActiveModel::Serializer
   class ResponseSerializer < ActiveModel::Serializer
     attributes :id,
                :status,
-               :status_code
+               :http_status_code
   end
 end

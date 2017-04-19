@@ -29,7 +29,7 @@ RSpec.describe ProcessExternalEndpointSchemas do
       it 'creates new response with body for endpoint' do
         endpoint = Endpoint.last
         expect(endpoint.responses.count).to eq(1)
-        expect(endpoint.responses.last.status_code).to eq schemas[:response][:status]
+        expect(endpoint.responses.last.http_status_code).to eq schemas[:response][:status]
         expect(endpoint.responses.last.body).to eq schemas[:response][:body]
       end
 
@@ -75,7 +75,7 @@ RSpec.describe ProcessExternalEndpointSchemas do
       it 'creates new response with body for endpoint' do
         endpoint = Endpoint.last
         expect(endpoint.responses.count).to eq(1)
-        expect(endpoint.responses.last.status_code).to eq schemas[:response][:status]
+        expect(endpoint.responses.last.http_status_code).to eq schemas[:response][:status]
         expect(endpoint.responses.last.body).to eq schemas[:response][:body]
       end
 

@@ -2,10 +2,10 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "properties": {
         "body": {
-            "type": "[object, null]"
+            "type": ["object", null]
         },
         "body_draft": {
-            "type": "[object, null]"
+            "type": ["object", null]
         },
         "headers": {
             "items": {
@@ -50,11 +50,15 @@
         },
         "status": {
             "type": "string"
+        },
+        "http_status_code": {
+            "type": "integer"
         }
     },
     "required": [
         "status",
         "body",
+        "http_status_code",
         "headers",
         "body_draft",
         "id"

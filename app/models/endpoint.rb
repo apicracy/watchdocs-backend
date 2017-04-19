@@ -16,7 +16,7 @@ class Endpoint < ApplicationRecord
   end
 
   def update_response_for_status(status_code, body: nil, headers: nil)
-    response = responses.find_or_initialize_by(status_code: status_code)
+    response = responses.find_or_initialize_by(http_status_code: status_code)
     response.update_body(body) if body
     response.update_headers(headers) if headers
     response

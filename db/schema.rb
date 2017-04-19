@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418065601) do
+ActiveRecord::Schema.define(version: 20170418125457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,12 +83,12 @@ ActiveRecord::Schema.define(version: 20170418065601) do
 
   create_table "responses", force: :cascade do |t|
     t.integer  "endpoint_id"
-    t.integer  "status_code"
+    t.integer  "http_status_code"
     t.integer  "status"
     t.jsonb    "body"
     t.jsonb    "body_draft"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.index ["endpoint_id"], name: "index_responses_on_endpoint_id", using: :btree
   end
 

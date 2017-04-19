@@ -48,13 +48,13 @@
                   "status": {
                       "type": "string"
                   },
-                  "status_code": {
+                  "http_status_code": {
                       "type": "integer"
                   }
               },
               "required": [
                   "status",
-                  "status_code",
+                  "http_status_code",
                   "id"
               ],
               "type": "object"

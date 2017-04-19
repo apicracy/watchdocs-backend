@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418125457) do
+ActiveRecord::Schema.define(version: 20170419140213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "documents", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "group_id"
+    t.string   "name"
+    t.string   "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_documents_on_group_id", using: :btree
+    t.index ["project_id"], name: "index_documents_on_project_id", using: :btree
+  end
 
   create_table "endpoints", force: :cascade do |t|
     t.integer  "group_id"
@@ -120,6 +131,8 @@ ActiveRecord::Schema.define(version: 20170418125457) do
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
+  add_foreign_key "documents", "groups"
+  add_foreign_key "documents", "projects"
   add_foreign_key "endpoints", "groups"
   add_foreign_key "endpoints", "projects"
   add_foreign_key "groups", "groups"

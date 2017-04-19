@@ -32,10 +32,8 @@ RSpec.describe 'GET /projects/:id/documentation', type: :request do
   end
 
   context 'when user is authenticated and authorized' do
-    let(:user) { project.user }
-
     before do
-      login_as user, scope: :user
+      login_as project.user, scope: :user
       get url
     end
 
@@ -44,7 +42,7 @@ RSpec.describe 'GET /projects/:id/documentation', type: :request do
     end
 
     it 'returns required fields' do
-      expect(json).to eq match_schema('documentation')
+      expect(json).to match_schema('documentation')
     end
   end
 end

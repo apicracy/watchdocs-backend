@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/endpoint_schemas', to: 'endpoint_schemas#create'
 
-      resources :projects
+      resources :projects do
+        member do
+          get :documentation
+        end
+      end
       resources :responses
       resources :endpoints do
         resource :request

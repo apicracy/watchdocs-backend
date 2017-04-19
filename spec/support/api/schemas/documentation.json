@@ -108,6 +108,28 @@
         "name"
       ]
     },
+    "document":{
+      "properties": {
+        "text": {
+            "type": "string"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "id",
+        "name"
+      ]
+    },
     "request": {
       "properties": {
         "body": {

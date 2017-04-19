@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'GET /projects', type: :request do
+RSpec.describe 'GET /projects/:id', type: :request do
   let(:project) { Fabricate :project }
-  let(:endpoint_path) { "/api/v1/projects/#{project.id}" }
+  let(:url) { "/api/v1/projects/#{project.id}" }
 
   context 'guest user' do
-    before { get endpoint_path }
+    before { get url }
 
     it_behaves_like 'unauthorized'
   end
@@ -13,7 +13,7 @@ RSpec.describe 'GET /projects', type: :request do
   context 'non owner user' do
     before do
       login_as Fabricate :user
-      get endpoint_path
+      get url
     end
 
     it_behaves_like 'not found'
@@ -32,7 +32,7 @@ RSpec.describe 'GET /projects', type: :request do
     let(:user) { project.user }
     before do
       login_as user, scope: :user
-      get endpoint_path
+      get url
     end
 
     it 'returns OK status' do

@@ -24,6 +24,7 @@ class Endpoint < ApplicationRecord
 
   # TODO: Move to decorator in the future
   def description
+    return if title.blank? && content.blank?
     {
       title: title,
       content: summary

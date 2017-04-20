@@ -19,7 +19,7 @@ module Api
         @params ||= ActiveModelSerializers::Deserialization.jsonapi_parse(
           params,
           only: [
-            :project_id,
+            :app_id,
             :endpoint,
             :request,
             :response

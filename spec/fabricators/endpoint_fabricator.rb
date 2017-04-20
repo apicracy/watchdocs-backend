@@ -6,3 +6,9 @@ Fabricator(:endpoint) do
   title { Faker::Lorem.sentence }
   summary { Faker::Lorem.paragraph }
 end
+
+Fabricator(:full_endpoint, from: :endpoint) do
+  responses(count: 1)
+  url_params(count: 1)
+  request
+end

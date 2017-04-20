@@ -1,6 +1,6 @@
 class Endpoint < ApplicationRecord
-  belongs_to :group, optional: true
-  belongs_to :project
+  include Groupable
+
   has_one :request
   has_many :url_params
   has_many :responses
@@ -20,5 +20,13 @@ class Endpoint < ApplicationRecord
     response.update_body(body) if body
     response.update_headers(headers) if headers
     response
+  end
+
+  # TODO: Move to decorator in the future
+  def description
+    {
+      title: title,
+      content: summary
+    }
   end
 end

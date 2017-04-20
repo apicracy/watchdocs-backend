@@ -17,17 +17,21 @@
   // Definitions
 
   "definitions":{
+    // Main items schema
     "documentation_items":{
       "items": {
         "type": "object",
         "oneOf": [
           { "$ref": "#/definitions/endpoint" },
-          { "$ref": "#/definitions/group" }
+          { "$ref": "#/definitions/group" },
+          { "$ref": "#/definitions/document" }
         ],
         "minItems": 0
       },
       "type": "array"
     },
+
+    // Items types schemas
     "endpoint":{
       "properties": {
         "description": {
@@ -130,6 +134,8 @@
         "name"
       ]
     },
+
+    // Nested schemas
     "request": {
       "properties": {
         "body": {

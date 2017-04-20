@@ -22,6 +22,8 @@ RSpec.describe ProjectDocumentationSerializer, type: :serializer do
       Fabricate(:group, project: project, group: group)
       Fabricate(:full_endpoint, project: project)
       Fabricate(:full_endpoint, project: project, group: group)
+      Fabricate(:document, project: project)
+      Fabricate(:document, project: project, group: group)
     end
 
     it { expect(serialized).to match_schema('documentation') }

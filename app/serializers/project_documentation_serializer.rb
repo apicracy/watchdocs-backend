@@ -1,25 +1,19 @@
-class ProjectDocumentationSerializer < ActiveModel::Serializer
+class ProjectDocumentationSerializer < TreeItemSerializer
   attributes :id, :documentation
 
   def documentation
-    object.endpoints.map { |endpoint| EndpointItem.new(endpoint) } +
-      object.groups.map { |group| GroupItem.new(group) }
+    generate_tree(grupped: false, parent_serializer: self.class)
   end
 
-  class GroupItem < ActiveModel::Serializer
+  class GroupItem < TreeItemSerializer
     attributes :id, :type, :items, :name, :description
 
-    def type
-      object.class.name.freeze
-    end
-
     def items
-      object.endpoints.map { |endpoint| EndpointItem.new(endpoint) } +
-        object.groups.map { |group| GroupItem.new(group) }
+      generate_tree(parent_serializer: ProjectDocumentationSerializer)
     end
   end
 
-  class EndpointItem < ActiveModel::Serializer
+  class EndpointItem < TreeItemSerializer
     attributes :id,
                :type,
                :url,
@@ -28,12 +22,12 @@ class ProjectDocumentationSerializer < ActiveModel::Serializer
 
     attribute :http_method, key: :method
 
-    def type
-      object.class.name.freeze
-    end
-
     has_one :request
     has_many :responses
     has_many :url_params
+  end
+
+  class DocumentItem < TreeItemSerializer
+    attributes :id, :type, :name, :text
   end
 end

@@ -1,6 +1,6 @@
 class Endpoint < ApplicationRecord
-  belongs_to :group, optional: true
-  belongs_to :project
+  include Groupable
+
   has_one :request
   has_many :url_params
   has_many :responses

@@ -30,7 +30,7 @@ RSpec.describe ProjectDetailedSerializer, type: :serializer do
           'id' => document.id,
           'type' => 'Document',
           'name' => document.name,
-          'text' => group.text
+          'text' => document.text
         }
       ]
 
@@ -65,7 +65,7 @@ RSpec.describe ProjectDetailedSerializer, type: :serializer do
             'id' => document.id,
             'type' => 'Document',
             'name' => document.name,
-            'text' => group.text
+            'text' => document.text
           }
         ]
       }]

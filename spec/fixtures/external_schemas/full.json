@@ -1,5 +1,5 @@
 {
-  "project_id": 0,
+  "app_id": "TEST",
   "endpoint": {
     "url": "/api/v1/users/withdrawals",
     "method": "POST"

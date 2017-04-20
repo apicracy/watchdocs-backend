@@ -11,7 +11,7 @@ module Api
       end
 
       def show
-        render json: ProjectDetailedSerializer.new(@project).to_json
+        render json: ProjectTreeSerializer.new(@project).to_json
       end
 
       def documentation

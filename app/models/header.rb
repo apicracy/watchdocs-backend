@@ -1,4 +1,5 @@
 class Header < ApplicationRecord
+  include Draftable
   belongs_to :headerable, polymorphic: true
 
   validates :key,
@@ -7,11 +8,18 @@ class Header < ApplicationRecord
 
   enum status: %i(fresh up_to_date outdated stale)
 
+  before_save :set_status
+
   def update_required(new_required)
-    if required.present?
-      update(required_draft: new_required)
-    else
-      update(required: new_required)
-    end
+    draft(:required, new_required)
+  end
+
+  private
+
+  def set_status
+    # Escaping those statuses require user action
+    return if stale? || fresh?
+
+    self.status = pending_drafts? ? :outdated : :fresh
   end
 end

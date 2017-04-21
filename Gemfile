@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rubocop', '~> 0.39.0'
   gem 'rubocop-rspec', '~> 1.4', '>= 1.4.1'
   gem 'json-schema', '~> 2.7'
+  gem 'watchdocs-rails', '0.6.0'
 end
 
 group :development do

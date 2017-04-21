@@ -15,7 +15,7 @@ RSpec.describe ProcessExternalEndpointSchemas do
   end
 
   context 'when project exists' do
-    before { Fabricate(:project, id: 0) }
+    before { Fabricate(:project, app_id: 'TEST') }
 
     context 'and schemas are for success new endpoint call' do
       before do

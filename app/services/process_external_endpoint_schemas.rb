@@ -7,7 +7,7 @@ class ProcessExternalEndpointSchemas
 
   # TODO: Add json schema validation for params
   def initialize(endpoint_schema_params)
-    @project = find_project(endpoint_schema_params[:project_id])
+    @project = find_project(endpoint_schema_params[:app_id])
     @endpoint_data = endpoint_schema_params[:endpoint]
     @request_data = endpoint_schema_params[:request]
     @response_data = endpoint_schema_params[:response]
@@ -45,8 +45,8 @@ class ProcessExternalEndpointSchemas
 
   ## Helpers:
 
-  def find_project(project_id)
-    Project.find(project_id)
+  def find_project(app_id)
+    Project.find_by!(app_id: app_id)
   rescue ActiveRecord::RecordNotFound => e
     raise ProjectNotFound, e.message
   end

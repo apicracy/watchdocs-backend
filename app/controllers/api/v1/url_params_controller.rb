@@ -9,7 +9,7 @@ module Api
         if @url_param.save
           render json: @url_param
         else
-          render json: ErrorSerializer.new(@url_param), status: 400
+          record_error(@url_param)
         end
       end
 

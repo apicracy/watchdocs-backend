@@ -21,4 +21,15 @@ class ApplicationController < ActionController::API
       ]
     }, status: :not_found
   end
+
+  def record_error(record)
+    render json: {
+      errors: [{
+        status: '400',
+        title: 'Bad Request',
+        detail: record.errors.messages,
+        code: '100'
+      }]
+    }, status: :bad_request
+  end
 end

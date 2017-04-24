@@ -23,6 +23,11 @@ module Api
         end
       end
 
+      def destroy
+        @url_param.destroy
+        render json: @url_param
+      end
+
       private
 
       def url_param_create

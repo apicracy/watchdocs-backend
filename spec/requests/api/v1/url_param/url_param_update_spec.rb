@@ -58,9 +58,5 @@ RSpec.describe 'PUT /url_params/:id', type: :request do
     end
 
     it_behaves_like 'error'
-
-    it 'returns something in response' do
-      expect(json).to eq 'dupa'
-    end
   end
 end

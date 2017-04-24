@@ -11,6 +11,9 @@ class Endpoint < ApplicationRecord
             :http_method,
             presence: true
 
+  validates :url,
+            uniqueness: { scope: :http_method }
+
   METHODS = %w(GET POST PUT DELETE).freeze
 
   def update_request(body: nil, headers: nil)

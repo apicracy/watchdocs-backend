@@ -216,7 +216,7 @@ GEM
       dry-configurable (~> 0.5)
       jwt (~> 1.5)
       warden (~> 1.2)
-    watchdocs-rails (0.6.0)
+    watchdocs-rails (0.7.0)
       activesupport (> 4, < 6)
       configurations (~> 2.0)
       httparty (~> 0, >= 0.10)
@@ -252,7 +252,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
-  watchdocs-rails (= 0.6.0)
+  watchdocs-rails (= 0.7.0)
 
 RUBY VERSION
    ruby 2.3.0p0

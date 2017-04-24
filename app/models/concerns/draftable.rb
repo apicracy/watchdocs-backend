@@ -1,6 +1,7 @@
 module Draftable
   extend ActiveSupport::Concern
 
+  # Save value for a column as a draft
   def draft(column, value)
     current_value = self[column]
 
@@ -12,6 +13,7 @@ module Draftable
     self
   end
 
+  # Accept draft column
   def accept_draft_column(column)
     draft_col = draft_col_name(column)
     self[column] = self[draft_col]
@@ -19,6 +21,7 @@ module Draftable
     self
   end
 
+  # Accept all draft columns
   def accept_draft
     draft_columns.each do |draft_column|
       column = draft_column.first.sub('_draft', '')
@@ -27,6 +30,7 @@ module Draftable
     self
   end
 
+  # Are there any unsaved drafts?
   def pending_drafts?
     draft_columns.any? do |column|
       self[column].nil?

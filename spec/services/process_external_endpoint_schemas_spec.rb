@@ -38,6 +38,7 @@ RSpec.describe ProcessExternalEndpointSchemas do
         expect(response.headers.count).to eq(7)
         expect(response.headers.last.key).to eq('X-RUNTIME')
         expect(response.headers.all?(&:required)).to be_truthy
+        expect(response.headers.all?{ |h| h.status == 'fresh' }).to be_truthy
       end
 
       it 'creates request' do

@@ -17,7 +17,7 @@ class Header < ApplicationRecord
   private
 
   def set_status
-    # Escaping those statuses require user action
+    # Escaping those statuses requires user action
     return if stale? || fresh?
 
     self.status = pending_drafts? ? :outdated : :fresh

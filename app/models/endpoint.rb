@@ -7,6 +7,10 @@ class Endpoint < ApplicationRecord
 
   enum status: %i(outdated up_to_date)
 
+  validates :url,
+            :http_method,
+            presence: true
+
   METHODS = %w(GET POST PUT DELETE).freeze
 
   def update_request(body: nil, headers: nil)

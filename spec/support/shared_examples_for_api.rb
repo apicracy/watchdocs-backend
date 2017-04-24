@@ -10,6 +10,16 @@ RSpec.shared_examples 'not found' do
   end
 
   it 'returns not found as a description' do
-    expect(json["errors"].first["title"]).to eq('Record not found')
+    expect(json['errors'].first['title']).to eq('Record not found')
+  end
+end
+
+RSpec.shared_examples 'invalid' do
+  it 'returns bad request status' do
+    expect(response.status).to eq 400
+  end
+
+  it 'returns validation errors' do
+    expect(json['errors'].first['title']).to eq('Bad Request')
   end
 end

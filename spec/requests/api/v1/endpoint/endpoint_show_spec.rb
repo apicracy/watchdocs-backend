@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'GET /endpoint', type: :request do
+RSpec.describe 'GET /endpoints/:id', type: :request do
   let(:endpoint) { Fabricate :endpoint }
   let(:url) { "/api/v1/endpoints/#{endpoint.id}" }
 

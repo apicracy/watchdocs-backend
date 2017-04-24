@@ -16,9 +16,26 @@ class ApplicationController < ActionController::API
   def record_not_found(exception)
     render json: {
       errors: [
-        { status: '404', title: 'Record not found',
-          detail: exception.message, code: '104' }
+        {
+          status: '404',
+          title: 'Record not found',
+          detail: exception.message,
+          code: '104'
+        }
       ]
     }, status: :not_found
+  end
+
+  def validation_error(resource)
+    render json: {
+      errors: [
+        {
+          status: '400',
+          title: 'Bad Request',
+          detail: resource.errors,
+          code: '100'
+        }
+      ]
+    }, status: :bad_request
   end
 end

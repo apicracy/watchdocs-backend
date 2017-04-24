@@ -1,7 +1,7 @@
 class UrlParam < ApplicationRecord
   belongs_to :endpoint
 
-  validates :key,
+  validates :name,
             presence: true,
             uniqueness: { scope: :endpoint_id }
 
@@ -9,9 +9,6 @@ class UrlParam < ApplicationRecord
             presence: true
 
   enum status: %i(fresh up_to_date outdated stale)
-
-  alias_attribute :name, :key
-  alias_attribute :example, :example_value
 
   def update_required(new_required)
     if required.present?

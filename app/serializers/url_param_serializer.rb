@@ -3,8 +3,7 @@ class UrlParamSerializer < ActiveModel::Serializer
              :description,
              :is_part_of_url,
              :data_type,
-             :endpoint_id
-
-  attribute :key, key: :name
-  attribute :example_value, key: :example
+             :endpoint_id,
+             :name,
+             :example
 end

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :endpoints do
         resource :request
       end
+      resources :url_params, only: [:create]
       resources :users, only: [] do
         collection do
           get :me

@@ -22,6 +22,9 @@ RSpec.describe Ability, type: :model do
 
     # Response
     it { is_expected.not_to be_able_to(:crud, Response.new) }
+
+    # UrlParam
+    it { is_expected.not_to be_able_to(:crud, UrlParam.new) }
   end
 
   context 'when is a signed in user' do
@@ -49,5 +52,8 @@ RSpec.describe Ability, type: :model do
 
     # Response
     it { is_expected.to be_able_to(:crud, Response.new(endpoint: owned_endpoint)) }
+
+    # UrlParam
+    it { is_expected.to be_able_to(:crud, UrlParam.new(endpoint: owned_endpoint)) }
   end
 end

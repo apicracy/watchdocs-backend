@@ -60,6 +60,6 @@ RSpec.describe 'POST /url_params', type: :request do
       post url, params: { endpoint_id: endpoint.id } # Missing :key
     end
 
-    it_behaves_like 'error'
+    it_behaves_like 'invalid'
   end
 end

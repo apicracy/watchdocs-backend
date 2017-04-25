@@ -44,20 +44,15 @@ RSpec.describe 'POST /endpoints', type: :request do
         post url, params: params
       end
 
-      it 'returns 200' do
+      it 'returns 200 and serialized endpoint' do
         expect(response.status).to eq 200
         expect(json).to eq(serialized(Endpoint.last))
       end
     end
 
-    context 'and url & method params are not unique' do
+    context 'and url & method params are duplicated' do
       before do
-        Fabricate(
-          :endpoint,
-          url: '/api/v1/users/legal_identities',
-          http_method: 'POST',
-          project: project
-        )
+        Fabricate(:endpoint, params)
         login_as project.user, scope: :user
         post url, params: params
       end

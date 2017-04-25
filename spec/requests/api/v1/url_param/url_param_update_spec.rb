@@ -53,6 +53,6 @@ RSpec.describe 'PUT /url_params/:id', type: :request do
       put url, params: { name: 'TEST' } # Duplicating names
     end
 
-    it_behaves_like 'error'
+    it_behaves_like 'invalid'
   end
 end

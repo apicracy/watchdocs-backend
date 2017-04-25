@@ -6,6 +6,8 @@ RSpec.describe 'PUT /endpoints/:id', type: :request do
   let(:url) { "/api/v1/endpoints/#{endpoint_id}" }
   let(:params) do
     {
+      project_id: 12,
+      group_id: Fabricate(:group).id,
       url: '/api/v1/users/legal_identities',
       http_method: 'POST',
       title: Faker::Lorem.word,
@@ -39,9 +41,13 @@ RSpec.describe 'PUT /endpoints/:id', type: :request do
   end
 
   context 'when user is the owner of the endpoint' do
+    let(:user) { endpoint.project.user }
+
     context 'and params are valid' do
+      let(:project_id) { endpoint.project_id }
+
       before do
-        login_as endpoint.project.user, scope: :user
+        login_as user, scope: :user
         put url, params: params
       end
 
@@ -49,12 +55,16 @@ RSpec.describe 'PUT /endpoints/:id', type: :request do
         expect(response.status).to eq 200
         expect(json).to eq(serialized(endpoint.reload))
       end
+
+      it 'does not update project' do
+        expect(json['project_id']).to eq project_id
+      end
     end
 
     context 'params are invalid' do
       before do
         params[:url] = nil
-        login_as project.user, scope: :user
+        login_as user, scope: :user
         put url, params: params
       end
 

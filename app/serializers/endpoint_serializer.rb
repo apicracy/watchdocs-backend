@@ -2,7 +2,9 @@ class EndpointSerializer < ActiveModel::Serializer
   attributes :id,
              :url,
              :status,
-             :description
+             :description,
+             :project_id,
+             :group_id
 
   attribute :http_method, key: :method
 

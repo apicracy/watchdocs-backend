@@ -48,6 +48,10 @@ RSpec.describe 'POST /endpoints', type: :request do
         expect(response.status).to eq 200
         expect(json).to eq(serialized(Endpoint.last))
       end
+
+      it 'sets initial status to up_to_date' do
+        expect(json['status']).to eq 'up_to_date'
+      end
     end
 
     context 'and url & method params are duplicated' do

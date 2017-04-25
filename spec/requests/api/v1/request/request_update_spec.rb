@@ -5,7 +5,7 @@ RSpec.describe 'PUT /endpoints/:endpoint_id/request', type: :request do
   let(:project) { Fabricate :project, user: user }
   let(:endpoint) { Fabricate :endpoint, project: project }
   let(:url) { "/api/v1/endpoints/#{endpoint.id}/request" }
-  let(:params) { { body: new_schema, trying_to_hack: true } }
+  let(:params) { { body: JSON.generate(new_schema) } }
   let(:new_schema) do
     {
       schema: 'http://json-schema.org/draft-04/schema#',

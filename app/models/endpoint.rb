@@ -9,6 +9,7 @@ class Endpoint < ApplicationRecord
 
   validates :http_method,
             :project,
+            :status,
             presence: true
 
   # Url format should be /path/to/endpoint/:param

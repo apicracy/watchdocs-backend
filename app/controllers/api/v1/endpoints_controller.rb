@@ -9,17 +9,32 @@ module Api
       end
 
       def create
-        endpoint = Endpoint.new(endpoint_params)
+        endpoint = Endpoint.new(create_endpoint_params)
         authorize! :create, endpoint
         endpoint.save
         render_resource(endpoint)
       end
 
+      def update
+        @endpoint.update(update_endpoint_params)
+        render_resource(@endpoint)
+      end
+
       private
 
-      def endpoint_params
+      def create_endpoint_params
         params.permit(
           :project_id,
+          :group_id,
+          :url,
+          :http_method,
+          :title,
+          :summary
+        ).merge(status: :up_to_date)
+      end
+
+      def update_endpoint_params
+        params.permit(
           :group_id,
           :url,
           :http_method,

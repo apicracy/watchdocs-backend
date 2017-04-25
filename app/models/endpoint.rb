@@ -23,6 +23,8 @@ class Endpoint < ApplicationRecord
 
   METHODS = %w(GET POST PUT DELETE).freeze
 
+  before_validation :autocorrect_url
+
   def update_request(body: nil, headers: nil)
     request ||= build_request
     request.update_body(body) if body
@@ -43,5 +45,21 @@ class Endpoint < ApplicationRecord
       title: title,
       content: summary
     }
+  end
+
+  private
+
+  def autocorrect_url
+    return true unless url
+    prepend_with_slash
+    remove_ending_slash
+  end
+
+  def prepend_with_slash
+    url.prepend('/') unless url.start_with?('/')
+  end
+
+  def remove_ending_slash
+    url.chomp!('/') if url.end_with?('/')
   end
 end

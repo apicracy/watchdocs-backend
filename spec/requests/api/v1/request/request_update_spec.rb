@@ -20,7 +20,7 @@ RSpec.describe 'PUT /endpoints/:endpoint_id/request', type: :request do
   end
 
   before do
-    Fabricate :request, endpoint: endpoint
+    Fabricate :request, endpoint: endpoint, body_draft: new_schema
   end
 
   context 'when user is not signed in' do
@@ -51,6 +51,11 @@ RSpec.describe 'PUT /endpoints/:endpoint_id/request', type: :request do
     it 'updates body' do
       request_body = Request.last.reload.body
       expect(request_body.deep_symbolize_keys).to eq(new_schema)
+    end
+
+    it 'clears body draft' do
+      request = Request.last.reload
+      expect(request.body_draft).to be_nil
     end
 
     it 'returns serialized url param' do

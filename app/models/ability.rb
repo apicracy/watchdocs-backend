@@ -27,5 +27,10 @@ class Ability
     can :crud, Response do |response|
       can? :crud, response.endpoint
     end
+
+    # UrlParam
+    can :crud, UrlParam do |param|
+      can? :crud, param.endpoint
+    end
   end
 end

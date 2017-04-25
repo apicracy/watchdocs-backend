@@ -36,13 +36,17 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'
   gem 'pry-nav'
-  gem 'rspec-rails', '~> 3.5'
   gem 'fabrication', '~> 2.14', '>= 2.14.1'
   gem 'faker', '~> 1.7', '>= 1.7.3'
-  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'rubocop', '~> 0.39.0'
   gem 'rubocop-rspec', '~> 1.4', '>= 1.4.1'
   gem 'json-schema', '~> 2.7'
+end
+
+group :test do
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do

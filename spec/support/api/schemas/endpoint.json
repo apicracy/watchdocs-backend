@@ -73,6 +73,9 @@
                   "data_type": {
                       "type": ["string", null]
                   },
+                  "endpoint_id": {
+                      "type": "integer"
+                  },
                   "description": {
                       "type": ["string", null]
                   },

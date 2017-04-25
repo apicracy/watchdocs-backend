@@ -33,7 +33,7 @@ class ProcessExternalEndpointSchemas
   # TODO: Create card for changes in gem: filter query params and support types
   def update_url_params
     params = UrlParamsSchema.new(request_data[:url_params]).params
-    params.each { |key, required| create_or_update_url_param(key, required) }
+    params.each { |name, required| create_or_update_url_param(name, required) }
   end
 
   def update_request
@@ -58,9 +58,9 @@ class ProcessExternalEndpointSchemas
     )
   end
 
-  def create_or_update_url_param(key, required)
+  def create_or_update_url_param(name, required)
     endpoint.url_params
-            .find_or_initialize_by(key: key)
+            .find_or_initialize_by(name: name)
             .update_required(required)
   end
 

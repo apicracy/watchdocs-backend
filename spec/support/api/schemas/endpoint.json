@@ -21,6 +21,12 @@
       "id": {
           "type": "integer"
       },
+      "project_id": {
+          "type": "integer"
+      },
+      "group_id": {
+          "type": ["integer", null]
+      },
       "method": {
           "type": "string"
       },
@@ -113,6 +119,8 @@
       "request",
       "method",
       "id",
+      "project_id",
+      "group_id",
       "responses"
   ],
   "type": "object"

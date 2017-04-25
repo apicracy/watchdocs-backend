@@ -9,10 +9,25 @@ module Api
         render json: @request
       end
 
+      def update
+        @request = endpoint.request
+        authorize! :update, @request
+        if @request.update(body: body_schema_params, body_draft: nil)
+          render json: @request
+        else
+          record_error(@request)
+        end
+      end
+
       private
 
       def endpoint
         Endpoint.find(params[:endpoint_id])
+      end
+
+      def body_schema_params
+        # Require all json under body
+        params.require(:body).permit!
       end
     end
   end

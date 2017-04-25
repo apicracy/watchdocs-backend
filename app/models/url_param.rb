@@ -3,7 +3,7 @@ class UrlParam < ApplicationRecord
 
   validates :name,
             presence: true,
-            uniqueness: { scope: [:endpoint_id, :is_part_of_url] }
+            uniqueness: { scope: [:is_part_of_url, :endpoint_id] }
 
   validates :endpoint,
             presence: true

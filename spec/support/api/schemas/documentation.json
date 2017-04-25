@@ -239,6 +239,9 @@
     "url_params":{
       "items": {
           "properties": {
+              "endpoint_id": {
+                  "type": "integer"
+              },
               "data_type": {
                   "type": "null"
               },

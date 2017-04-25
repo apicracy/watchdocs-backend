@@ -56,7 +56,7 @@ RSpec.describe ProcessExternalEndpointSchemas do
       it 'creates all url params' do
         endpoint = Endpoint.last
         expect(endpoint.url_params.count).to eq(4)
-        expect(endpoint.url_params.last.key).to eq('data[attributes][output_currency]')
+        expect(endpoint.url_params.last.name).to eq('data[attributes][output_currency]')
         expect(endpoint.url_params.all?(&:required)).to be_truthy
       end
     end

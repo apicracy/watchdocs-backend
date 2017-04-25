@@ -26,8 +26,9 @@ module Api
       end
 
       def body_schema_params
-        # Require all json under body
-        params.require(:body).permit!
+        JSON.parse(params[:body])
+      rescue JSON::ParserError => _exception
+        nil
       end
     end
   end

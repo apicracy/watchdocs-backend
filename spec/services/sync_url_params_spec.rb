@@ -30,10 +30,9 @@ RSpec.describe SyncUrlParams do
   end
 
   context 'when endpoint is being updated with new url' do
-    let(:endpoint) { Fabricate(:endpoint, url: '/:owner/:repo') }
+    let!(:endpoint) { Fabricate(:endpoint, url: '/:owner/:repo') }
 
     before do
-      described_class.new(endpoint).call
       endpoint.url = '/:owner_id/:repo_id'
       described_class.new(endpoint).call
     end

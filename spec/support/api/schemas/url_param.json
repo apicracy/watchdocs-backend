@@ -2,16 +2,16 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "properties": {
         "data_type": {
-            "type": "string"
+            "type": ["string", null]
         },
         "description": {
-            "type": "string"
+            "type": ["string", null]
         },
         "endpoint_id": {
             "type": "integer"
         },
         "example": {
-            "type": "string"
+            "type": ["string", null]
         },
         "id": {
             "type": "integer"

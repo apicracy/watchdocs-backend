@@ -40,10 +40,6 @@ RSpec.describe 'PUT /url_params/:id', type: :request do
       expect(response.status).to eq 200
     end
 
-    it 'saves new url param' do
-      expect(UrlParam.count).to eq(1)
-    end
-
     it 'returns serialized url param' do
       expect(json).to match_schema('url_param')
     end

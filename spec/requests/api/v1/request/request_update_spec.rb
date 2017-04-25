@@ -1,15 +1,26 @@
 require 'rails_helper'
 
-RSpec.describe 'PUT /url_params', type: :request do
+RSpec.describe 'PUT /endpoints/:endpoint_id/request', type: :request do
   let(:user) { Fabricate :user }
   let(:project) { Fabricate :project, user: user }
   let(:endpoint) { Fabricate :endpoint, project: project }
-  let(:request) { Fabricate :request, endpoint: endpoint }
   let(:url) { "/api/v1/endpoints/#{endpoint.id}/request" }
-  let(:params) do
+  let(:params) { { body: new_schema, trying_to_hack: true } }
+  let(:new_schema) do
     {
-      'body': {}
+      schema: 'http://json-schema.org/draft-04/schema#',
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string'
+        }
+      },
+      required: ['name']
     }
+  end
+
+  before do
+    Fabricate :request, endpoint: endpoint
   end
 
   context 'when user is not signed in' do
@@ -37,12 +48,13 @@ RSpec.describe 'PUT /url_params', type: :request do
       expect(response.status).to eq 200
     end
 
-    it 'sets up_to_date status by default' do
-      expect(UrlParam.last.status).to eq('up_to_date')
+    it 'updates body' do
+      request_body = Request.last.reload.body
+      expect(request_body.deep_symbolize_keys).to eq(new_schema)
     end
 
     it 'returns serialized url param' do
-      expect(json).to match_schema('url_param')
+      expect(json).to match_schema('request')
     end
   end
 end

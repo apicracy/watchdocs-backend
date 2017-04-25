@@ -10,7 +10,9 @@ module Api
       end
 
       def update
-        if @request.update(request_params)
+        @request = endpoint.request
+        authorize! :update, @request
+        if @request.update(body: body_schema_params)
           render json: @request
         else
           record_error(@request)
@@ -23,8 +25,9 @@ module Api
         Endpoint.find(params[:endpoint_id])
       end
 
-      def request_params
-        params.permit(:body)
+      def body_schema_params
+        # Require all json under body
+        params.require(:body).permit!
       end
     end
   end

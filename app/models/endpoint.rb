@@ -7,7 +7,23 @@ class Endpoint < ApplicationRecord
 
   enum status: %i(outdated up_to_date)
 
+  validates :http_method,
+            :project,
+            presence: true
+
+  # Url format should be /path/to/endpoint/:param
+  # with leading slash and without finishing one
+  # allows params starting with ":"
+  validates :url,
+            presence: true,
+            uniqueness: { scope: :http_method },
+            format: {
+              with: %r(\A\/{1}(:?[A-Za-z0-9\-_\.~]+\/)*(:?[A-Za-z0-9\-_\.~]+)\z)
+            }
+
   METHODS = %w(GET POST PUT DELETE).freeze
+
+  before_validation :autocorrect_url
 
   def update_request(body: nil, headers: nil)
     request ||= build_request
@@ -29,5 +45,21 @@ class Endpoint < ApplicationRecord
       title: title,
       content: summary
     }
+  end
+
+  private
+
+  def autocorrect_url
+    return true unless url
+    prepend_with_slash
+    remove_ending_slash
+  end
+
+  def prepend_with_slash
+    url.prepend('/') unless url.start_with?('/')
+  end
+
+  def remove_ending_slash
+    url.chomp!('/') if url.end_with?('/')
   end
 end

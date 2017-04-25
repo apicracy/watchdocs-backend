@@ -6,6 +6,7 @@ RSpec.describe Endpoint, type: :model do
   describe '#valid?' do
     it { is_expected.to validate_uniqueness_of(:url).scoped_to(:http_method) }
     it { is_expected.to validate_presence_of(:url) }
+    it { is_expected.to validate_presence_of(:status) }
     it { is_expected.to validate_presence_of(:http_method) }
     it { is_expected.to validate_presence_of(:project) }
 

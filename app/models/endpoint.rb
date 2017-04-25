@@ -7,12 +7,19 @@ class Endpoint < ApplicationRecord
 
   enum status: %i(outdated up_to_date)
 
-  validates :url,
-            :http_method,
+  validates :http_method,
+            :project,
             presence: true
 
+  # Url format should be /path/to/endpoint/:param
+  # with leading slash and without finishing one
+  # allows params starting with ":"
   validates :url,
-            uniqueness: { scope: :http_method }
+            presence: true,
+            uniqueness: { scope: :http_method },
+            format: {
+              with: %r(\A\/{1}(:?[A-Za-z0-9\-_\.~]+\/)*(:?[A-Za-z0-9\-_\.~]+)\z)
+            }
 
   METHODS = %w(GET POST PUT DELETE).freeze
 

@@ -5,15 +5,18 @@ class ApplicationController < ActionController::API
   include CanCan::ControllerAdditions
   check_authorization unless: :devise_controller?
 
-  rescue_from CanCan::AccessDenied do |exception|
-    record_not_found(exception)
+  rescue_from CanCan::AccessDenied, with: :record_not_found_error
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
+
+  def render_resource(resource)
+    if resource.errors.empty?
+      render json: resource
+    else
+      validation_error(resource)
+    end
   end
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-    record_not_found(exception)
-  end
-
-  def record_not_found(exception)
+  def record_not_found_error(exception)
     render json: {
       errors: [
         {

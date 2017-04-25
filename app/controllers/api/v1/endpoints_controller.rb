@@ -9,13 +9,10 @@ module Api
       end
 
       def create
-        @endpoint = Endpoint.new(endpoint_params)
-        authorize! :create, @endpoint
-        if @endpoint.save
-          render json: @endpoint
-        else
-          validation_error(@endpoint)
-        end
+        endpoint = Endpoint.new(endpoint_params)
+        authorize! :create, endpoint
+        endpoint.save
+        render_resource(endpoint)
       end
 
       private

@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "data_type": {
+            "type": ["string", null]
+        },
+        "description": {
+            "type": ["string", null]
+        },
+        "endpoint_id": {
+            "type": "integer"
+        },
+        "example": {
+            "type": ["string", null]
+        },
+        "id": {
+            "type": "integer"
+        },
+        "is_part_of_url": {
+            "type": "boolean"
+        },
+        "name": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "name",
+        "data_type",
+        "example",
+        "endpoint_id",
+        "is_part_of_url",
+        "id",
+        "description"
+    ],
+    "type": "object"
+}

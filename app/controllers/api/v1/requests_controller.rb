@@ -9,10 +9,22 @@ module Api
         render json: @request
       end
 
+      def update
+        if @request.update(request_params)
+          render json: @request
+        else
+          record_error(@request)
+        end
+      end
+
       private
 
       def endpoint
         Endpoint.find(params[:endpoint_id])
+      end
+
+      def request_params
+        params.permit(:body)
       end
     end
   end

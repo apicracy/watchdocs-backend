@@ -23,6 +23,7 @@ RSpec.describe 'GET /endpoints/:endpoint_id/request', type: :request do
 
   context 'non existing request' do
     before do
+      endpoint.request.destroy
       login_as project.user
       get url
     end

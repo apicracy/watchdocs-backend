@@ -54,4 +54,12 @@ RSpec.describe Endpoint, type: :model do
       end
     end
   end
+
+  describe '#build_request' do
+    before { endpoint.save }
+
+    it 'creates request automatically for the new endpoint' do
+      expect(endpoint.request).to be_persisted
+    end
+  end
 end

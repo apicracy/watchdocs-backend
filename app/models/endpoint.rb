@@ -1,7 +1,7 @@
 class Endpoint < ApplicationRecord
   include Groupable
 
-  has_one :request, dependent: :destroy
+  has_one :request, dependent: :destroy, required: true
   has_many :url_params, dependent: :destroy
   has_many :responses, dependent: :destroy
 
@@ -10,6 +10,7 @@ class Endpoint < ApplicationRecord
   validates :http_method,
             :project,
             :status,
+            :request,
             presence: true
 
   # Url format should be /path/to/endpoint/:param
@@ -25,7 +26,8 @@ class Endpoint < ApplicationRecord
   METHODS = %w(GET POST PUT DELETE).freeze
 
   before_validation :autocorrect_url
-  after_save :sync_url_params
+  before_validation :build_request, on: :create, unless: :request
+  after_save        :sync_url_params
 
   def update_request(body: nil, headers: nil)
     request ||= build_request

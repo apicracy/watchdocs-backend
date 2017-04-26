@@ -23,7 +23,7 @@ RSpec.describe 'POST /endpoints', type: :request do
       post url, params: params
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when project does not exist' do

@@ -28,7 +28,7 @@ RSpec.describe 'POST /url_params', type: :request do
       post url, params: params
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when params are correct and user owns endpoint' do

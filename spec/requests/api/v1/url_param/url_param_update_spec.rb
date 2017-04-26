@@ -27,7 +27,7 @@ RSpec.describe 'PUT /url_params/:id', type: :request do
       put url, params: params
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when params are correct and user owns url param' do

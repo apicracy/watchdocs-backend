@@ -17,7 +17,7 @@ class Endpoint < ApplicationRecord
   # allows params starting with ":"
   validates :url,
             presence: true,
-            uniqueness: { scope: :http_method },
+            uniqueness: { scope: [:http_method, :project_id] },
             format: {
               with: %r(\A\/{1}(:?[A-Za-z0-9\-_\.~]+\/)*(:?[A-Za-z0-9\-_\.~]+)\z)
             }

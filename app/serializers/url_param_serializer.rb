@@ -5,5 +5,7 @@ class UrlParamSerializer < ActiveModel::Serializer
              :data_type,
              :endpoint_id,
              :name,
-             :example
+             :example,
+             :required,
+             :required_draft
 end

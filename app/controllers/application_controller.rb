@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
   include CanCan::ControllerAdditions
   check_authorization unless: :devise_controller?
 
-  rescue_from CanCan::AccessDenied, with: :record_not_found_error
+  rescue_from CanCan::AccessDenied, with: :forbidden_error
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
 
   def render_resource(resource)
@@ -40,5 +40,18 @@ class ApplicationController < ActionController::API
         }
       ]
     }, status: :bad_request
+  end
+
+  def forbidden_error(exception)
+    render json: {
+      errors: [
+        {
+          status: '403',
+          title: 'Forbidden',
+          detail: exception.message,
+          code: '103'
+        }
+      ]
+    }, status: :forbidden
   end
 end

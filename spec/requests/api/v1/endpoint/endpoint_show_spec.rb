@@ -15,7 +15,7 @@ RSpec.describe 'GET /endpoints/:id', type: :request do
       get url
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when endpoint does not exist' do

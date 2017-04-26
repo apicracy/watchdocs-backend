@@ -7,12 +7,12 @@ RSpec.describe 'POST /url_params', type: :request do
   let(:url) { '/api/v1/url_params' }
   let(:params) do
     {
-      'endpoint_id': endpoint.id,
-      'description': Faker::Lorem.paragraph,
-      'is_part_of_url': false,
-      'data_type': 'String',
-      'name': 'search',
-      'example': 'test'
+      endpoint_id: endpoint.id,
+      description: Faker::Lorem.paragraph,
+      is_part_of_url: false,
+      data_type: 'String',
+      name: 'search',
+      example: 'test'
     }
   end
 

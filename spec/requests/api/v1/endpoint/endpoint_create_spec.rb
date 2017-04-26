@@ -34,7 +34,8 @@ RSpec.describe 'POST /endpoints', type: :request do
       post url, params: params
     end
 
-    it_behaves_like 'not found'
+    # TODO: Change to not_found in the future
+    it_behaves_like 'forbidden'
   end
 
   context 'when user is the owner of the project' do

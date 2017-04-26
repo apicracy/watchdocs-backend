@@ -20,6 +20,11 @@ module Api
         render_resource(@endpoint)
       end
 
+      def destroy
+        @endpoint.destroy
+        render json: @endpoint
+      end
+
       private
 
       def create_endpoint_params

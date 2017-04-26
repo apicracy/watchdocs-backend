@@ -12,6 +12,10 @@ class EndpointSerializer < ActiveModel::Serializer
   has_many :responses
   has_many :url_params
 
+  def responses
+    object.responses.order(:http_status_code)
+  end
+
   class RequestSerializer < ActiveModel::Serializer
     attributes :id,
                :status

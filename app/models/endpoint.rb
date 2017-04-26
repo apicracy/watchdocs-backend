@@ -1,9 +1,9 @@
 class Endpoint < ApplicationRecord
   include Groupable
 
-  has_one :request
-  has_many :url_params
-  has_many :responses
+  has_one :request, dependent: :destroy
+  has_many :url_params, dependent: :destroy
+  has_many :responses, dependent: :destroy
 
   enum status: %i(outdated up_to_date)
 
@@ -17,7 +17,7 @@ class Endpoint < ApplicationRecord
   # allows params starting with ":"
   validates :url,
             presence: true,
-            uniqueness: { scope: :http_method },
+            uniqueness: { scope: [:http_method, :project_id] },
             format: {
               with: %r(\A\/{1}(:?[A-Za-z0-9\-_\.~]+\/)*(:?[A-Za-z0-9\-_\.~]+)\z)
             }
@@ -25,6 +25,7 @@ class Endpoint < ApplicationRecord
   METHODS = %w(GET POST PUT DELETE).freeze
 
   before_validation :autocorrect_url
+  after_save :sync_url_params
 
   def update_request(body: nil, headers: nil)
     request ||= build_request
@@ -49,6 +50,11 @@ class Endpoint < ApplicationRecord
   end
 
   private
+
+  def sync_url_params
+    return true unless url_changed?
+    SyncUrlParams.new(self).call
+  end
 
   def autocorrect_url
     return true unless url

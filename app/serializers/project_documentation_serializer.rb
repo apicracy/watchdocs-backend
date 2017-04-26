@@ -25,6 +25,10 @@ class ProjectDocumentationSerializer < TreeItemSerializer
     has_one :request
     has_many :responses
     has_many :url_params
+
+    def responses
+      object.responses.order(:http_status_code)
+    end
   end
 
   class DocumentItem < TreeItemSerializer

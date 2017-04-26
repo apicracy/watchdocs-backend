@@ -52,6 +52,10 @@ RSpec.describe 'POST /endpoints', type: :request do
       it 'sets initial status to up_to_date' do
         expect(json['status']).to eq 'up_to_date'
       end
+
+      it 'returns auto-created request with id' do
+        expect(json['request']['id']).to eq Request.last.id
+      end
     end
 
     context 'and url & method params are duplicated' do

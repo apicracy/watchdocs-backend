@@ -1,9 +1,9 @@
 class Endpoint < ApplicationRecord
   include Groupable
 
-  has_one :request
-  has_many :url_params
-  has_many :responses
+  has_one :request, dependent: :destroy
+  has_many :url_params, dependent: :destroy
+  has_many :responses, dependent: :destroy
 
   enum status: %i(outdated up_to_date)
 

@@ -40,7 +40,7 @@ RSpec.describe 'DELETE /endpoints/:id', type: :request do
 
     it 'returns 200' do
       expect(response.status).to eq 200
-      expect(json).to eq(serialized(endpoint))
+      expect(response.body).to match_schema('endpoint')
     end
 
     it 'removes all connected url params' do

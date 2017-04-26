@@ -25,6 +25,7 @@ class Endpoint < ApplicationRecord
   METHODS = %w(GET POST PUT DELETE).freeze
 
   before_validation :autocorrect_url
+  after_save :sync_url_params
 
   def update_request(body: nil, headers: nil)
     request ||= build_request
@@ -49,6 +50,11 @@ class Endpoint < ApplicationRecord
   end
 
   private
+
+  def sync_url_params
+    return true unless url_changed?
+    SyncUrlParams.new(self).call
+  end
 
   def autocorrect_url
     return true unless url

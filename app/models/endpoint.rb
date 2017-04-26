@@ -25,9 +25,8 @@ class Endpoint < ApplicationRecord
 
   METHODS = %w(GET POST PUT DELETE).freeze
 
-  before_validation :autocorrect_url,
-                    :build_request
-
+  before_validation :autocorrect_url
+  before_validation :build_request, on: :create
   after_save        :sync_url_params
 
   def update_request(body: nil, headers: nil)

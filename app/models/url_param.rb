@@ -3,12 +3,17 @@ class UrlParam < ApplicationRecord
 
   validates :name,
             presence: true,
-            uniqueness: { scope: :endpoint_id }
+            uniqueness: { scope: [:is_part_of_url, :endpoint_id] }
 
   validates :endpoint,
             presence: true
 
   enum status: %i(fresh up_to_date outdated stale)
+
+  scope :not_stale,
+        -> { where.not(status: :stale) }
+  scope :url_members,
+        -> { where(is_part_of_url: true) }
 
   def update_required(new_required)
     if required.present?

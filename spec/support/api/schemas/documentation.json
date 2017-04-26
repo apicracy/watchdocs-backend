@@ -259,6 +259,12 @@
               },
               "name": {
                   "type": "string"
+              },
+              "required": {
+                "type": ["boolean", "null"]
+              },
+              "required_draft": {
+                  "type": ["boolean", "null"]
               }
           },
           "required": [
@@ -267,7 +273,9 @@
               "id",
               "is_part_of_url",
               "example",
-              "description"
+              "description",
+              "required",
+              "required_draft"
           ],
           "type": "object"
       },

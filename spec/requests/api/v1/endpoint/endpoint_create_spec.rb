@@ -60,7 +60,10 @@ RSpec.describe 'POST /endpoints', type: :request do
 
     context 'and url & method params are duplicated' do
       before do
-        Fabricate(:endpoint, params)
+        existing_endpoint = Fabricate.build :endpoint
+        existing_endpoint.attributes = params
+        existing_endpoint.save
+
         login_as project.user, scope: :user
         post url, params: params
       end

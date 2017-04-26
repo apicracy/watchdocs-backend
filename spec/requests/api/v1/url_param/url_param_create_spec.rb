@@ -42,7 +42,7 @@ RSpec.describe 'POST /url_params', type: :request do
     end
 
     it 'saves new url param' do
-      expect(UrlParam.count).to eq(1)
+      expect(UrlParam.count).to eq 2 # created one and one from endpoint url
     end
 
     it 'sets up_to_date status by default' do

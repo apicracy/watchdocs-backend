@@ -1,4 +1,4 @@
 Watchdocs::Rails.configure do |c|
-  c.app_id = 'WATCHDOCS-BACKEND'
-  c.app_secret = 'ao48nycrao8w47'
+  c.app_id = 'wdb'
+  c.app_secret = '9830123az'
 end

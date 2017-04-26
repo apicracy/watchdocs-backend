@@ -54,5 +54,9 @@ RSpec.describe 'DELETE /endpoints/:id', type: :request do
     it 'removes all connected responses' do
       expect(Response.count).to eq 0
     end
+
+    it 'removes all connected headers' do
+      expect(Header.count).to eq 0
+    end
   end
 end

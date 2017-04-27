@@ -12,7 +12,8 @@ RSpec.describe 'POST /url_params', type: :request do
       is_part_of_url: false,
       data_type: 'String',
       name: 'search',
-      example: 'test'
+      example: 'test',
+      required: true
     }
   end
 

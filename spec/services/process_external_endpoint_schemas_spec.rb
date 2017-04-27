@@ -86,9 +86,9 @@ RSpec.describe ProcessExternalEndpointSchemas do
         expect(response.headers.all?(&:required)).to be_truthy
       end
 
-      it 'does not create request' do
+      it 'does create request' do
         endpoint = Endpoint.last
-        expect(endpoint.request).to be_nil
+        expect(endpoint.request).to be_present
       end
     end
   end

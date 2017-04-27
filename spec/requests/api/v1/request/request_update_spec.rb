@@ -35,7 +35,7 @@ RSpec.describe 'PUT /endpoints/:endpoint_id/request', type: :request do
       put url, params: params
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when params are correct and user owns endpoint' do

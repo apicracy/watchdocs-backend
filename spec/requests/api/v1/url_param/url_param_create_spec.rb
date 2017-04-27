@@ -7,12 +7,13 @@ RSpec.describe 'POST /url_params', type: :request do
   let(:url) { '/api/v1/url_params' }
   let(:params) do
     {
-      'endpoint_id': endpoint.id,
-      'description': Faker::Lorem.paragraph,
-      'is_part_of_url': false,
-      'data_type': 'String',
-      'name': 'search',
-      'example': 'test'
+      endpoint_id: endpoint.id,
+      description: Faker::Lorem.paragraph,
+      is_part_of_url: false,
+      data_type: 'String',
+      name: 'search',
+      example: 'test',
+      required: true
     }
   end
 
@@ -28,7 +29,7 @@ RSpec.describe 'POST /url_params', type: :request do
       post url, params: params
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when params are correct and user owns endpoint' do
@@ -42,7 +43,7 @@ RSpec.describe 'POST /url_params', type: :request do
     end
 
     it 'saves new url param' do
-      expect(UrlParam.count).to eq(1)
+      expect(UrlParam.count).to eq 2 # created one and one from endpoint url
     end
 
     it 'sets up_to_date status by default' do

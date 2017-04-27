@@ -21,6 +21,12 @@
         },
         "name": {
             "type": "string"
+        },
+        "required": {
+            "type": ["boolean", "null"]
+        },
+        "required_draft": {
+            "type": ["boolean", "null"]
         }
     },
     "required": [
@@ -30,7 +36,9 @@
         "endpoint_id",
         "is_part_of_url",
         "id",
-        "description"
+        "description",
+        "required",
+        "required_draft"
     ],
     "type": "object"
 }

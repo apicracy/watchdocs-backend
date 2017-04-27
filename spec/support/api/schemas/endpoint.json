@@ -36,7 +36,7 @@
                   "type": "integer"
               },
               "status": {
-                  "type": "string"
+                  "type": ["string", "null"]
               }
           },
           "required": [
@@ -96,6 +96,12 @@
                   },
                   "name": {
                       "type": "string"
+                  },
+                  "required": {
+                    "type": ["boolean", "null"]
+                  },
+                  "required_draft": {
+                    "type": ["boolean", "null"]
                   }
               },
               "required": [
@@ -104,7 +110,9 @@
                   "id",
                   "is_part_of_url",
                   "example",
-                  "name"
+                  "name",
+                  "required",
+                  "required_draft"
               ],
               "type": "object"
           },

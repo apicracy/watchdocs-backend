@@ -23,7 +23,7 @@ RSpec.describe 'POST /endpoints', type: :request do
       post url, params: params
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when project does not exist' do
@@ -34,7 +34,8 @@ RSpec.describe 'POST /endpoints', type: :request do
       post url, params: params
     end
 
-    it_behaves_like 'not found'
+    # TODO: Change to not_found in the future
+    it_behaves_like 'forbidden'
   end
 
   context 'when user is the owner of the project' do
@@ -51,6 +52,10 @@ RSpec.describe 'POST /endpoints', type: :request do
 
       it 'sets initial status to up_to_date' do
         expect(json['status']).to eq 'up_to_date'
+      end
+
+      it 'returns auto-created request with id' do
+        expect(json['request']['id']).to eq Request.last.id
       end
     end
 

@@ -18,7 +18,7 @@ RSpec.describe 'DELETE /url_params/:id', type: :request do
       delete url
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when user owns url param' do

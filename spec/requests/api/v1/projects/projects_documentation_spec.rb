@@ -17,7 +17,7 @@ RSpec.describe 'GET /projects/:id/documentation', type: :request do
       get url
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when project doesnt exist' do

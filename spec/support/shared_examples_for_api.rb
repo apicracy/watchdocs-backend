@@ -4,8 +4,18 @@ RSpec.shared_examples 'unauthorized' do
   end
 end
 
+RSpec.shared_examples 'forbidden' do
+  it 'returns forbidden status' do
+    expect(response.status).to eq 403
+  end
+
+  it 'returns forbidden message errors' do
+    expect(json['errors'].first['title']).to eq('Forbidden')
+  end
+end
+
 RSpec.shared_examples 'not found' do
-  it 'returns unathorized status' do
+  it 'returns not found status' do
     expect(response.status).to eq 404
   end
 

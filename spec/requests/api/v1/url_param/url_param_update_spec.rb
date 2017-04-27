@@ -7,11 +7,12 @@ RSpec.describe 'PUT /url_params/:id', type: :request do
   let(:url) { "/api/v1/url_params/#{url_param.id}" }
   let(:params) do
     {
-      'description': Faker::Lorem.paragraph,
-      'is_part_of_url': false,
-      'data_type': 'String',
-      'name': 'search',
-      'example': 'test'
+      description: Faker::Lorem.paragraph,
+      is_part_of_url: false,
+      data_type: 'String',
+      name: 'search',
+      example: 'test',
+      required: true
     }
   end
 
@@ -27,7 +28,7 @@ RSpec.describe 'PUT /url_params/:id', type: :request do
       put url, params: params
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when params are correct and user owns url param' do

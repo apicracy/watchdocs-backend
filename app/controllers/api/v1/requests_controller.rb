@@ -4,18 +4,19 @@ module Api
       before_action :authenticate_user!
 
       def show
-        @request = endpoint.request
-        authorize! :read, @request
-        render json: @request
+        request = endpoint.request
+        raise ActiveRecord::RecordNotFound unless request
+        authorize! :read, request
+        render json: request
       end
 
       def update
-        @request = endpoint.request
-        authorize! :update, @request
-        if @request.update(body: body_schema_params, body_draft: nil)
-          render json: @request
+        request = endpoint.request
+        authorize! :update, request
+        if request.update(body: body_schema_params, body_draft: nil)
+          render json: request
         else
-          record_error(@request)
+          record_error(request)
         end
       end
 

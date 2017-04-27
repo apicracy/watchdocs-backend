@@ -57,7 +57,7 @@ RSpec.describe 'POST /responses', type: :request do
   context 'when param params are incorrect' do
     before do
       login_as endpoint.project.user, scope: :user
-      post url, params: { endpoint_id: endpoint.id } # Missing :status_code
+      post url, params: { endpoint_id: endpoint.id } # Missing :http_status_code
     end
 
     it_behaves_like 'invalid'

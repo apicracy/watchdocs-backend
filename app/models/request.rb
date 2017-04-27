@@ -1,7 +1,7 @@
 class Request < ApplicationRecord
   include BodyAndHeadersUpdatable
+  include EndpointBelongable
 
-  belongs_to :endpoint
   has_many :headers, as: :headerable, dependent: :destroy
 
   enum status: %i(outdated up_to_date)

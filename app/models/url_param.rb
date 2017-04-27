@@ -1,12 +1,9 @@
 class UrlParam < ApplicationRecord
-  belongs_to :endpoint
+  include EndpointBelongable
 
   validates :name,
             presence: true,
             uniqueness: { scope: [:is_part_of_url, :endpoint_id] }
-
-  validates :endpoint,
-            presence: true
 
   enum status: %i(fresh up_to_date outdated stale)
 

@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'PUT /responses/:id', type: :request do
-  let(:response) { Fabricate :response }
-  let(:response_id) { response.id }
+  let(:existing_response) { Fabricate :response }
+  let(:response_id) { existing_response.id }
   let(:url) { "/api/v1/responses/#{response_id}" }
-  let(:user) { endpoint.project.user }
+  let(:user) { existing_response.user }
   let(:params) do
     {
       endpoint_id: 123,
@@ -52,7 +52,7 @@ RSpec.describe 'PUT /responses/:id', type: :request do
   end
 
   context 'when params are correct and user owns response' do
-    let(:endpoint_id) { response.endpoint_id }
+    let(:endpoint_id) { existing_response.endpoint_id }
 
     before do
       login_as user, scope: :user
@@ -64,7 +64,7 @@ RSpec.describe 'PUT /responses/:id', type: :request do
     end
 
     it 'returns serialized url param' do
-      expect(json).to eq(serialized(endpoint.reload))
+      expect(json).to eq(serialized(existing_response.reload))
     end
 
     it 'does not update endpoint_id' do
@@ -74,7 +74,7 @@ RSpec.describe 'PUT /responses/:id', type: :request do
 
   context 'when param params are incorrect' do
     before do
-      Fabricate(:response, http_status_code: 301, endpoint: endpoint)
+      Fabricate(:response, http_status_code: 301, endpoint: existing_response.endpoint)
 
       login_as user, scope: :user
       put url, params: params # Duplicating names

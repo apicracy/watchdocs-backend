@@ -8,7 +8,7 @@ RSpec.describe 'PUT /responses/:id', type: :request do
   let(:params) do
     {
       endpoint_id: 123,
-      body: new_schema.to_json,
+      body: new_schema,
       http_status_code: 301
     }
   end

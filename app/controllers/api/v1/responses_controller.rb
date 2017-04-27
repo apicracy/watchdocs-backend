@@ -7,6 +7,11 @@ module Api
       def show
         render json: @response
       end
+
+      def destroy
+        @response.destroy
+        render json: @response
+      end
     end
   end
 end

@@ -7,7 +7,7 @@ module Api
       def show
         render json: @response
       end
-
+      
       def create
         response = Response.new(create_response_params)
         authorize! :create, response
@@ -19,7 +19,12 @@ module Api
         @response.update(update_response_params)
         render_resource(@response)
       end
-
+            
+      def destroy
+        @response.destroy
+        render json: @response
+      end
+      
       private
 
       def update_response_params

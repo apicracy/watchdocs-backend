@@ -5,7 +5,7 @@ module Api
       load_and_authorize_resource except: [:create]
 
       def create
-        header = UrlParam.new(create_header_params)
+        header = Header.new(create_header_params)
         authorize! :create, header
         header.save
         render_resource(header)

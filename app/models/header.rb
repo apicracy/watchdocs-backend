@@ -14,6 +14,8 @@ class Header < ApplicationRecord
 
   enum status: %i(fresh up_to_date outdated stale)
 
+  delegate :user, to: :headerable
+
   def update_required(new_required)
     if required.present?
       update(required_draft: new_required)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'POST /headers', type: :request do
   let(:headerable) { Fabricate :request }
-  let(:headerable_id) { request.id }
+  let(:headerable_id) { headerable.id }
   let(:url) { '/api/v1/headers' }
   let(:params) do
     {
@@ -45,7 +45,7 @@ RSpec.describe 'POST /headers', type: :request do
   context 'when user owns parent object' do
     context 'and params are valid for request' do
       before do
-        login_as user, scope: :user
+        login_as headerable.user, scope: :user
         post url, params: params
       end
 
@@ -53,16 +53,16 @@ RSpec.describe 'POST /headers', type: :request do
         expect(response.status).to eq 200
       end
 
-      it 'saves new url param' do
-        expect(Headers.count).to eq 2 # created one and one from endpoint url
+      it 'creates new header' do
+        expect(Header.count).to eq 2 # created one and one from endpoint url
       end
 
       it 'sets up_to_date status by default' do
-        expect(Headers.last.status).to eq('up_to_date')
+        expect(Header.last.status).to eq('up_to_date')
       end
 
       it 'returns serialized header' do
-        expect(json).to eq(serialized(Headers.last))
+        expect(json).to eq(serialized(Header.last))
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe 'POST /headers', type: :request do
       let(:headerable) { Fabricate :response }
 
       before do
-        login_as user, scope: :user
+        login_as headerable.user, scope: :user
         post url, params: params
       end
 
@@ -78,22 +78,22 @@ RSpec.describe 'POST /headers', type: :request do
         expect(response.status).to eq 200
       end
 
-      it 'saves new url param' do
-        expect(Headers.count).to eq 2 # created one and one from endpoint url
+      it 'creates new header' do
+        expect(Header.count).to eq 2 # created one and one from endpoint url
       end
 
       it 'sets up_to_date status by default' do
-        expect(Headers.last.status).to eq('up_to_date')
+        expect(Header.last.status).to eq('up_to_date')
       end
 
       it 'returns serialized header' do
-        expect(json).to eq(serialized(Headers.last))
+        expect(json).to eq(serialized(Header.last))
       end
     end
 
     context 'and params are invalid' do
       before do
-        login_as user, scope: :user
+        login_as headerable.user, scope: :user
         post url, params: params.except(:key) # Missing: key
       end
 

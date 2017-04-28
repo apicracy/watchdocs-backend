@@ -178,6 +178,9 @@
           "id": {
             "type": "integer"
           },
+          "endpoint_id": {
+            "type": "integer"
+          },
           "status": {
             "type": "string"
           },
@@ -191,7 +194,8 @@
           "http_status_code",
           "headers",
           "body_draft",
-          "id"
+          "id",
+          "endpoint_id"
         ],
         "type": "object"
 

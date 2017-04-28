@@ -32,5 +32,10 @@ class Ability
     can :crud, UrlParam do |param|
       can? :crud, param.endpoint
     end
+
+    # Document
+    can :crud, Document do |document|
+      can? :crud, document.project
+    end
   end
 end

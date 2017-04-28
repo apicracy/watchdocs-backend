@@ -7,5 +7,10 @@ class Request < ApplicationRecord
            dependent: :destroy,
            inverse_of: :headerable
 
+  validates :endpoint,
+            presence: true
+
   enum status: %i(outdated up_to_date)
+
+  delegate :user, to: :endpoint
 end

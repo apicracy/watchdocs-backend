@@ -20,9 +20,9 @@ class TreeItemSerializer < ActiveModel::Serializer
   def tree_item_collections(grupped)
     return [object.endpoints, object.groups, object.documents] if grupped
     [
+      object.documents.ungroupped,
       object.endpoints.ungroupped,
-      object.groups.ungroupped,
-      object.documents.ungroupped
+      object.groups.ungroupped
     ]
   end
 end

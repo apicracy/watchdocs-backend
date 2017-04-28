@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "project_id": {
+            "type": "integer"
+        },
+        "group_id": {
+            "type": ["integer", null]
+        },
+        "name": {
+            "type": "string"
+        },
+        "text": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "required": [
+        "name",
+        "project_id"
+    ],
+    "type": "object"
+}

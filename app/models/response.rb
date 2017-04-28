@@ -7,5 +7,15 @@ class Response < ApplicationRecord
            dependent: :destroy,
            inverse_of: :headerable
 
+  validates :endpoint,
+            presence: true
+
+  validates :http_status_code,
+            presence: true,
+            numericality: { only_integer: true },
+            uniqueness: { scope: :endpoint_id }
+
   enum status: %i(outdated up_to_date)
+
+  delegate :user, to: :endpoint
 end

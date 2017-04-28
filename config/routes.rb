@@ -18,6 +18,7 @@ Rails.application.routes.draw do
           get :documentation
         end
       end
+      resources :documents
       resources :responses
       resources :endpoints do
         resource :request

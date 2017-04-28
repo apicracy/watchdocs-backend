@@ -32,5 +32,10 @@ class Ability
     can :crud, UrlParam do |param|
       can? :crud, param.endpoint
     end
+
+    # Header
+    can :crud, Header do |header|
+      can? :crud, header.headerable
+    end
   end
 end

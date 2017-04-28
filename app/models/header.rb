@@ -1,5 +1,7 @@
 class Header < ApplicationRecord
-  belongs_to :headerable, polymorphic: true
+  belongs_to :headerable,
+             polymorphic: true,
+             inverse_of: :headers
 
   validates :key,
             presence: true,

@@ -10,6 +10,7 @@ RSpec.describe 'PUT /headers/:id', type: :request do
       headerable_type: 'Response',
       key: 'X-FORWARDED-FOR',
       required: true,
+      required_draft: true,
       description: Faker::Lorem.sentence,
       example_value: Faker::Lorem.word
     }

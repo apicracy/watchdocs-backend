@@ -11,6 +11,11 @@ module Api
         render_resource(header)
       end
 
+      def update
+        @header.update(update_header_params)
+        render_resource(@header)
+      end
+
       private
 
       def create_header_params
@@ -22,6 +27,16 @@ module Api
           :example_value,
           :required
         ).merge(status: :up_to_date)
+      end
+
+      def update_header_params
+        params.permit(
+          :key,
+          :description,
+          :example_value,
+          :required,
+          :required_draft
+        )
       end
     end
   end

@@ -15,6 +15,12 @@ RSpec.describe ProjectTreeSerializer, type: :serializer do
 
       expected_json = [
         {
+          'id' => document.id,
+          'type' => 'Document',
+          'name' => document.name,
+          'text' => document.text
+        },
+        {
           'id' => endpoint1.id,
           'type' => 'Endpoint',
           'url' => endpoint1.url,
@@ -25,12 +31,6 @@ RSpec.describe ProjectTreeSerializer, type: :serializer do
           'type' => 'Endpoint',
           'url' => endpoint2.url,
           'method' => endpoint2.http_method
-        },
-        {
-          'id' => document.id,
-          'type' => 'Document',
-          'name' => document.name,
-          'text' => document.text
         }
       ]
 

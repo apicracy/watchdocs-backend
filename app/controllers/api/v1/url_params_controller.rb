@@ -24,11 +24,26 @@ module Api
       private
 
       def url_param_create
-        params.permit(:endpoint_id, :description, :is_part_of_url, :data_type, :name, :example)
+        params.permit(
+          :endpoint_id,
+          :description,
+          :is_part_of_url,
+          :data_type,
+          :name,
+          :example,
+          :required
+        )
       end
 
       def url_param_update
-        params.permit(:description, :is_part_of_url, :data_type, :name, :example)
+        params.permit(
+          :description,
+          :is_part_of_url,
+          :data_type,
+          :name,
+          :example,
+          :required
+        )
       end
     end
   end

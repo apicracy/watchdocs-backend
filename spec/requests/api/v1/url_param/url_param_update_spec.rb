@@ -11,7 +11,8 @@ RSpec.describe 'PUT /url_params/:id', type: :request do
       is_part_of_url: false,
       data_type: 'String',
       name: 'search',
-      example: 'test'
+      example: 'test',
+      required: true
     }
   end
 

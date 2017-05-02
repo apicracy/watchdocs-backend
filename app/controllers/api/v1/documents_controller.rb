@@ -15,11 +15,20 @@ module Api
         @document.destroy
         render json: @document
       end
+      
+      def update
+        @document.update(update_document_params)
+        render_resource(@document)
+      end
 
       private
 
       def create_document_params
-        params.permit(:project_id, :name)
+        params.permit(:project_id, :name, :text)
+      end
+
+      def update_document_params
+        params.permit(:name, :text)
       end
     end
   end

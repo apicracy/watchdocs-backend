@@ -15,6 +15,8 @@ class UrlParam < ApplicationRecord
   scope :url_members,
         -> { where(is_part_of_url: true) }
 
+  delegate :user, to: :endpoint
+
   def update_required(new_required)
     if required.present?
       update(required_draft: new_required)

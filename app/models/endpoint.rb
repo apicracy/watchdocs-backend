@@ -29,6 +29,8 @@ class Endpoint < ApplicationRecord
   before_validation :build_request, on: :create, unless: :request
   after_save        :sync_url_params
 
+  delegate :user, to: :project
+
   def update_request(body: nil, headers: nil)
     request ||= build_request
     request.update_body(body) if body

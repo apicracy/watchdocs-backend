@@ -6,9 +6,9 @@ Fabricator(:header) do
 end
 
 Fabricator(:request_header, from: :header) do
-  headerable(fabricator: :request)
+  headerable { Fabricate(:request) }
 end
 
 Fabricator(:response_header, from: :header) do
-  headerable(fabricator: :response)
+  headerable { Fabricate(:response) }
 end

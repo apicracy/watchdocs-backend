@@ -11,10 +11,19 @@ module Api
         render_resource(group)
       end
 
+      def update
+        @group.update(update_group_params)
+        render_resource(@group)
+      end
+
       private
 
       def create_group_params
         params.permit(:project_id, :name, :description)
+      end
+
+      def update_group_params
+        params.permit(:name, :description)
       end
     end
   end

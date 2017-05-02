@@ -2,8 +2,6 @@ module Api
   module V1
     class DocumentsController < ApplicationController
       before_action :authenticate_user!
-      before_action :set_document, except: [:create]
-
       load_and_authorize_resource except: [:create]
 
       def create
@@ -19,10 +17,6 @@ module Api
       end
 
       private
-
-      def set_document
-        @document = Document.find(params[:id])
-      end
 
       def create_document_params
         params.permit(:project_id, :name)

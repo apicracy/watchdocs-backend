@@ -38,7 +38,23 @@ RSpec.describe 'DELETE /groups/:id', type: :request do
 
     it 'returns 200' do
       expect(response.status).to eq 200
-      expect(response.body).to match_schema('group')
+    end
+  end
+
+  context 'when group includes some children' do
+    let(:group2) { Fabricate :group, group_id: group_id }
+
+    before do
+      Fabricate :document, group_id: group2.id
+      Fabricate :endpoint, group_id: group2.id
+      login_as group.project.user, scope: :user
+      delete url
+    end
+
+    it 'deletes all child of group' do
+      expect(Group.count).to eq 0
+      expect(Document.count).to eq 0
+      expect(Endpoint.count).to eq 0
     end
   end
 end

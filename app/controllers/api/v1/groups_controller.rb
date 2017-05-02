@@ -15,11 +15,20 @@ module Api
         @group.destroy
         render json: @group
       end
+        
+      def update
+        @group.update(update_group_params)
+        render_resource(@group)
+      end
 
       private
 
       def create_group_params
         params.permit(:project_id, :name, :group_id, :description)
+      end
+
+      def update_group_params
+        params.permit(:name, :description)
       end
     end
   end

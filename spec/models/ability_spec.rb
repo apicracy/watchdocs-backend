@@ -47,47 +47,41 @@ RSpec.describe Ability, type: :model do
     # Endpoint
     it do
       is_expected.to be_able_to(
-        :read,
-        Endpoint.new(project: owned_project)
+        :read, Endpoint.new(project: owned_project)
       )
     end
 
     it do
       is_expected.not_to be_able_to(
-        :crud,
-        Endpoint.new(project: Project.new)
+        :crud, Endpoint.new(project: Project.new)
       )
     end
 
     # Request
     it do
       is_expected.to be_able_to(
-        :crud,
-        Request.new(endpoint: owned_endpoint)
+        :crud, Request.new(endpoint: owned_endpoint)
       )
     end
 
     # Response
     it do
       is_expected.to be_able_to(
-        :crud,
-        Response.new(endpoint: owned_endpoint)
+        :crud, Response.new(endpoint: owned_endpoint)
       )
     end
 
     # UrlParam
     it do
       is_expected.to be_able_to(
-        :crud,
-        UrlParam.new(endpoint: owned_endpoint)
+        :crud, UrlParam.new(endpoint: owned_endpoint)
       )
     end
 
     # Header
     it do
       is_expected.to be_able_to(
-        :crud,
-        Header.new(headerable: owned_endpoint.request)
+        :crud, Header.new(headerable: owned_endpoint.request)
       )
     end
   end

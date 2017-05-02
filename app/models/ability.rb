@@ -33,6 +33,11 @@ class Ability
       can? :crud, param.endpoint
     end
 
+    # Header
+    can :crud, Header do |header|
+      can? :crud, header.headerable
+    end
+
     # Document
     can :crud, Document do |document|
       can? :crud, document.project

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         resource :request
       end
       resources :url_params, only: [:create, :update, :destroy]
+      resources :headers, only: [:create, :update, :destroy]
       resources :users, only: [] do
         collection do
           get :me

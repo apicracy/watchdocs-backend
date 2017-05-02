@@ -1,8 +1,11 @@
 class Request < ApplicationRecord
   include BodyAndHeadersUpdatable
 
-  has_many :headers, as: :headerable, dependent: :destroy
   belongs_to :endpoint
+  has_many :headers,
+           as: :headerable,
+           dependent: :destroy,
+           inverse_of: :headerable
 
   validates :endpoint,
             presence: true

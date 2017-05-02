@@ -19,7 +19,7 @@ module Api
       private
 
       def create_group_params
-        params.permit(:project_id, :name, :description)
+        params.permit(:project_id, :name, :group_id, :description)
       end
 
       def update_group_params

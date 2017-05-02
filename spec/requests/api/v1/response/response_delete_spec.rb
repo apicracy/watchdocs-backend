@@ -33,7 +33,7 @@ RSpec.describe 'DELETE /responses/:id', type: :request do
   context 'when user is the owner of the response' do
     before do
       # TODO: Change after merge
-      login_as expected_response.endpoint.project.user, scope: :user
+      login_as expected_response.user, scope: :user
       delete url
     end
 

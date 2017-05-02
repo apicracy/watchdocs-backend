@@ -16,6 +16,11 @@ module Api
         render_resource(@header)
       end
 
+      def destroy
+        @header.destroy
+        render json: @header
+      end
+
       private
 
       def create_header_params

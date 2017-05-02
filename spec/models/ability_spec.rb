@@ -28,6 +28,9 @@ RSpec.describe Ability, type: :model do
 
     # Header
     it { is_expected.not_to be_able_to(:crud, Header.new) }
+
+    # Header
+    it { is_expected.not_to be_able_to(:crud, Group.new) }
   end
 
   context 'when is a signed in user' do
@@ -82,6 +85,19 @@ RSpec.describe Ability, type: :model do
     it do
       is_expected.to be_able_to(
         :crud, Header.new(headerable: owned_endpoint.request)
+      )
+    end
+
+    # Group
+    it do
+      is_expected.to be_able_to(
+        :read, Group.new(project: owned_project)
+      )
+    end
+
+    it do
+      is_expected.not_to be_able_to(
+        :crud, Group.new(project: Project.new)
       )
     end
   end

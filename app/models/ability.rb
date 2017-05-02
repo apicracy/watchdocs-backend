@@ -42,5 +42,10 @@ class Ability
     can :crud, Document do |document|
       can? :crud, document.project
     end
+
+    # Group
+    can :crud, Group do |group|
+      can? :crud, group.project
+    end
   end
 end

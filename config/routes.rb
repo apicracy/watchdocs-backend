@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         end
       end
       resources :documents
+      resources :groups
       resources :responses
       resources :endpoints do
         resource :request

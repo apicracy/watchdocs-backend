@@ -3,9 +3,11 @@ require 'rails_helper'
 RSpec.describe 'PUT /documents/:id', type: :request do
   let(:document) { Fabricate :document }
   let(:document_id) { document.id }
+  let(:project) { Fabricate :project }
   let(:url) { "/api/v1/documents/#{document_id}" }
   let(:params) do
     {
+      project_id: project.id,
       name: Faker::Lorem.word,
       text: Faker::Lorem.paragraph
     }
@@ -40,6 +42,8 @@ RSpec.describe 'PUT /documents/:id', type: :request do
     let(:user) { document.project.user }
 
     context 'and params are valid' do
+      let(:project_id) { document.project_id }
+
       before do
         login_as user, scope: :user
         put url, params: params
@@ -48,6 +52,10 @@ RSpec.describe 'PUT /documents/:id', type: :request do
       it 'returns 200 and serialized updated document' do
         expect(response.status).to eq 200
         expect(json).to eq(serialized(document.reload))
+      end
+
+      it 'does not update project' do
+        expect(json['project_id']).to eq project_id
       end
     end
 

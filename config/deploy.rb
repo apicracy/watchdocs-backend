@@ -2,7 +2,7 @@
 lock "3.8.1"
 
 set :application, "watchdocs-backend"
-set :repo_url, "git@github.com:exlabs/watchdocs-backend.git"
+set :repo_url, "git://github.com/exlabs/watchdocs-backend.git"
 
 set :branch, :aws
 set :deploy_to, '/home/deploy/watchdocs-backend'

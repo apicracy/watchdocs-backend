@@ -6,4 +6,6 @@ class Group < ApplicationRecord
   has_many :groups, dependent: :destroy
 
   validates :name, :project, presence: true
+
+  delegate :user, to: :project
 end

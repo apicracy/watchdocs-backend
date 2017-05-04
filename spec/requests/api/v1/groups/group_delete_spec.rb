@@ -4,6 +4,7 @@ RSpec.describe 'DELETE /groups/:id', type: :request do
   let(:group) { Fabricate :group }
   let(:group_id) { group.id }
   let(:url) { "/api/v1/groups/#{group_id}" }
+  let(:user) { group.user }
 
   context 'when user is unauthenticated' do
     before { delete url }
@@ -32,7 +33,7 @@ RSpec.describe 'DELETE /groups/:id', type: :request do
 
   context 'when user is the owner of the group' do
     before do
-      login_as group.project.user, scope: :user
+      login_as user, scope: :user
       delete url
     end
 
@@ -42,12 +43,11 @@ RSpec.describe 'DELETE /groups/:id', type: :request do
   end
 
   context 'when group includes some children' do
-    let(:group2) { Fabricate :group, group_id: group_id }
-
     before do
+      group2 = Fabricate :group, group_id: group_id
       Fabricate :document, group_id: group2.id
       Fabricate :endpoint, group_id: group2.id
-      login_as group.project.user, scope: :user
+      login_as user, scope: :user
       delete url
     end
 

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :projects do
         member do
           get :documentation
+          put :tree
         end
       end
       resources :documents

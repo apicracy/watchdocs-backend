@@ -30,6 +30,9 @@
       "method": {
           "type": "string"
       },
+      "order_number": {
+          "type": "integer"
+      },
       "request": {
           "properties": {
               "id": {

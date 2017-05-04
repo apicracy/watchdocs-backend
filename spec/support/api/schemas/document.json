@@ -16,6 +16,9 @@
         "text": {
             "type": "string"
         },
+        "order_number": {
+            "type": "integer"
+        },
         "created_at": {
             "type": "string",
             "format": "date-time"

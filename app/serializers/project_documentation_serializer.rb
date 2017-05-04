@@ -2,7 +2,7 @@ class ProjectDocumentationSerializer < TreeItemSerializer
   attributes :id, :documentation
 
   def documentation
-    generate_tree(grupped: false, parent_serializer: self.class)
+    generate_tree(groupped: false, parent_serializer: self.class)
   end
 
   class GroupItem < TreeItemSerializer

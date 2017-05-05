@@ -16,6 +16,11 @@ module Api
         render_resource(@group)
       end
 
+      def destroy
+        @group.destroy
+        render json: @group
+      end
+
       private
 
       def create_group_params

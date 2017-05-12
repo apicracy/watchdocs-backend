@@ -11,6 +11,7 @@ class ProcessExternalEndpointSchemas
     @endpoint_data = endpoint_schema_params[:endpoint]
     @request_data = endpoint_schema_params[:request]
     @response_data = endpoint_schema_params[:response]
+    @group = find_or_create_group(@project, @endpoint_data[:url])
   end
 
   def call
@@ -54,7 +55,8 @@ class ProcessExternalEndpointSchemas
   def endpoint
     @endpoint ||= project.endpoints.find_or_initialize_by(
       url: endpoint_data[:url],
-      http_method: endpoint_data[:method]
+      http_method: endpoint_data[:method],
+      group_id: @group
     )
     @endpoint.up_to_date! unless @endpoint.status
     @endpoint
@@ -70,5 +72,13 @@ class ProcessExternalEndpointSchemas
     headers['properties'].map do |header, _v|
       [header, headers['required'].include?(header)]
     end.to_h
+  end
+
+  def find_or_create_group(project, name)
+    Group.find_or_create_by!(project: project, name: parse_name(name))
+  end
+
+  def parse_name(url)
+    url.split('/v1/').last.split('/').first.humanize
   end
 end

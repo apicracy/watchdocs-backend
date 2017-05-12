@@ -59,6 +59,11 @@ RSpec.describe ProcessExternalEndpointSchemas do
         expect(endpoint.url_params.last.name).to eq('data[attributes][output_currency]')
         expect(endpoint.url_params.all?(&:required)).to be_truthy
       end
+
+      it 'finds or create group' do
+        endpoint = Endpoint.last
+        expect(endpoint.group).to be_present
+      end
     end
 
     context 'and schemas are for invalid new endpoint call' do

@@ -1,25 +1,14 @@
 class Header < ApplicationRecord
-  include Draftable
-  belongs_to :headerable, polymorphic: true
+  belongs_to :headerable,
+             polymorphic: true,
+             inverse_of: :headers
 
   validates :key,
             presence: true,
             uniqueness: { scope: [:headerable_id, :headerable_type] }
 
-  enum status: %i(fresh up_to_date outdated stale)
+  validates :headerable, presence: true
+  validates :required, presence: true
 
-  before_save :set_status
-
-  def update_required(new_required)
-    draft(:required, new_required)
-  end
-
-  private
-
-  def set_status
-    # Escaping those statuses requires user action
-    return if stale? || fresh?
-
-    self.status = pending_drafts? ? :outdated : :fresh
-  end
+  delegate :user, to: :headerable
 end

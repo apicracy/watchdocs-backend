@@ -139,7 +139,7 @@
     "request": {
       "properties": {
         "body": {
-          "type": "object"
+          "type": ["object", "null"]
         },
         "body_draft": {
           "type": ["object", "null"]
@@ -151,7 +151,7 @@
           "type": "integer"
         },
         "status": {
-          "type": "string"
+          "type": ["string", "null"]
         }
       },
       "required": [
@@ -178,6 +178,9 @@
           "id": {
             "type": "integer"
           },
+          "endpoint_id": {
+            "type": "integer"
+          },
           "status": {
             "type": "string"
           },
@@ -191,7 +194,8 @@
           "http_status_code",
           "headers",
           "body_draft",
-          "id"
+          "id",
+          "endpoint_id"
         ],
         "type": "object"
 
@@ -221,6 +225,12 @@
           },
           "status": {
             "type": "string"
+          },
+          "headerable_id": {
+              "type": "integer"
+          },
+          "headerable_type": {
+              "type": "string"
           }
         },
         "required": [
@@ -239,6 +249,9 @@
     "url_params":{
       "items": {
           "properties": {
+              "endpoint_id": {
+                  "type": "integer"
+              },
               "data_type": {
                   "type": "null"
               },
@@ -256,6 +269,12 @@
               },
               "name": {
                   "type": "string"
+              },
+              "required": {
+                "type": ["boolean", "null"]
+              },
+              "required_draft": {
+                  "type": ["boolean", "null"]
               }
           },
           "required": [
@@ -264,7 +283,9 @@
               "id",
               "is_part_of_url",
               "example",
-              "description"
+              "description",
+              "required",
+              "required_draft"
           ],
           "type": "object"
       },

@@ -15,7 +15,7 @@ RSpec.describe ProcessExternalEndpointSchemas do
   end
 
   context 'when project exists' do
-    before { Fabricate(:project, id: 0) }
+    before { Fabricate(:project, app_id: 'TEST') }
 
     context 'and schemas are for success new endpoint call' do
       before do
@@ -57,7 +57,7 @@ RSpec.describe ProcessExternalEndpointSchemas do
       it 'creates all url params' do
         endpoint = Endpoint.last
         expect(endpoint.url_params.count).to eq(4)
-        expect(endpoint.url_params.last.key).to eq('data[attributes][output_currency]')
+        expect(endpoint.url_params.last.name).to eq('data[attributes][output_currency]')
         expect(endpoint.url_params.all?(&:required)).to be_truthy
       end
     end
@@ -87,9 +87,9 @@ RSpec.describe ProcessExternalEndpointSchemas do
         expect(response.headers.all?(&:required)).to be_truthy
       end
 
-      it 'does not create request' do
+      it 'does create request' do
         endpoint = Endpoint.last
-        expect(endpoint.request).to be_nil
+        expect(endpoint.request).to be_present
       end
     end
   end

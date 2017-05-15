@@ -5,20 +5,53 @@ class ApplicationController < ActionController::API
   include CanCan::ControllerAdditions
   check_authorization unless: :devise_controller?
 
-  rescue_from CanCan::AccessDenied do |exception|
-    record_not_found(exception)
+  rescue_from CanCan::AccessDenied, with: :forbidden_error
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
+
+  def render_resource(resource)
+    if resource.errors.empty?
+      render json: resource
+    else
+      validation_error(resource)
+    end
   end
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-    record_not_found(exception)
-  end
-
-  def record_not_found(exception)
+  def record_not_found_error(exception)
     render json: {
       errors: [
-        { status: '404', title: 'Record not found',
-          detail: exception.message, code: '104' }
+        {
+          status: '404',
+          title: 'Record not found',
+          detail: exception.message,
+          code: '104'
+        }
       ]
     }, status: :not_found
+  end
+
+  def validation_error(resource)
+    render json: {
+      errors: [
+        {
+          status: '400',
+          title: 'Bad Request',
+          detail: resource.errors,
+          code: '100'
+        }
+      ]
+    }, status: :bad_request
+  end
+
+  def forbidden_error(exception)
+    render json: {
+      errors: [
+        {
+          status: '403',
+          title: 'Forbidden',
+          detail: exception.message,
+          code: '103'
+        }
+      ]
+    }, status: :forbidden
   end
 end

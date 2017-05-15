@@ -7,7 +7,7 @@ class ProcessExternalEndpointSchemas
 
   # TODO: Add json schema validation for params
   def initialize(endpoint_schema_params)
-    @project = find_project(endpoint_schema_params[:project_id])
+    @project = find_project(endpoint_schema_params[:app_id])
     @endpoint_data = endpoint_schema_params[:endpoint]
     @request_data = endpoint_schema_params[:request]
     @response_data = endpoint_schema_params[:response]
@@ -33,7 +33,7 @@ class ProcessExternalEndpointSchemas
   # TODO: Create card for changes in gem: filter query params and support types
   def update_url_params
     params = UrlParamsSchema.new(request_data[:url_params]).params
-    params.each { |key, required| create_or_update_url_param(key, required) }
+    params.each { |name, required| create_or_update_url_param(name, required) }
   end
 
   def update_request
@@ -45,22 +45,24 @@ class ProcessExternalEndpointSchemas
 
   ## Helpers:
 
-  def find_project(project_id)
-    Project.find(project_id)
+  def find_project(app_id)
+    Project.find_by!(app_id: app_id)
   rescue ActiveRecord::RecordNotFound => e
     raise ProjectNotFound, e.message
   end
 
   def endpoint
-    @endpoint ||= project.endpoints.find_or_create_by(
+    @endpoint ||= project.endpoints.find_or_initialize_by(
       url: endpoint_data[:url],
       http_method: endpoint_data[:method]
     )
+    @endpoint.up_to_date! unless @endpoint.status
+    @endpoint
   end
 
-  def create_or_update_url_param(key, required)
+  def create_or_update_url_param(name, required)
     endpoint.url_params
-            .find_or_initialize_by(key: key)
+            .find_or_initialize_by(name: name)
             .update_required(required)
   end
 

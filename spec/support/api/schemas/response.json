@@ -30,6 +30,12 @@
                     },
                     "status": {
                         "type": "string"
+                    },
+                    "headerable_id": {
+                        "type": "integer"
+                    },
+                    "headerable_type": {
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -48,6 +54,9 @@
         "id": {
             "type": "integer"
         },
+        "endpoint_id": {
+            "type": "integer"
+        },
         "status": {
             "type": "string"
         },
@@ -61,7 +70,8 @@
         "http_status_code",
         "headers",
         "body_draft",
-        "id"
+        "id",
+        "endpoint_id"
     ],
     "type": "object"
 }

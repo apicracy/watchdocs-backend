@@ -18,10 +18,14 @@ Rails.application.routes.draw do
           get :documentation
         end
       end
+      resources :documents
+      resources :groups
       resources :responses
       resources :endpoints do
         resource :request
       end
+      resources :url_params, only: [:create, :update, :destroy]
+      resources :headers, only: [:create, :update, :destroy]
       resources :users, only: [] do
         collection do
           get :me

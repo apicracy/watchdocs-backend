@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419140213) do
+ActiveRecord::Schema.define(version: 20170515134854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,10 +57,8 @@ ActiveRecord::Schema.define(version: 20170419140213) do
     t.integer  "headerable_id"
     t.string   "key"
     t.boolean  "required"
-    t.boolean  "required_draft"
     t.string   "description"
     t.string   "example_value"
-    t.integer  "status"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["headerable_type", "headerable_id"], name: "index_headers_on_headerable_type_and_headerable_id", using: :btree
@@ -75,8 +73,8 @@ ActiveRecord::Schema.define(version: 20170419140213) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "base_url"
-    t.string   "api_key"
-    t.string   "api_secret"
+    t.string   "app_id"
+    t.string   "app_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
@@ -105,12 +103,12 @@ ActiveRecord::Schema.define(version: 20170419140213) do
 
   create_table "url_params", force: :cascade do |t|
     t.integer  "endpoint_id"
-    t.string   "key"
+    t.string   "name"
     t.integer  "status"
     t.boolean  "required"
     t.string   "data_type"
     t.text     "description"
-    t.string   "example_value"
+    t.string   "example"
     t.boolean  "is_part_of_url"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false

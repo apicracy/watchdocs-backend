@@ -21,6 +21,12 @@
       "id": {
           "type": "integer"
       },
+      "project_id": {
+          "type": "integer"
+      },
+      "group_id": {
+          "type": ["integer", null]
+      },
       "method": {
           "type": "string"
       },
@@ -30,7 +36,7 @@
                   "type": "integer"
               },
               "status": {
-                  "type": "string"
+                  "type": ["string", "null"]
               }
           },
           "required": [
@@ -73,6 +79,9 @@
                   "data_type": {
                       "type": ["string", null]
                   },
+                  "endpoint_id": {
+                      "type": "integer"
+                  },
                   "description": {
                       "type": ["string", null]
                   },
@@ -87,6 +96,12 @@
                   },
                   "name": {
                       "type": "string"
+                  },
+                  "required": {
+                    "type": ["boolean", "null"]
+                  },
+                  "required_draft": {
+                    "type": ["boolean", "null"]
                   }
               },
               "required": [
@@ -95,7 +110,9 @@
                   "id",
                   "is_part_of_url",
                   "example",
-                  "name"
+                  "name",
+                  "required",
+                  "required_draft"
               ],
               "type": "object"
           },
@@ -110,6 +127,8 @@
       "request",
       "method",
       "id",
+      "project_id",
+      "group_id",
       "responses"
   ],
   "type": "object"

@@ -30,6 +30,12 @@
                     },
                     "status": {
                         "type": "string"
+                    },
+                    "headerable_id": {
+                        "type": "integer"
+                    },
+                    "headerable_type": {
+                        "type": "string"
                     }
                 },
                 "required": [

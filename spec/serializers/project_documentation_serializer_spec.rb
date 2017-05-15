@@ -6,13 +6,13 @@ RSpec.describe ProjectDocumentationSerializer, type: :serializer do
   let(:serializer) { serializer_for(project) }
 
   context 'when project is empty' do
-    it { expect(serialized).to match_schema('documentation') }
+    it { is_expected.to match_schema('documentation') }
   end
 
   context 'when project have empty groups only' do
     before { Fabricate.times(3, :group, project: project) }
 
-    it { expect(serialized).to match_schema('documentation') }
+    it { is_expected.to match_schema('documentation') }
   end
 
   context 'when project have a complex structure' do
@@ -26,6 +26,6 @@ RSpec.describe ProjectDocumentationSerializer, type: :serializer do
       Fabricate(:document, project: project, group: group)
     end
 
-    it { expect(serialized).to match_schema('documentation') }
+    it { is_expected.to match_schema('documentation') }
   end
 end

@@ -17,7 +17,7 @@ RSpec.describe 'GET /responses/:id', type: :request do
       get url
     end
 
-    it_behaves_like 'not found'
+    it_behaves_like 'forbidden'
   end
 
   context 'when response doesnt exist' do

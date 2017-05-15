@@ -4,12 +4,32 @@ RSpec.shared_examples 'unauthorized' do
   end
 end
 
+RSpec.shared_examples 'forbidden' do
+  it 'returns forbidden status' do
+    expect(response.status).to eq 403
+  end
+
+  it 'returns forbidden message errors' do
+    expect(json['errors'].first['title']).to eq('Forbidden')
+  end
+end
+
 RSpec.shared_examples 'not found' do
-  it 'returns unathorized status' do
+  it 'returns not found status' do
     expect(response.status).to eq 404
   end
 
   it 'returns not found as a description' do
-    expect(json["errors"].first["title"]).to eq('Record not found')
+    expect(json['errors'].first['title']).to eq('Record not found')
+  end
+end
+
+RSpec.shared_examples 'invalid' do
+  it 'returns bad request status' do
+    expect(response.status).to eq 400
+  end
+
+  it 'returns validation errors' do
+    expect(json['errors'].first['title']).to eq('Bad Request')
   end
 end

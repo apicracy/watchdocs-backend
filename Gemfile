@@ -29,6 +29,7 @@ gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.4'
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
 gem 'devise-jwt', '~> 0.1.1'
+gem 'watchdocs-rails', '0.7.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,9 +44,9 @@ group :development, :test do
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 3.1'
-  gem 'rspec-rails', '~> 3.5'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do

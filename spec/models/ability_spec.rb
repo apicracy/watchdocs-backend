@@ -2,8 +2,8 @@ require 'cancan/matchers'
 require 'rails_helper'
 
 RSpec.describe Ability, type: :model do
-  let(:user) { nil }
   subject(:ability) { described_class.new(user) }
+  let(:user) { nil }
 
   # Guest
   # ----
@@ -22,6 +22,15 @@ RSpec.describe Ability, type: :model do
 
     # Response
     it { is_expected.not_to be_able_to(:crud, Response.new) }
+
+    # UrlParam
+    it { is_expected.not_to be_able_to(:crud, UrlParam.new) }
+
+    # Header
+    it { is_expected.not_to be_able_to(:crud, Header.new) }
+
+    # Header
+    it { is_expected.not_to be_able_to(:crud, Group.new) }
   end
 
   context 'when is a signed in user' do
@@ -39,15 +48,57 @@ RSpec.describe Ability, type: :model do
     it { is_expected.to be_able_to(:index, Project) }
 
     # Endpoint
-    it { is_expected.to be_able_to(:read, Endpoint.new(project: owned_project)) }
     it do
-      is_expected.not_to be_able_to(:crud, Endpoint.new(project: Project.new))
+      is_expected.to be_able_to(
+        :read, Endpoint.new(project: owned_project)
+      )
+    end
+
+    it do
+      is_expected.not_to be_able_to(
+        :crud, Endpoint.new(project: Project.new)
+      )
     end
 
     # Request
-    it { is_expected.to be_able_to(:crud, Request.new(endpoint: owned_endpoint)) }
+    it do
+      is_expected.to be_able_to(
+        :crud, Request.new(endpoint: owned_endpoint)
+      )
+    end
 
     # Response
-    it { is_expected.to be_able_to(:crud, Response.new(endpoint: owned_endpoint)) }
+    it do
+      is_expected.to be_able_to(
+        :crud, Response.new(endpoint: owned_endpoint)
+      )
+    end
+
+    # UrlParam
+    it do
+      is_expected.to be_able_to(
+        :crud, UrlParam.new(endpoint: owned_endpoint)
+      )
+    end
+
+    # Header
+    it do
+      is_expected.to be_able_to(
+        :crud, Header.new(headerable: owned_endpoint.request)
+      )
+    end
+
+    # Group
+    it do
+      is_expected.to be_able_to(
+        :read, Group.new(project: owned_project)
+      )
+    end
+
+    it do
+      is_expected.not_to be_able_to(
+        :crud, Group.new(project: Project.new)
+      )
+    end
   end
 end

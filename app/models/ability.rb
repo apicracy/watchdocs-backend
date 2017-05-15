@@ -27,5 +27,25 @@ class Ability
     can :crud, Response do |response|
       can? :crud, response.endpoint
     end
+
+    # UrlParam
+    can :crud, UrlParam do |param|
+      can? :crud, param.endpoint
+    end
+
+    # Header
+    can :crud, Header do |header|
+      can? :crud, header.headerable
+    end
+
+    # Document
+    can :crud, Document do |document|
+      can? :crud, document.project
+    end
+
+    # Group
+    can :crud, Group do |group|
+      can? :crud, group.project
+    end
   end
 end

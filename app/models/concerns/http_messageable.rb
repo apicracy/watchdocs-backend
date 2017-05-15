@@ -1,3 +1,5 @@
+# This module contains all shared code between Request and Response
+# As HTTP specification names Request/Response as Messages this concern has Messageable name
 module HttpMessageable
   extend ActiveSupport::Concern
 

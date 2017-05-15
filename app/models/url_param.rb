@@ -17,11 +17,13 @@ class UrlParam < ApplicationRecord
 
   delegate :user, to: :endpoint
 
-  def update_required(new_required)
-    if required.present?
-      update(required_draft: new_required)
-    else
-      update(required: new_required)
-    end
+  before_save :set_status
+
+  private
+
+  def set_status
+    # Escaping fresh or stale status requires user action
+    return if fresh? || stale?
+    self.status = required_draft? ? :outdated : :up_to_date
   end
 end

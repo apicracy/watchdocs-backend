@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProcessExternalEndpointSchemas do
+RSpec.describe UpdateEndpointSchemas do
   RSpec::Matchers.define_negated_matcher :not_change, :change
 
   let(:schemas) { external_schema_fixture(:full) }
@@ -33,25 +33,10 @@ RSpec.describe ProcessExternalEndpointSchemas do
         expect(endpoint.responses.last.body).to eq schemas[:response][:body]
       end
 
-      it 'creates all headers for response' do
-        response = Endpoint.last.responses.last
-        expect(response.headers.count).to eq(7)
-        expect(response.headers.last.key).to eq('X-RUNTIME')
-        expect(response.headers.all?(&:required)).to be_truthy
-        expect(response.headers.all?{ |h| h.status == 'fresh' }).to be_truthy
-      end
-
       it 'creates request' do
         endpoint = Endpoint.last
         expect(endpoint.request).to be_present
         expect(endpoint.request.body).to eq schemas[:request][:body]
-      end
-
-      it 'creates all headers for request' do
-        request = Endpoint.last.request
-        expect(request.headers.count).to eq(7)
-        expect(request.headers.last.key).to eq('X-RUNTIME')
-        expect(request.headers.all?(&:required)).to be_truthy
       end
 
       it 'creates all url params' do
@@ -78,13 +63,6 @@ RSpec.describe ProcessExternalEndpointSchemas do
         expect(endpoint.responses.count).to eq(1)
         expect(endpoint.responses.last.http_status_code).to eq schemas[:response][:status]
         expect(endpoint.responses.last.body).to eq schemas[:response][:body]
-      end
-
-      it 'creates all headers for response' do
-        response = Endpoint.last.responses.last
-        expect(response.headers.count).to eq(7)
-        expect(response.headers.last.key).to eq('X-RUNTIME')
-        expect(response.headers.all?(&:required)).to be_truthy
       end
 
       it 'does create request' do

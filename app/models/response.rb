@@ -1,21 +1,8 @@
 class Response < ApplicationRecord
-  include BodyAndHeadersUpdatable
-
-  belongs_to :endpoint
-  has_many :headers,
-           as: :headerable,
-           dependent: :destroy,
-           inverse_of: :headerable
-
-  validates :endpoint,
-            presence: true
+  include HttpMessageable
 
   validates :http_status_code,
             presence: true,
             numericality: { only_integer: true },
             uniqueness: { scope: :endpoint_id }
-
-  enum status: %i(outdated up_to_date)
-
-  delegate :user, to: :endpoint
 end

@@ -5,7 +5,6 @@ Fabricator(:endpoint) do
   status { Endpoint.statuses[:up_to_date] }
   title { Faker::Lorem.sentence }
   summary { Faker::Lorem.paragraph }
-  request { Fabricate :request }
 end
 
 Fabricator(:full_endpoint, from: :endpoint) do

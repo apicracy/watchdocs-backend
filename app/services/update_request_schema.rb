@@ -9,6 +9,13 @@ class UpdateRequestSchema
   end
 
   def call
+    update_body
+    update_status
+  end
+
+  private
+
+  def update_body
     return if request.body == body
 
     if request.body
@@ -16,5 +23,9 @@ class UpdateRequestSchema
     else
       request.update(body: body)
     end
+  end
+
+  def update_status
+    request.update(status: request.body_draft.present? ? :outdated : :up_to_date)
   end
 end

@@ -31,7 +31,7 @@ module Api
           :description,
           :example_value,
           :required
-        ).merge(status: :up_to_date)
+        )
       end
 
       def update_header_params
@@ -39,8 +39,7 @@ module Api
           :key,
           :description,
           :example_value,
-          :required,
-          :required_draft
+          :required
         )
       end
     end

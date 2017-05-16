@@ -15,9 +15,11 @@ class UpdateEndpointSchemas
 
   def call
     update_response
-    return unless request_data
-    update_url_params
-    update_request
+    if request_data
+      update_url_params
+      update_request
+    end
+    update_endpoint_status
   end
 
   private
@@ -35,6 +37,17 @@ class UpdateEndpointSchemas
 
   def update_url_params
     UpdateUrlParamsFromSchema.new(endpoint: endpoint, schema: request_data[:url_params]).call
+  end
+
+  def update_endpoint_status
+    new_status =  if endpoint.responses.any?(&:outdated?) ||
+                     endpoint.request.outdated? ||
+                     endpoint.url_params.any?(&:outdated?)
+                    :outdated
+                  else
+                    :up_to_date
+                  end
+    endpoint.update(status: new_status)
   end
 
   ## Helpers:

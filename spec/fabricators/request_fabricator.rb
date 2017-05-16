@@ -1,5 +1,5 @@
 Fabricator(:request) do
-  endpoint
+  endpoint(inverse_of: :endpoint)
   status { Request.statuses[:up_to_date] }
   body do
     {

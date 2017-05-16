@@ -11,6 +11,13 @@ class UpdateResponseSchema
   end
 
   def call
+    update_body
+    update_status
+  end
+
+  private
+
+  def update_body
     return if response.body == body
 
     if response.body
@@ -18,5 +25,9 @@ class UpdateResponseSchema
     else
       response.update(body: body)
     end
+  end
+
+  def update_status
+    response.update(status: response.body_draft.present? ? :outdated : :up_to_date)
   end
 end

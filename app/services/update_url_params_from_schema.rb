@@ -10,7 +10,7 @@ class UpdateUrlParamsFromSchema
 
   def call
     discovered_params.each do |name, required|
-      create_or_update_url_param(name, required)
+      UpdateUrlParamFromSchema.new(endpoint: endpoint, name: name, required: required).call
     end
   end
 
@@ -18,16 +18,5 @@ class UpdateUrlParamsFromSchema
 
   def discovered_params
     UrlParamsSchema.new(schema).params
-  end
-
-  def create_or_update_url_param(name, required)
-    param = endpoint.url_params.find_or_initialize_by(name: name)
-    return if param.required == required
-
-    if param.required
-      param.update(required_draft: required)
-    else
-      param.update(required: required)
-    end
   end
 end

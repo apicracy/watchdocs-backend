@@ -26,6 +26,14 @@ class Endpoint < ApplicationRecord
 
   delegate :user, to: :project
 
+  def description
+    return if title.blank? && summary.blank?
+    {
+      title: title,
+      content: summary
+    }
+  end
+
   private
 
   def sync_url_params
@@ -35,6 +43,6 @@ class Endpoint < ApplicationRecord
 
   def autocorrect_url
     return true unless url
-    self.url = UrlPath.new(url).corrected_url
+    self.url = UrlPath.autocorrect(url)
   end
 end

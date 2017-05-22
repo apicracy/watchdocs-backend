@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 RSpec.describe 'PUT /endpoints/:endpoint_id/request', type: :request do
   let(:user) { Fabricate :user }
   let(:project) { Fabricate :project, user: user }

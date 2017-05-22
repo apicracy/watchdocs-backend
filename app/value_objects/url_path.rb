@@ -4,7 +4,7 @@ module UrlPath
   # allows params starting with ":"
   VALID_PATH = %r(\A\/{1}(:?[A-Za-z0-9\-_\.~]+\/)*(:?[A-Za-z0-9\-_\.~]+)\z)
 
-  def self.autocorrect(url)
+  def self.autocorect(url)
     corrected = url
     corrected.prepend('/') unless corrected.start_with?('/')
     corrected.chomp!('/') if corrected.end_with?('/')

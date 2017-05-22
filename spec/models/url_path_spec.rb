@@ -21,7 +21,7 @@ RSpec.describe UrlPath, type: :model do
       let(:url) { '/v1/projects/' }
 
       it 'removes ending with slash' do
-        is_expected.to eq('/vi/projects')
+        is_expected.to eq('/v1/projects')
       end
     end
   end

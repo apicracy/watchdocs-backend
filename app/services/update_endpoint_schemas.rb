@@ -56,7 +56,5 @@ class UpdateEndpointSchemas
       url: endpoint_data[:url],
       http_method: endpoint_data[:method]
     )
-    endpoint.up_to_date! unless endpoint.status
-    endpoint
   end
 end

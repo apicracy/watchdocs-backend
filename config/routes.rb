@@ -3,13 +3,16 @@ Rails.application.routes.draw do
              path: '',
              path_names: {
                sign_in: 'login',
-               sign_out: 'logout',
-               sign_up: 'signup',
+               sign_out: 'logout'
              },
+             skip: [:registrations],
              controllers: {
-               sessions: 'api/v1/sessions',
-               registrations: 'api/v1/registrations'
+               sessions: 'sessions',
              }
+
+  devise_scope :user do
+    post '/signup', to: 'registrations#create'
+  end
 
   namespace :api do
     namespace :v1 do

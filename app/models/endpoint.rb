@@ -9,7 +9,6 @@ class Endpoint < ApplicationRecord
 
   validates :http_method,
             :project,
-            :status,
             :request,
             presence: true
 

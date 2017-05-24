@@ -52,7 +52,7 @@ class UpdateEndpointSchemas
   end
 
   def endpoint
-    endpoint ||= project.endpoints.find_or_initialize_by(
+    @endpoint ||= project.endpoints.find_or_create_by!(
       url: endpoint_data[:url],
       http_method: endpoint_data[:method]
     )

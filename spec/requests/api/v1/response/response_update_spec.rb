@@ -8,7 +8,7 @@ RSpec.describe 'PUT /responses/:id', type: :request do
   let(:params) do
     {
       endpoint_id: 123,
-      body: new_schema,
+      body: JSON.generate(new_schema),
       http_status_code: 301
     }
   end
@@ -69,6 +69,11 @@ RSpec.describe 'PUT /responses/:id', type: :request do
 
     it 'does not update endpoint_id' do
       expect(json['endpoint_id']).to eq endpoint_id
+    end
+
+    it 'clears body draft' do
+      response = Response.last.reload
+      expect(response.body_draft).to be_nil
     end
   end
 

@@ -7,7 +7,7 @@ module Api
       def show
         render json: @response
       end
-      
+
       def create
         response = Response.new(create_response_params)
         authorize! :create, response
@@ -19,26 +19,35 @@ module Api
         @response.update(update_response_params)
         render_resource(@response)
       end
-            
+
       def destroy
         @response.destroy
         render json: @response
       end
-      
-      private
 
-      def update_response_params
-        params.permit(
-          :body,
-          :http_status_code
-        )
-      end
+      private
 
       def create_response_params
         params.permit(
           :endpoint_id,
           :http_status_code
         ).merge(status: :up_to_date)
+      end
+
+      def update_response_params
+        permitted = params.permit(:http_status_code)
+        return permitted unless params[:body]
+        permitted.merge(
+          body: parsed_body_schema,
+          body_draft: nil
+        )
+      end
+
+      # This logic should be moved to before validate callback
+      def parsed_body_schema
+        JSON.parse(params[:body])
+      rescue JSON::ParserError => _exception
+        nil
       end
     end
   end

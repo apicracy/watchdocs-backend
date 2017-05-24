@@ -16,4 +16,15 @@ class UrlParam < ApplicationRecord
         -> { where(is_part_of_url: true) }
 
   delegate :user, to: :endpoint
+
+  before_save :set_status
+
+  private
+
+  def set_status
+    # Escaping fresh or stale requires user action
+    unless fresh? || stale?
+      self.status = required_draft.present? ? :outdated : :up_to_date
+    end
+  end
 end

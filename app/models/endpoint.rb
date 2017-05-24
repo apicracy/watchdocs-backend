@@ -22,6 +22,7 @@ class Endpoint < ApplicationRecord
 
   before_validation :autocorrect_url
   before_validation :build_request, on: :create, unless: :request
+  before_save       :set_status
   after_save        :sync_url_params
 
   delegate :user, to: :project
@@ -44,5 +45,17 @@ class Endpoint < ApplicationRecord
   def autocorrect_url
     return true unless url
     self.url = UrlPath.autocorrect(url)
+  end
+
+  def set_status
+    new_status =  if responses.outdated.any? ||
+                     request&.outdated? ||
+                     url_params.outdated.any?
+                    :outdated
+                  else
+                    :up_to_date
+                  end
+
+    self.status = new_status
   end
 end

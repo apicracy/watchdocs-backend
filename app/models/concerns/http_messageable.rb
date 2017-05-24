@@ -20,5 +20,13 @@ module HttpMessageable
     enum status: %i(outdated up_to_date)
 
     delegate :user, to: :endpoint
+
+    before_save :set_status
+  end
+
+  private
+
+  def set_status
+    self.status = body_draft.present? ? :outdated : :up_to_date
   end
 end

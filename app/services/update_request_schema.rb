@@ -1,31 +1,25 @@
-# This service updates response for given endpoint with recorded schema
+# This service updates request for given endpoint with recorded schema
 class UpdateRequestSchema
-  attr_reader :endpoint, :body, :request
+  attr_reader :new_body, :request
 
   def initialize(endpoint:, body:)
-    @endpoint = endpoint
     @request = endpoint.request
-    @body = body
+    @new_body = body
   end
 
   def call
-    update_body
-    update_status
+    return if previous_body == new_body
+
+    if previous_body.present?
+      request.update(body_draft: new_body)
+    else
+      request.update(body: new_body)
+    end
   end
 
   private
 
-  def update_body
-    return if request.body == body
-
-    if request.body
-      request.update(body_draft: body)
-    else
-      request.update(body: body)
-    end
-  end
-
-  def update_status
-    request.update(status: request.body_draft.present? ? :outdated : :up_to_date)
+  def previous_body
+    request.body
   end
 end

@@ -40,14 +40,7 @@ class UpdateEndpointSchemas
   end
 
   def update_endpoint_status
-    new_status =  if endpoint.responses.any?(&:outdated?) ||
-                     endpoint.request.outdated? ||
-                     endpoint.url_params.any?(&:outdated?)
-                    :outdated
-                  else
-                    :up_to_date
-                  end
-    endpoint.update(status: new_status)
+    endpoint.save
   end
 
   ## Helpers:

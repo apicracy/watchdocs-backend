@@ -1,5 +1,5 @@
 module SampleJsonSchemasHelpers
-  def json_schema_sample
+  def json_schema_sample(items_in_array: 'string')
     {
       schema: 'http://json-schema.org/draft-04/schema#',
       type: 'object',

@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe UpdateEndpointSchemas do
   RSpec::Matchers.define_negated_matcher :not_change, :change
 
-  let(:schemas) { external_schema_fixture(:full) }
   subject(:processor) { described_class.new(schemas) }
+  let(:schemas) { external_schema_fixture(:full) }
 
   context 'when project doesnt exists' do
     it 'raises exception' do
@@ -17,20 +17,13 @@ RSpec.describe UpdateEndpointSchemas do
   context 'when project exists' do
     before { Fabricate(:project, app_id: 'TEST') }
 
-    context 'and schemas are for success new endpoint call' do
+    context 'and schema contains request data' do
       before do
         processor.call
       end
 
       it 'creates new endpoint' do
         expect(Endpoint.last.url).to eq(schemas[:endpoint][:url])
-      end
-
-      it 'creates new response with body for endpoint' do
-        endpoint = Endpoint.last
-        expect(endpoint.responses.count).to eq(1)
-        expect(endpoint.responses.last.http_status_code).to eq schemas[:response][:status]
-        expect(endpoint.responses.last.body).to eq schemas[:response][:body]
       end
 
       it 'creates request' do
@@ -47,7 +40,7 @@ RSpec.describe UpdateEndpointSchemas do
       end
     end
 
-    context 'and schemas are for invalid new endpoint call' do
+    context 'and schema contains response data' do
       let(:schemas) { external_schema_fixture(:response_only) }
 
       before do
@@ -58,16 +51,37 @@ RSpec.describe UpdateEndpointSchemas do
         expect(Endpoint.last.url).to eq(schemas[:endpoint][:url])
       end
 
-      it 'creates new response with body for endpoint' do
+      it 'creates new response' do
         endpoint = Endpoint.last
         expect(endpoint.responses.count).to eq(1)
         expect(endpoint.responses.last.http_status_code).to eq schemas[:response][:status]
         expect(endpoint.responses.last.body).to eq schemas[:response][:body]
       end
 
-      it 'does create request' do
+      it 'creates request' do
         endpoint = Endpoint.last
         expect(endpoint.request).to be_present
+      end
+    end
+
+    context 'and endpoint already exists with differens response schema' do
+      before do
+        Fabricate :endpoint, project: Project.last,
+                             url: schemas[:endpoint][:url],
+                             http_method: schemas[:endpoint][:method]
+        Fabricate :response, endpoint: Endpoint.last,
+                             http_status_code: schemas[:response][:status],
+                             body: json_schema_sample(items_in_array: 'integer')
+        processor.call
+      end
+
+      it 'sets status to outdated' do
+        expect(Endpoint.last).to be_outdated
+      end
+
+      it 'does not create new enpdoint and response' do
+        expect(Endpoint.count).to eq(1)
+        expect(Response.count).to eq(1)
       end
     end
   end

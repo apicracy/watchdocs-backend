@@ -54,7 +54,7 @@ RSpec.describe 'POST /headers', type: :request do
       end
 
       it 'creates new header' do
-        expect(Header.count).to eq 2 # created one and one from endpoint url
+        expect(Header.count).to eq 1
       end
 
       it 'returns serialized header' do
@@ -75,7 +75,7 @@ RSpec.describe 'POST /headers', type: :request do
       end
 
       it 'creates new header' do
-        expect(Header.count).to eq 2 # created one and one from endpoint url
+        expect(Header.count).to eq 1
       end
 
       it 'returns serialized header' do

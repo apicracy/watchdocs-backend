@@ -10,7 +10,8 @@ class UpdateUrlParamsFromSchema
 
   def call
     discovered_params.each do |name, required|
-      UpdateUrlParamFromSchema.new(endpoint: endpoint, name: name, required: required).call
+      url_param = endpoint.url_params.find_or_initialize_by(name: name)
+      UpdateUrlParamFromSchema.new(url_param: url_param, required: required).call
     end
   end
 

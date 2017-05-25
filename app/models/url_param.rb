@@ -23,8 +23,7 @@ class UrlParam < ApplicationRecord
 
   def set_status
     # Escaping fresh or stale requires user action
-    unless fresh? || stale?
-      self.status = required_draft.present? ? :outdated : :up_to_date
-    end
+    return if fresh? || stale?
+    self.status = required_draft.nil? ? :up_to_date : :outdated
   end
 end

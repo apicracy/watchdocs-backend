@@ -1,11 +1,10 @@
 # This service updates response for given endpoint with recorded schema
 class UpdateResponseSchema
-  attr_reader :new_body, :response
+  attr_reader :response, :new_body
 
-  def initialize(endpoint:, status:, body:)
+  def initialize(response:, body:)
+    @response = response
     @new_body = body
-    @response = endpoint.responses
-                        .find_or_initialize_by(http_status_code: status)
   end
 
   def call

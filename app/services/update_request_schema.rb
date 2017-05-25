@@ -1,9 +1,9 @@
 # This service updates request for given endpoint with recorded schema
 class UpdateRequestSchema
-  attr_reader :new_body, :request
+  attr_reader :request, :new_body
 
-  def initialize(endpoint:, body:)
-    @request = endpoint.request
+  def initialize(request:, body:)
+    @request = request
     @new_body = body
   end
 

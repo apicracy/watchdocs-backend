@@ -61,4 +61,53 @@ RSpec.describe Endpoint, type: :model do
       expect(endpoint.request).to be_persisted
     end
   end
+
+  describe '#set_status' do
+    subject(:endpoint) { Fabricate :endpoint }
+    context 'having outdated response' do
+      before do
+        Fabricate :outdated_response, endpoint: endpoint
+        endpoint.save
+      end
+
+      it 'sets endpoint status to outdated' do
+        expect(endpoint).to be_outdated
+      end
+    end
+
+    context 'having outdated request' do
+      before do
+        Fabricate :outdated_request, endpoint: endpoint
+        endpoint.save
+      end
+
+      it 'sets endpoint status to outdated' do
+        expect(endpoint).to be_outdated
+      end
+    end
+
+    context 'having outdated url param' do
+      before do
+        Fabricate :outdated_url_param, endpoint: endpoint
+        endpoint.save
+      end
+
+      it 'sets endpoint status to outdated' do
+        expect(endpoint).to be_outdated
+      end
+    end
+
+    context 'having up to date response, request and url param' do
+      before do
+        Fabricate :response, endpoint: endpoint
+        Fabricate :request, endpoint: endpoint
+        Fabricate :url_param, endpoint: endpoint
+        endpoint.save
+      end
+
+      it 'sets endpoint status to up_to_date' do
+        expect(endpoint).to be_up_to_date
+      end
+    end
+  end
 end

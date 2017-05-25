@@ -1,25 +1,25 @@
 # This service updates response for given endpoint with recorded schema
 class UpdateUrlParamFromSchema
-  attr_reader :new_required, :param
+  attr_reader :new_required, :url_param
 
-  def initialize(endpoint:, name:, required:)
+  def initialize(url_param:, required:)
     @new_required = required
-    @param = endpoint.url_params.find_or_initialize_by(name: name)
+    @url_param = url_param
   end
 
   def call
     return if previous_required == new_required
 
     if previous_required.present?
-      param.update(required_draft: new_required)
+      url_param.update(required_draft: new_required)
     else
-      param.update(required: new_required)
+      url_param.update(required: new_required)
     end
   end
 
   private
 
   def previous_required
-    param.required
+    url_param.required
   end
 end

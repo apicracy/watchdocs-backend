@@ -5,9 +5,14 @@ Rails.application.routes.draw do
                sign_in: 'login',
                sign_out: 'logout'
              },
+             skip: [:registrations],
              controllers: {
-               sessions: 'api/v1/sessions'
+               sessions: 'sessions',
              }
+
+  devise_scope :user do
+    post '/signup', to: 'registrations#create'
+  end
 
   namespace :api do
     namespace :v1 do

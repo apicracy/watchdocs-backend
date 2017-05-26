@@ -6,7 +6,6 @@ RSpec.describe SubmitDraft do
   end
 
   context 'original and draft already exists' do
-
     before do
       described_class.new(draftable_object, body: 'test3').call
     end
@@ -57,7 +56,8 @@ RSpec.describe SubmitDraft do
   end
 
   it 'saves object at the end' do
-    expect(draftable_object).to receive(:save).once
+    allow(draftable_object).to receive(:save)
     described_class.new(draftable_object, {}).call
+    expect(draftable_object).to have_received(:save).once
   end
 end

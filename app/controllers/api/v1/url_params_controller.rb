@@ -12,7 +12,7 @@ module Api
       end
 
       def update
-        @url_param.update(url_param_update)
+        OverrideDraft.new(@url_param, url_param_update).call
         render_resource(@url_param)
       end
 

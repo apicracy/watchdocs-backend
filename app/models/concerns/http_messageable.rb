@@ -4,7 +4,7 @@ module HttpMessageable
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :endpoint
+    belongs_to :endpoint, touch: true
     has_many :headers,
              as: :headerable,
              dependent: :destroy,

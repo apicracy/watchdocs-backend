@@ -76,7 +76,7 @@ RSpec.describe UpdateEndpointSchemas do
       end
 
       it 'sets status to outdated' do
-        expect(Endpoint.last).to be_outdated
+        expect(Endpoint.last.reload).to be_outdated
       end
 
       it 'does not create new enpdoint and response' do

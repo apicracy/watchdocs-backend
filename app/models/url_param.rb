@@ -1,5 +1,5 @@
 class UrlParam < ApplicationRecord
-  belongs_to :endpoint
+  belongs_to :endpoint, touch: true
 
   validates :name,
             presence: true,

@@ -67,7 +67,6 @@ RSpec.describe Endpoint, type: :model do
     context 'having outdated response' do
       before do
         Fabricate :outdated_response, endpoint: endpoint
-        endpoint.save
       end
 
       it 'sets endpoint status to outdated' do
@@ -78,7 +77,6 @@ RSpec.describe Endpoint, type: :model do
     context 'having outdated request' do
       before do
         Fabricate :outdated_request, endpoint: endpoint
-        endpoint.save
       end
 
       it 'sets endpoint status to outdated' do
@@ -89,7 +87,6 @@ RSpec.describe Endpoint, type: :model do
     context 'having outdated url param' do
       before do
         Fabricate :outdated_url_param, endpoint: endpoint
-        endpoint.save
       end
 
       it 'sets endpoint status to outdated' do
@@ -102,7 +99,6 @@ RSpec.describe Endpoint, type: :model do
         Fabricate :response, endpoint: endpoint
         Fabricate :request, endpoint: endpoint
         Fabricate :url_param, endpoint: endpoint
-        endpoint.save
       end
 
       it 'sets endpoint status to up_to_date' do

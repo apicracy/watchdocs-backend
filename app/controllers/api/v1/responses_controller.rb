@@ -16,7 +16,7 @@ module Api
       end
 
       def update
-        @response.update(update_response_params)
+        OverrideDraft.new(@response, update_response_params).call
         render_resource(@response)
       end
 
@@ -37,10 +37,7 @@ module Api
       def update_response_params
         permitted = params.permit(:http_status_code)
         return permitted unless params[:body]
-        permitted.merge(
-          body: parsed_body_schema,
-          body_draft: nil
-        )
+        permitted.merge(body: parsed_body_schema)
       end
 
       # This logic should be moved to before validate callback

@@ -19,11 +19,9 @@ class UpdateEndpointSchemas
 
   def call
     update_response
-    if request_data
-      update_url_params
-      update_request
-    end
-    update_endpoint_status
+    return unless request_data
+    update_url_params
+    update_request
   end
 
   private
@@ -32,24 +30,22 @@ class UpdateEndpointSchemas
     response = endpoint.responses
                        .find_or_initialize_by(http_status_code: response_data[:status])
 
-    UpdateResponseSchema.new(response: response,
-                             body: response_data[:body]).call
+    SubmitDraft.new(response, body: response_data[:body]).call
   end
 
   def update_request
-    UpdateRequestSchema.new(request: endpoint.request,
-                            body: request_data[:body]).call
+    SubmitDraft.new(endpoint.request, body: request_data[:body]).call
   end
 
   def update_url_params
-    UpdateUrlParamsFromSchema.new(endpoint: endpoint,
-                                  schema: request_data[:url_params]).call
+    discovered_params.each do |name, required|
+      url_param = endpoint.url_params.find_or_initialize_by(name: name)
+      SubmitDraft.new(url_param, required: required).call
+    end
   end
 
-  def update_endpoint_status
-    endpoint.save! # This needs to blows up when endpoint can not be saved
-    # TODO: Record an event when status change:
-    # ... if endpoint.status_changed?
+  def discovered_params
+    UrlParamsSchema.new(request_data[:url_params]).params
   end
 
   def find_project(app_id)

@@ -21,7 +21,8 @@ class Endpoint < ApplicationRecord
 
   before_validation :autocorrect_url
   before_validation :build_request, on: :create, unless: :request
-  before_save       :set_status
+  after_touch       :refresh_status
+  after_create      :refresh_status
   after_save        :sync_url_params
 
   delegate :user, to: :project
@@ -46,15 +47,16 @@ class Endpoint < ApplicationRecord
     self.url = UrlPath.autocorrect(url)
   end
 
-  def set_status
-    new_status =  if responses.outdated.any? ||
-                     request&.outdated? ||
-                     url_params.outdated.any?
-                    :outdated
-                  else
-                    :up_to_date
-                  end
-
-    self.status = new_status
+  def refresh_status
+    new_status = if responses.outdated.any? ||
+                    request&.outdated? ||
+                    url_params.outdated.any?
+                   :outdated
+                 else
+                   :up_to_date
+                 end
+    # We don't want further callbacks :)
+    # This is just cache updating
+    update_column(:status, new_status)
   end
 end

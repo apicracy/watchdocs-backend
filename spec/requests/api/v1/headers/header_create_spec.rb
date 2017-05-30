@@ -54,11 +54,7 @@ RSpec.describe 'POST /headers', type: :request do
       end
 
       it 'creates new header' do
-        expect(Header.count).to eq 2 # created one and one from endpoint url
-      end
-
-      it 'sets up_to_date status by default' do
-        expect(Header.last.status).to eq('up_to_date')
+        expect(Header.count).to eq 1
       end
 
       it 'returns serialized header' do
@@ -79,11 +75,7 @@ RSpec.describe 'POST /headers', type: :request do
       end
 
       it 'creates new header' do
-        expect(Header.count).to eq 2 # created one and one from endpoint url
-      end
-
-      it 'sets up_to_date status by default' do
-        expect(Header.last.status).to eq('up_to_date')
+        expect(Header.count).to eq 1
       end
 
       it 'returns serialized header' do

@@ -1,5 +1,5 @@
 class UrlParam < ApplicationRecord
-  belongs_to :endpoint
+  belongs_to :endpoint, touch: true
 
   validates :name,
             presence: true,
@@ -17,11 +17,13 @@ class UrlParam < ApplicationRecord
 
   delegate :user, to: :endpoint
 
-  def update_required(new_required)
-    if required.present?
-      update(required_draft: new_required)
-    else
-      update(required: new_required)
-    end
+  before_save :set_status
+
+  private
+
+  def set_status
+    # Escaping fresh or stale requires user action
+    return if fresh? || stale?
+    self.status = required_draft.nil? ? :up_to_date : :outdated
   end
 end

@@ -44,6 +44,7 @@ RSpec.describe 'DELETE /endpoints/:id', type: :request do
     end
 
     it 'removes all connected url params' do
+
       expect(UrlParam.count).to eq 0
     end
 

@@ -13,4 +13,28 @@ RSpec.describe Response, type: :model do
     it { is_expected.to validate_numericality_of(:http_status_code).only_integer }
     it { is_expected.to validate_presence_of(:endpoint) }
   end
+
+  describe '#set_status' do
+    context 'having only body set' do
+      let(:response) do
+        Fabricate(:response, body: json_schema_sample)
+      end
+
+      it 'sets up_to_date status' do
+        expect(response).to be_up_to_date
+      end
+    end
+
+    context 'having body and body_draft set' do
+      let(:response) do
+        Fabricate(:response,
+                  body: json_schema_sample,
+                  body_draft: json_schema_sample)
+      end
+
+      it 'sets outdated status' do
+        expect(response).to be_outdated
+      end
+    end
+  end
 end

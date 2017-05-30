@@ -17,5 +17,22 @@ Fabricator(:response) do
       required: ['types']
     }
   end
-  headers(count: 1, inverse_of: :headerable)
+end
+
+Fabricator(:outdated_response, from: :response) do
+  body_draft do
+    {
+      schema: 'http://json-schema.org/draft-04/schema#',
+      type: 'object',
+      properties: {
+        numbers: {
+          type: 'array',
+          items: {
+            type: 'integer'
+          }
+        }
+      },
+      required: ['numbers']
+    }
+  end
 end

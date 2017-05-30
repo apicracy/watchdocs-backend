@@ -6,7 +6,6 @@ RSpec.describe Endpoint, type: :model do
   describe '#valid?' do
     it { is_expected.to validate_uniqueness_of(:url).scoped_to([:http_method, :project_id]) }
     it { is_expected.to validate_presence_of(:url) }
-    it { is_expected.to validate_presence_of(:status) }
     it { is_expected.to validate_presence_of(:http_method) }
     it { is_expected.to validate_presence_of(:project) }
 
@@ -60,6 +59,51 @@ RSpec.describe Endpoint, type: :model do
 
     it 'creates request automatically for the new endpoint' do
       expect(endpoint.request).to be_persisted
+    end
+  end
+
+  describe '#set_status' do
+    subject(:endpoint) { Fabricate :endpoint }
+    context 'having outdated response' do
+      before do
+        Fabricate :outdated_response, endpoint: endpoint
+      end
+
+      it 'sets endpoint status to outdated' do
+        expect(endpoint).to be_outdated
+      end
+    end
+
+    context 'having outdated request' do
+      before do
+        Fabricate :outdated_request, endpoint: endpoint
+      end
+
+      it 'sets endpoint status to outdated' do
+        expect(endpoint).to be_outdated
+      end
+    end
+
+    context 'having outdated url param' do
+      before do
+        Fabricate :outdated_url_param, endpoint: endpoint
+      end
+
+      it 'sets endpoint status to outdated' do
+        expect(endpoint).to be_outdated
+      end
+    end
+
+    context 'having up to date response, request and url param' do
+      before do
+        Fabricate :response, endpoint: endpoint
+        Fabricate :request, endpoint: endpoint
+        Fabricate :url_param, endpoint: endpoint
+      end
+
+      it 'sets endpoint status to up_to_date' do
+        expect(endpoint).to be_up_to_date
+      end
     end
   end
 end

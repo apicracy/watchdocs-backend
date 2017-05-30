@@ -22,7 +22,9 @@ class SubmitDraft
     draft_column = "#{column}_draft"
     previous_value = object[column]
 
-    if object.has_attribute?(draft_column) && previous_value.present?
+    if object.has_attribute?(draft_column) &&
+       previous_value.present? &&
+       value != previous_value
       object[draft_column] = value
     else
       object[column] = value

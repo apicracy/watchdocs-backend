@@ -55,6 +55,20 @@ RSpec.describe SubmitDraft do
     end
   end
 
+  context 'new draft is the same as original' do
+    let(:draftable_object) do
+      Response.new body: 'test'
+    end
+
+    before do
+      described_class.new(draftable_object, body: 'test').call
+    end
+
+    it 'does not save anything to draft column' do
+      expect(draftable_object.body_draft).to be_nil
+    end
+  end
+
   it 'saves object at the end' do
     allow(draftable_object).to receive(:save)
     described_class.new(draftable_object, {}).call

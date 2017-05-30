@@ -13,7 +13,7 @@ module Api
       def update
         request = endpoint.request
         authorize! :update, request
-        OverrideDraft.new(request, body: body_schema_params).call
+        request.update(body: body_schema_params, body_draft: nil)
         render_resource(request)
       end
 

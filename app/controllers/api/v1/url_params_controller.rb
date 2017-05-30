@@ -12,7 +12,7 @@ module Api
       end
 
       def update
-        OverrideDraft.new(@url_param, url_param_update).call
+        @url_param.update(url_param_update)
         render_resource(@url_param)
       end
 
@@ -43,7 +43,7 @@ module Api
           :name,
           :example,
           :required
-        )
+        ).merge(required_draft: nil)
       end
     end
   end

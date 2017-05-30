@@ -29,18 +29,37 @@ class UpdateEndpointSchemas
   def update_response
     response = endpoint.responses
                        .find_or_initialize_by(http_status_code: response_data[:status])
+    old_body = response.body
+    new_body = response_data[:body]
 
-    SubmitDraft.new(response, body: response_data[:body]).call
+    if old_body.present? && new_body != old_body
+      response.update(body_draft: new_body)
+    else
+      response.update(body: new_body)
+    end
   end
 
   def update_request
-    SubmitDraft.new(endpoint.request, body: request_data[:body]).call
+    request = endpoint.request
+    old_body = request.body
+    new_body = request_data[:body]
+
+    if old_body.present? && new_body != old_body
+      request.update(body_draft: new_body)
+    else
+      request.update(body: new_body)
+    end
   end
 
   def update_url_params
     discovered_params.each do |name, required|
       url_param = endpoint.url_params.find_or_initialize_by(name: name)
-      SubmitDraft.new(url_param, required: required).call
+
+      if url_param.required.present? && required != url_param.required
+        url_param.update(required_draft: required)
+      else
+        url_param.update(required: required)
+      end
     end
   end
 

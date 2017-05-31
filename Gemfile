@@ -40,7 +40,6 @@ group :development, :test do
   gem 'faker', '~> 1.7', '>= 1.7.3'
   gem 'rubocop', '~> 0.39.0'
   gem 'rubocop-rspec', '~> 1.4', '>= 1.4.1'
-  gem 'json-schema', '~> 2.7'
 end
 
 group :test do
@@ -59,4 +58,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'cancan'
+gem 'cancancan'
+gem 'json-schema', '~> 2.7'

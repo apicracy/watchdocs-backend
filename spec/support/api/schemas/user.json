@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "additionalProperties": false,
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "properties": {
+        "created_at": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "updated_at": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "updated_at",
+        "created_at",
+        "id",
+        "email"
+    ],
+    "type": "object"
+}

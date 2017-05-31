@@ -43,7 +43,7 @@ module Api
           :name,
           :example,
           :required
-        )
+        ).merge(required_draft: nil)
       end
     end
   end

@@ -7,7 +7,7 @@ module Api
                                    password: ENV['HTTP_AUTH_PASSWORD']
 
       def create
-        ProcessExternalEndpointSchemas.new(endpoint_schema_params).call
+        UpdateEndpointSchemas.new(endpoint_schema_params).call
         render :ok
       rescue ProjectNotFound => exception
         record_not_found(exception)

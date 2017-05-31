@@ -13,12 +13,10 @@ class GroupForUrl
   private
 
   def create_group
-    @group = Group.find_or_initialize_by(
+    @group = Group.find_or_create_by!(
       name: parse_name,
       project: @project
     )
-    @group.save
-    @group
   end
 
   def version?(element)

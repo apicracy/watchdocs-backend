@@ -220,12 +220,6 @@
           "required": {
             "type": "boolean"
           },
-          "required_draft": {
-            "type": ["boolean", "null"]
-          },
-          "status": {
-            "type": "string"
-          },
           "headerable_id": {
               "type": "integer"
           },
@@ -234,11 +228,9 @@
           }
         },
         "required": [
-          "status",
           "description",
           "required",
           "id",
-          "required_draft",
           "key",
           "example_value"
         ],
@@ -254,6 +246,9 @@
               },
               "data_type": {
                   "type": "null"
+              },
+              "status": {
+                  "type": ["string", null]
               },
               "description": {
                   "type": "null"
@@ -285,7 +280,8 @@
               "example",
               "description",
               "required",
-              "required_draft"
+              "required_draft",
+              "status"
           ],
           "type": "object"
       },

@@ -25,12 +25,6 @@
                     "required": {
                         "type": "boolean"
                     },
-                    "required_draft": {
-                        "type": ["boolean", null]
-                    },
-                    "status": {
-                        "type": "string"
-                    },
                     "headerable_id": {
                         "type": "integer"
                     },
@@ -39,11 +33,9 @@
                     }
                 },
                 "required": [
-                    "status",
                     "description",
                     "required",
                     "id",
-                    "required_draft",
                     "key",
                     "example_value"
                 ],

@@ -9,42 +9,24 @@ class Endpoint < ApplicationRecord
 
   validates :http_method,
             :project,
-            :status,
             :request,
             presence: true
 
-  # Url format should be /path/to/endpoint/:param
-  # with leading slash and without finishing one
-  # allows params starting with ":"
   validates :url,
             presence: true,
             uniqueness: { scope: [:http_method, :project_id] },
-            format: {
-              with: %r(\A\/{1}(:?[A-Za-z0-9\-_\.~]+\/)*(:?[A-Za-z0-9\-_\.~]+)\z)
-            }
+            format: { with: UrlPath::VALID_PATH }
 
   METHODS = %w(GET POST PUT DELETE).freeze
 
   before_validation :autocorrect_url
   before_validation :build_request, on: :create, unless: :request
+  after_touch       :refresh_status
+  after_create      :refresh_status
   after_save        :sync_url_params
 
   delegate :user, to: :project
 
-  def update_request(body: nil, headers: nil)
-    request ||= build_request
-    request.update_body(body) if body
-    request.update_headers(headers) if headers
-  end
-
-  def update_response_for_status(status_code, body: nil, headers: nil)
-    response = responses.find_or_initialize_by(http_status_code: status_code)
-    response.update_body(body) if body
-    response.update_headers(headers) if headers
-    response
-  end
-
-  # TODO: Move to decorator in the future
   def description
     return if title.blank? && summary.blank?
     {
@@ -62,15 +44,19 @@ class Endpoint < ApplicationRecord
 
   def autocorrect_url
     return true unless url
-    prepend_with_slash
-    remove_ending_slash
+    self.url = UrlPath.autocorrect(url)
   end
 
-  def prepend_with_slash
-    url.prepend('/') unless url.start_with?('/')
-  end
-
-  def remove_ending_slash
-    url.chomp!('/') if url.end_with?('/')
+  def refresh_status
+    new_status = if responses.outdated.any? ||
+                    request&.outdated? ||
+                    url_params.outdated.any?
+                   :outdated
+                 else
+                   :up_to_date
+                 end
+    # We don't want further callbacks :)
+    # This is just cache updating
+    update_column(:status, new_status)
   end
 end

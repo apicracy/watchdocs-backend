@@ -24,12 +24,14 @@ RSpec.describe ProjectTreeSerializer, type: :serializer do
           'id' => endpoint1.id,
           'type' => 'Endpoint',
           'url' => endpoint1.url,
+          'status' => endpoint1.status.to_s,
           'method' => endpoint1.http_method
         },
         {
           'id' => endpoint2.id,
           'type' => 'Endpoint',
           'url' => endpoint2.url,
+          'status' => endpoint2.status.to_s,
           'method' => endpoint2.http_method
         }
       ]
@@ -53,12 +55,14 @@ RSpec.describe ProjectTreeSerializer, type: :serializer do
             'id' => endpoint1.id,
             'type' => 'Endpoint',
             'url' => endpoint1.url,
+            'status' => endpoint1.status.to_s,
             'method' => endpoint1.http_method
           },
           {
             'id' => endpoint2.id,
             'type' => 'Endpoint',
             'url' => endpoint2.url,
+            'status' => endpoint2.status.to_s,
             'method' => endpoint2.http_method
           },
           {

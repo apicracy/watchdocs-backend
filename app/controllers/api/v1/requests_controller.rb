@@ -13,11 +13,8 @@ module Api
       def update
         request = endpoint.request
         authorize! :update, request
-        if request.update(body: body_schema_params, body_draft: nil)
-          render json: request
-        else
-          record_error(request)
-        end
+        request.update(body: body_schema_params, body_draft: nil)
+        render_resource(request)
       end
 
       private

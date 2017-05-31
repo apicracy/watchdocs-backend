@@ -85,6 +85,9 @@
                   "description": {
                       "type": ["string", null]
                   },
+                  "status": {
+                      "type": ["string", null]
+                  },
                   "example": {
                       "type": ["string", null]
                   },
@@ -112,7 +115,8 @@
                   "example",
                   "name",
                   "required",
-                  "required_draft"
+                  "required_draft",
+                  "status"
               ],
               "type": "object"
           },

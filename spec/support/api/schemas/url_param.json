@@ -7,6 +7,9 @@
         "description": {
             "type": ["string", null]
         },
+        "status": {
+            "type": ["string", null]
+        },
         "endpoint_id": {
             "type": "integer"
         },
@@ -38,7 +41,8 @@
         "id",
         "description",
         "required",
-        "required_draft"
+        "required_draft",
+        "status"
     ],
     "type": "object"
 }

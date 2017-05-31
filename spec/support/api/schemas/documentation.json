@@ -247,6 +247,9 @@
               "data_type": {
                   "type": "null"
               },
+              "status": {
+                  "type": ["string", null]
+              },
               "description": {
                   "type": "null"
               },
@@ -277,7 +280,8 @@
               "example",
               "description",
               "required",
-              "required_draft"
+              "required_draft",
+              "status"
           ],
           "type": "object"
       },

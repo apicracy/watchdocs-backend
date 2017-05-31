@@ -7,5 +7,6 @@ class UrlParamSerializer < ActiveModel::Serializer
              :name,
              :example,
              :required,
-             :required_draft
+             :required_draft,
+             :status
 end

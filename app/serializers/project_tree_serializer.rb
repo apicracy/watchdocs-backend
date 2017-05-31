@@ -16,7 +16,7 @@ class ProjectTreeSerializer < TreeItemSerializer
 
   # Class for generating an entry for endpoint on a tree json
   class EndpointItem < TreeItemSerializer
-    attributes :id, :type, :url
+    attributes :id, :type, :url, :status
     attribute :http_method, key: :method
   end
 

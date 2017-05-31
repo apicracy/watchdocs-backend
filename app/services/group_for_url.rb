@@ -1,6 +1,4 @@
 class GroupForUrl
-  attr_reader :group_name
-
   def initialize(url:, project:)
     @url = url
     @project = project

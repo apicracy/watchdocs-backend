@@ -12,15 +12,14 @@ class UpdateEndpointSchemas
     @endpoint_data = endpoint_schema_params[:endpoint]
     @request_data = endpoint_schema_params[:request]
     @response_data = endpoint_schema_params[:response]
-    @group = add_group
     @endpoint = project.endpoints.find_or_create_by!(
       url: endpoint_data[:url],
-      http_method: endpoint_data[:method],
-      group: @group
+      http_method: endpoint_data[:method]
     )
   end
 
   def call
+    add_group
     update_response
     return unless request_data
     update_url_params
@@ -66,6 +65,14 @@ class UpdateEndpointSchemas
     end
   end
 
+  def add_group
+    return if @endpoint.group.present?
+    @group = @project.groups.find_or_create_by!(
+      name: CreateGroupName.new(url: endpoint_data[:url]).parse_url
+    )
+    @endpoint.update(group: @group)
+  end
+
   def discovered_params
     UrlParamsSchema.new(request_data[:url_params]).params
   end
@@ -74,11 +81,5 @@ class UpdateEndpointSchemas
     Project.find_by!(app_id: app_id)
   rescue ActiveRecord::RecordNotFound => exception
     raise ProjectNotFound, exception.message
-  end
-
-  def add_group
-    @group = @project.groups.find_or_create_by!(
-      name: GroupForUrl.new(url: endpoint_data[:url]).call
-    )
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe GroupForUrl do
-  subject(:group_for_url) { described_class.new(url: url) }
+RSpec.describe CreateGroupName do
+  subject(:group_name) { described_class.new(url: url) }
 
   context 'when url with api and version is passed' do
     let(:url) { '/api/v2/users/test' }
@@ -10,7 +10,7 @@ RSpec.describe GroupForUrl do
       url
     end
     it 'creates group with correct name' do
-      expect(group_for_url.call).to eq('Users')
+      expect(group_name.parse_url).to eq('Users')
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe GroupForUrl do
     end
 
     it 'creates group with correct name' do
-      expect(group_for_url.call).to eq('Users')
+      expect(group_name.parse_url).to eq('Users')
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe GroupForUrl do
     end
 
     it 'creates group with correct name' do
-      expect(group_for_url.call).to eq('Users')
+      expect(group_name.parse_url).to eq('Users')
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe GroupForUrl do
     end
 
     it 'creates group with correct name' do
-      expect(group_for_url.call).to eq('Users')
+      expect(group_name.parse_url).to eq('Users')
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe GroupForUrl do
     end
 
     it 'creates group with correct name' do
-      expect(group_for_url.call).to eq('Other')
+      expect(group_name.parse_url).to eq('Other')
     end
   end
 end

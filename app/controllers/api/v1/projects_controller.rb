@@ -7,7 +7,12 @@ module Api
       def create
         project = Project.new(create_project_params)
         authorize! :create, project
-        project.save
+        begin
+          CreateProjectInReportsService.new(project).call
+          project.save
+        rescue ReportsServiceError => e
+          project.errors.add(:name, e.message)
+        end
         render_resource(project)
       end
 

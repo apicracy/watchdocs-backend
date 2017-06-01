@@ -13,7 +13,6 @@ class Project < ApplicationRecord
   validates :base_url, url: true
 
   before_validation :generate_api_credentials,
-                    :create_project_in_reports_service,
                     on: :create
 
   private
@@ -23,11 +22,5 @@ class Project < ApplicationRecord
     credentials = ApiCredentials.generate(name)
     return unless credentials
     assign_attributes(credentials)
-  end
-
-  def create_project_in_reports_service
-    CreateProjectInReportsService.new(self).call
-  rescue ReportsServiceError => e
-    errors.add(:name, e.message)
   end
 end

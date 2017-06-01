@@ -76,7 +76,7 @@ RSpec.describe UpdateEndpointSchemas do
 
     context 'and endpoint already exists with differens response schema' do
       before do
-        Fabricate :group, name: 'Users', project: Project.last
+        Fabricate :group, name: 'My custom group', project: Project.last
         Fabricate :endpoint, project: Project.last,
                              url: schemas[:endpoint][:url],
                              http_method: schemas[:endpoint][:method],
@@ -95,6 +95,10 @@ RSpec.describe UpdateEndpointSchemas do
         expect(Group.count).to eq(1)
         expect(Endpoint.count).to eq(1)
         expect(Response.count).to eq(1)
+      end
+
+      it 'does not change endpoint group' do
+        expect(Endpoint.last.group.name).to eq 'My custom group'
       end
     end
   end

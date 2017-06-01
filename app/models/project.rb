@@ -19,6 +19,7 @@ class Project < ApplicationRecord
   private
 
   def generate_api_credentials
+    return true if app_id && app_secret
     credentials = ApiCredentials.generate(name)
     return unless credentials
     assign_attributes(credentials)

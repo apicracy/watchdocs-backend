@@ -218,6 +218,7 @@ GEM
     validate_url (1.0.2)
       activemodel (>= 3.0.0)
       addressable
+    vcr (3.0.3)
     warden (1.2.7)
       rack (>= 1.0)
     warden-jwt_auth (0.1.1)
@@ -268,6 +269,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   validate_url (~> 1.0, >= 1.0.2)
+  vcr (~> 3.0, >= 3.0.3)
   watchdocs-rails (= 0.7.0)
   webmock (~> 2.1)
 

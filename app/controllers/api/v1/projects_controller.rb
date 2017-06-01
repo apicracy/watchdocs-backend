@@ -2,7 +2,14 @@ module Api
   module V1
     class ProjectsController < ApplicationController
       before_action :authenticate_user!
-      load_and_authorize_resource except: [:index, :documentation]
+      load_and_authorize_resource except: [:index, :documentation, :create]
+
+      def create
+        project = Project.new(create_project_params)
+        authorize! :create, project
+        project.save
+        render_resource(project)
+      end
 
       def index
         authorize! :index, Project
@@ -18,6 +25,15 @@ module Api
         @project = Project.find(params[:id])
         authorize! :read, @project
         render json: ProjectDocumentationSerializer.new(@project).to_json
+      end
+
+      private
+
+      def create_project_params
+        params.permit(
+          :name,
+          :base_url
+        ).merge(user: current_user)
       end
     end
   end

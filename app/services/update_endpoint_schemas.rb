@@ -77,6 +77,8 @@ class UpdateEndpointSchemas
   end
 
   def add_group
-    @group = GroupForUrl.new(url: endpoint_data[:url], project: @project).call
+    @group = @project.groups.find_or_create_by!(
+      name: GroupForUrl.new(url: endpoint_data[:url]).call
+    )
   end
 end

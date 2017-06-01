@@ -1,47 +1,34 @@
 class GroupForUrl
-  def initialize(url:, project:)
+  attr_reader :url
+
+  def initialize(url:)
     @url = url
-    @project = project
   end
 
   def call
-    create_group
+    parse_url
   end
 
   private
 
-  def create_group
-    @group = Group.find_or_create_by!(
-      name: parse_name,
-      project: @project
-    )
+  def version
+    /v[0-9]/
   end
 
-  def version?(element)
-    pattern = /v[0-9]/
-    element =~ pattern
+  def api
+    /api/
   end
 
-  def api?(element)
-    pattern = 'api'
-    element.eql? pattern
-  end
+  def parse_url
+    candidates = url.split('/')
+    candidates = candidates.reject(&:blank?) # Reject blank
+    candidates = candidates.reject { |c| c.match api } # Reject API parts
+    candidates = candidates.reject { |c| c.match version } # Rejects version numbers
 
-  def split_url
-    arr = @url.split('/')
-    arr.shift(1)
-    arr
-  end
-
-  def parse_name
-    arr = split_url
-    if api? arr.first
-      version?(arr.second).present? ? arr.shift(2) : arr.shift(1)
-    elsif version? arr.first
-      arr.shift(1)
+    if candidates.length > 0
+      return candidates.first.humanize
     else
-      arr
+      return 'Other'
     end
-    arr.first.humanize
   end
 end

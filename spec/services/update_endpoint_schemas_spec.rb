@@ -17,6 +17,58 @@ RSpec.describe UpdateEndpointSchemas do
   context 'when project exists' do
     before { Fabricate(:project, app_id: 'TEST') }
 
+    context 'and top level group does not exist' do
+      let(:top_level_group) do
+        Fabricate(
+          :group,
+          name: 'Projects',
+          project: Project.last
+        )
+      end
+
+      let(:group) do
+        Fabricate(
+          :group,
+          name: 'Users',
+          project: Project.last,
+          group_id: top_level_group.id
+        )
+      end
+
+      before do
+        top_level_group
+        group
+        processor.call
+      end
+
+      it 'adds top level group' do
+        endpoint = Endpoint.last
+        expect(endpoint.group).to be_present
+        expect(endpoint.group.id).not_to eq(group.id)
+      end
+    end
+
+    context 'and top level group exist' do
+      let(:top_level_group) do
+        Fabricate(
+          :group,
+          name: 'Users',
+          project: Project.last
+        )
+      end
+
+      before do
+        top_level_group
+        processor.call
+      end
+
+      it 'uses top level group' do
+        endpoint = Endpoint.last
+        expect(endpoint.group).to be_present
+        expect(endpoint.group.id).to eq(top_level_group.id)
+      end
+    end
+
     context 'and schema contains request data' do
       before do
         processor.call
@@ -37,11 +89,6 @@ RSpec.describe UpdateEndpointSchemas do
         expect(endpoint.url_params.count).to eq(4)
         expect(endpoint.url_params.last.name).to eq('data[attributes][output_currency]')
         expect(endpoint.url_params.all?(&:required)).to be_truthy
-      end
-
-      it 'adds group' do
-        endpoint = Endpoint.last
-        expect(endpoint.group).to be_present
       end
     end
 

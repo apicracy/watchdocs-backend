@@ -66,9 +66,10 @@ class UpdateEndpointSchemas
   end
 
   def add_group
-    return if @endpoint.group_id.present?
+    return if @endpoint.group.present?
     @group = @project.groups.find_or_create_by!(
-      name: CreateGroupName.new(url: endpoint_data[:url]).parse_url
+      name: CreateGroupName.new(url: endpoint_data[:url]).parse_url,
+      group_id: nil
     )
     @endpoint.update(group: @group)
   end

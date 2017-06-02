@@ -50,12 +50,14 @@ GEM
     bcrypt (3.1.11)
     builder (3.2.3)
     byebug (9.0.6)
-    cancancan (1.16.0)
+    cancancan (2.0.0)
     case_transform (0.2)
       activesupport
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     configurations (2.2.2)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
     devise (4.2.1)
       bcrypt (~> 3.0)
@@ -85,6 +87,7 @@ GEM
     ffi (1.9.18)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    hashdiff (0.3.4)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.8.1)
@@ -188,6 +191,7 @@ GEM
     rubocop-rspec (1.4.1)
       rubocop (= 0.39.0)
     ruby-progressbar (1.8.1)
+    safe_yaml (1.0.4)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     slop (3.6.0)
@@ -211,6 +215,10 @@ GEM
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     unicode-display_width (1.2.1)
+    validate_url (1.0.2)
+      activemodel (>= 3.0.0)
+      addressable
+    vcr (3.0.3)
     warden (1.2.7)
       rack (>= 1.0)
     warden-jwt_auth (0.1.1)
@@ -223,6 +231,10 @@ GEM
       configurations (~> 2.0)
       httparty (~> 0, >= 0.10)
       recurrent (~> 0.4)
+    webmock (2.3.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -233,12 +245,13 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.4)
   byebug
-  cancancan
+  cancancan (~> 2.0)
   database_cleaner (~> 1.5, >= 1.5.3)
   devise-jwt (~> 0.1.1)
   dotenv-rails (~> 2.1, >= 2.1.1)
   fabrication (~> 2.14, >= 2.14.1)
   faker (~> 1.7, >= 1.7.3)
+  httparty (~> 0.14.0)
   json-schema (~> 2.7)
   listen (~> 3.0.5)
   pg
@@ -255,7 +268,10 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  validate_url (~> 1.0, >= 1.0.2)
+  vcr (~> 3.0, >= 3.0.3)
   watchdocs-rails (= 0.7.0)
+  webmock (~> 2.1)
 
 RUBY VERSION
    ruby 2.3.0p0

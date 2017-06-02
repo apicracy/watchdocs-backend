@@ -29,7 +29,7 @@ gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.4'
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
 gem 'devise-jwt', '~> 0.1.1'
-gem 'watchdocs-rails', '0.7.0'
+gem 'watchdocs-rails', '0.8.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

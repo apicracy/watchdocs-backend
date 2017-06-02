@@ -7,6 +7,7 @@ module Api
       def create
         project = Project.new(create_project_params)
         authorize! :create, project
+        project.generate_api_credentials
         begin
           CreateProjectInReportsService.new(project).call
           project.save

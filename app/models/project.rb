@@ -12,11 +12,6 @@ class Project < ApplicationRecord
 
   validates :base_url, url: true
 
-  before_validation :generate_api_credentials,
-                    on: :create
-
-  private
-
   def generate_api_credentials
     return true if app_id && app_secret
     credentials = ApiCredentials.generate(name)

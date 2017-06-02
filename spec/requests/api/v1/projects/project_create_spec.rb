@@ -10,19 +10,12 @@ RSpec.describe 'POST /projects', type: :request do
     }
   end
 
-  before do
-    stub_request(
-      :post,
-      /#{CreateProjectInReportsService::REPORTS_SERVICE_PROJECTS_PATH}/
-    ).to_return(status: 200)
-  end
-
   context 'when user is unauthenticated' do
     before { post url, params: params }
     it_behaves_like 'unauthorized'
   end
 
-  context 'when user is authenticated' do
+  context 'when user is authenticated', :vcr do
     context 'and params are valid' do
       before do
         login_as user, scope: :user

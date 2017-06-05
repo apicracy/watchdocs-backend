@@ -2,46 +2,11 @@ require 'rails_helper'
 
 RSpec.describe JsonSchemaNormalizer do
   let(:schema) do
-    {
-      'type' => 'object',
-      'schema' => 'http://json-schema.org/draft-04/schema#',
-      'required' => ['name', 'base_url', 'app_secret'],
-      'properties' => {
-        'name' => {
-          'type' => 'string'
-        },
-        'base_url' => {
-          'type' => 'string'
-        },
-        'endpoint' => {
-          'properties' => {
-            'id' => {
-              'type' => 'number'
-            },
-            'name' => {
-              'type' => 'stripng'
-            },
-            'stats' => {
-              'properties' => {
-                'stat1' => {
-                  'type' => 'number'
-                }
-              },
-              'type' => 'object'
-            }
-          },
-          'required' => ['name', 'id'],
-          'type' => 'object'
-        },
-        'app_secret' => {
-          'type' => 'string'
-        }
-      }
-    }
+    schema_fixture('unnormalized_json_schema')
   end
 
   describe '.normalize' do
-    subject(:normalized_hash) { described_class.normalize(schema) }
+    subject(:normalized_hash) { described_class.new(schema).normalize }
 
     it 'returns a hash' do
       expect(normalized_hash).to be_a(Hash)
@@ -57,6 +22,10 @@ RSpec.describe JsonSchemaNormalizer do
 
     it 'does not add required for an object that does not have any' do
       expect(normalized_hash['properties']['endpoint']['properties']['stats']['required']).to be_nil
+    end
+
+    it 'sets empty object as items when null provided' do
+      expect(normalized_hash['properties']['endpoint']['properties']['list']['items']).to eq({})
     end
   end
 end

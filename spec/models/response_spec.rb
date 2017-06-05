@@ -17,7 +17,7 @@ RSpec.describe Response, type: :model do
   describe '#set_status' do
     context 'having only body set' do
       let(:response) do
-        Fabricate(:response, body: json_schema_sample)
+        Fabricate(:response, body: schema_fixture('basic'))
       end
 
       it 'sets up_to_date status' do
@@ -28,8 +28,8 @@ RSpec.describe Response, type: :model do
     context 'having body and body_draft set' do
       let(:response) do
         Fabricate(:response,
-                  body: json_schema_sample(items_in_array: 'string'),
-                  body_draft: json_schema_sample(items_in_array: 'number'))
+                  body: schema_fixture('array_of_strings'),
+                  body_draft: schema_fixture('array_of_numbers'))
       end
 
       it 'sets outdated status' do
@@ -43,35 +43,35 @@ RSpec.describe Response, type: :model do
       let(:response) do
         Fabricate.build(:response, body: old_body)
       end
-      let(:old_body) { json_schema_sample(items_in_array: 'string') }
-      let(:new_body) { json_schema_sample(items_in_array: 'number') }
+      let(:old_body) { schema_fixture('array_of_strings') }
+      let(:new_body) { schema_fixture('array_of_numbers') }
 
       before do
         response.save
       end
 
       it 'calls normalizer with new value' do
-        allow(JsonSchemaNormalizer).to receive(:normalize)
+        allow(JsonSchemaNormalizer).to receive(:new).and_return(double(normalize: nil))
         response.update(body: new_body)
-        expect(JsonSchemaNormalizer).to have_received(:normalize).with(new_body).once
+        expect(JsonSchemaNormalizer).to have_received(:new).with(new_body).once
       end
     end
 
     context 'when body_draft changes' do
       let(:response) do
-        Fabricate.build(:response, body: json_schema_sample(items_in_array: 'array'), body_draft: new_body)
+        Fabricate.build(:response, body: schema_fixture('basic'), body_draft: new_body)
       end
-      let(:old_body) { json_schema_sample(items_in_array: 'string').deep_stringify_keys }
-      let(:new_body) { json_schema_sample(items_in_array: 'number').deep_stringify_keys }
+      let(:old_body) { schema_fixture('array_of_strings').deep_stringify_keys }
+      let(:new_body) { schema_fixture('array_of_numbers').deep_stringify_keys }
 
       before do
         response.save
       end
 
       it 'calls normalizer with new value' do
-        allow(JsonSchemaNormalizer).to receive(:normalize)
+        allow(JsonSchemaNormalizer).to receive(:new).and_return(double(normalize: nil))
         response.update(body: new_body)
-        expect(JsonSchemaNormalizer).to have_received(:normalize).with(new_body).once
+        expect(JsonSchemaNormalizer).to have_received(:new).with(new_body).once
       end
     end
   end
@@ -83,7 +83,7 @@ RSpec.describe Response, type: :model do
 
     context 'when body does not exist but draft exists' do
       let(:body) { nil }
-      let(:body_draft) { json_schema_sample }
+      let(:body_draft) { schema_fixture('basic') }
 
       it 'saves draft as body' do
         expect(request.reload.body).to eq(body_draft)
@@ -95,7 +95,7 @@ RSpec.describe Response, type: :model do
     end
 
     context 'when body and draft are the same' do
-      let(:body) { json_schema_sample }
+      let(:body) { schema_fixture('basic') }
       let(:body_draft) { body }
 
       it 'clears draft' do
@@ -104,8 +104,8 @@ RSpec.describe Response, type: :model do
     end
 
     context 'when body and draft are different' do
-      let(:body) { json_schema_sample(items_in_array: 'string') }
-      let(:body_draft) { json_schema_sample(items_in_array: 'number') }
+      let(:body) { schema_fixture('array_of_strings') }
+      let(:body_draft) { schema_fixture('array_of_numbers') }
 
       it 'saves draft as body' do
         expect(request.reload.body).to eq(body)

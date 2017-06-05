@@ -29,8 +29,8 @@ module HttpMessageable
   private
 
   def normalize_json_schemas
-    self.body = JsonSchemaNormalizer.normalize(body) if body_changed? && body
-    self.body_draft = JsonSchemaNormalizer.normalize(body_draft) if body_draft_changed? && body_draft
+    self.body = JsonSchemaNormalizer.new(body).normalize if body_changed? && body
+    self.body_draft = JsonSchemaNormalizer.new(body_draft).normalize if body_draft_changed? && body_draft
   end
 
   def cleanup_unnecessary_draft

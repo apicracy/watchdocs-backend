@@ -17,6 +17,58 @@ RSpec.describe UpdateEndpointSchemas do
   context 'when project exists' do
     before { Fabricate(:project, app_id: 'TEST') }
 
+    context 'and top level group does not exist' do
+      let(:top_level_group) do
+        Fabricate(
+          :group,
+          name: 'Projects',
+          project: Project.last
+        )
+      end
+
+      let(:group) do
+        Fabricate(
+          :group,
+          name: 'Users',
+          project: Project.last,
+          group_id: top_level_group.id
+        )
+      end
+
+      before do
+        top_level_group
+        group
+        processor.call
+      end
+
+      it 'adds top level group' do
+        endpoint = Endpoint.last
+        expect(endpoint.group).to be_present
+        expect(endpoint.group.id).not_to eq(group.id)
+      end
+    end
+
+    context 'and top level group exist' do
+      let(:top_level_group) do
+        Fabricate(
+          :group,
+          name: 'Users',
+          project: Project.last
+        )
+      end
+
+      before do
+        top_level_group
+        processor.call
+      end
+
+      it 'uses top level group' do
+        endpoint = Endpoint.last
+        expect(endpoint.group).to be_present
+        expect(endpoint.group.id).to eq(top_level_group.id)
+      end
+    end
+
     context 'and schema contains request data' do
       before do
         processor.call
@@ -62,13 +114,20 @@ RSpec.describe UpdateEndpointSchemas do
         endpoint = Endpoint.last
         expect(endpoint.request).to be_present
       end
+
+      it 'adds group' do
+        endpoint = Endpoint.last
+        expect(endpoint.group).to be_present
+      end
     end
 
     context 'and endpoint already exists with differens response schema' do
       before do
+        Fabricate :group, name: 'My custom group', project: Project.last
         Fabricate :endpoint, project: Project.last,
                              url: schemas[:endpoint][:url],
-                             http_method: schemas[:endpoint][:method]
+                             http_method: schemas[:endpoint][:method],
+                             group: Group.last
         Fabricate :response, endpoint: Endpoint.last,
                              http_status_code: schemas[:response][:status],
                              body: schema_fixture('array_of_numbers')
@@ -79,9 +138,14 @@ RSpec.describe UpdateEndpointSchemas do
         expect(Endpoint.last.reload).to be_outdated
       end
 
-      it 'does not create new enpdoint and response' do
+      it 'does not create new endpoint and response' do
+        expect(Group.count).to eq(1)
         expect(Endpoint.count).to eq(1)
         expect(Response.count).to eq(1)
+      end
+
+      it 'does not change endpoint group' do
+        expect(Endpoint.last.group.name).to eq 'My custom group'
       end
     end
   end

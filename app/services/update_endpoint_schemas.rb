@@ -8,6 +8,7 @@ class UpdateEndpointSchemas
   # TODO: Add json schema validation for params
   def initialize(endpoint_schema_params)
     @project = find_project(endpoint_schema_params[:app_id])
+
     @endpoint_data = endpoint_schema_params[:endpoint]
     @request_data = endpoint_schema_params[:request]
     @response_data = endpoint_schema_params[:response]
@@ -18,6 +19,7 @@ class UpdateEndpointSchemas
   end
 
   def call
+    add_group
     update_response
     return unless request_data
     update_url_params
@@ -51,6 +53,15 @@ class UpdateEndpointSchemas
         url_param.update(required: required)
       end
     end
+  end
+
+  def add_group
+    return if @endpoint.group.present?
+    @group = @project.groups.find_or_create_by!(
+      name: CreateGroupName.new(url: endpoint_data[:url]).parse_url,
+      group_id: nil
+    )
+    @endpoint.update(group: @group)
   end
 
   def discovered_params

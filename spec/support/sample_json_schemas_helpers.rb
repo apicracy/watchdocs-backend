@@ -1,18 +1,14 @@
 module SampleJsonSchemasHelpers
-  def json_schema_sample(items_in_array: 'string')
-    {
-      schema: 'http://json-schema.org/draft-04/schema#',
-      type: 'object',
-      properties: {
-        types: {
-          type: 'array',
-          items: {
-            type: 'string'
-          }
-        }
-      },
-      required: ['types']
-    }
+  def schema_fixture(name)
+    json = File.read(
+      Rails.root.join(
+        'spec',
+        'fixtures',
+        'schemas',
+        "#{name}.json"
+      )
+    )
+    ActiveSupport::HashWithIndifferentAccess.new(JSON.parse(json))
   end
 end
 

@@ -1,0 +1,40 @@
+ {
+  "type": "object",
+  "schema": "http://json-schema.org/draft-04/schema#",
+  "required": ["name", "base_url", "app_secret"],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "base_url": {
+      "type": "string"
+    },
+    "endpoint": {
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": null
+        },
+        "stats": {
+          "properties": {
+            "stat1": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": ["name", "id"],
+      "type": "object"
+    },
+    "app_secret": {
+      "type": "string"
+    }
+  }
+}

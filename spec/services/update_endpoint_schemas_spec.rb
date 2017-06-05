@@ -71,7 +71,7 @@ RSpec.describe UpdateEndpointSchemas do
                              http_method: schemas[:endpoint][:method]
         Fabricate :response, endpoint: Endpoint.last,
                              http_status_code: schemas[:response][:status],
-                             body: json_schema_sample(items_in_array: 'integer')
+                             body: schema_fixture('array_of_numbers')
         processor.call
       end
 

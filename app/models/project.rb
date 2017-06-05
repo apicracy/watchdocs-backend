@@ -11,11 +11,4 @@ class Project < ApplicationRecord
             presence: true
 
   validates :base_url, url: true
-
-  def generate_api_credentials
-    return true if app_id && app_secret
-    credentials = ApiCredentials.generate(name)
-    return unless credentials
-    assign_attributes(credentials)
-  end
 end

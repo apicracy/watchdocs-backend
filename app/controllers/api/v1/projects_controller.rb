@@ -5,15 +5,9 @@ module Api
       load_and_authorize_resource except: [:index, :documentation, :create]
 
       def create
-        project = Project.new(create_project_params)
-        authorize! :create, project
-        project.generate_api_credentials
-        begin
-          CreateProjectInReportsService.new(project).call
-          project.save
-        rescue ReportsServiceError => e
-          project.errors.add(:name, e.message)
-        end
+        project_creator = CreateProject.new(create_project_params)
+        authorize! :create, project_creator.project
+        project = project_creator.call
         render_resource(project)
       end
 

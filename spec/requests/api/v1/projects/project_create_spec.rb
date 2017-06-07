@@ -24,7 +24,7 @@ RSpec.describe 'POST /projects', type: :request do
 
       it 'returns 200 and serialized project' do
         expect(response.status).to eq 200
-        expect(json.keys).to eq %w(id name base_url updated_at app_id app_secret)
+        expect(json.keys).to eq %w(id name base_url updated_at app_id app_secret sample)
       end
 
       it 'generates api credentials' do

@@ -1,5 +1,5 @@
 class CreateSampleProject
-  attr_reader :user
+  attr_reader :user, :project
 
   def initialize(user)
     @user = user
@@ -7,9 +7,21 @@ class CreateSampleProject
 
   def call
     return unless sample_project_needed?
-    project = Fabricate(:project, user: user, sample: true)
+    ActiveRecord::Base.transaction do
+      create_sample_project
+      create_login_group
+      create_document_group
+      create_project_group
+    end
+  end
 
-    # Login Endpoints
+  private
+
+  def create_sample_project
+    @project = Fabricate(:project, user: user, sample: true, name: 'Sample Project')
+  end
+
+  def create_login_group
     login_group = Fabricate(:group, project: project, name: 'Authorization', description: 'Set of endpoints used for JWT based application across an app')
     login_endpoint = Fabricate(:endpoint, project: project, group: login_group, url: "/login", http_method: "POST", status: "up_to_date", title: "Login", summary: "This endpoint return JWT token as an Authorization header when correct credentials are supplied.")
     login_endpoint.request.update(status: "up_to_date", body: {"type"=>"object", "schema"=>"http://json-schema.org/draft-04/schema#", "required"=>["user"], "properties"=>{"user"=>{"type"=>"object", "required"=>["email", "password"], "properties"=>{"email"=>{"type"=>"string"}, "password"=>{"type"=>"string"}}}}}, body_draft: nil)
@@ -18,8 +30,9 @@ class CreateSampleProject
     users_me_endpoint = Fabricate(:endpoint, project: project, group: login_group, url: "/api/v1/users/me", http_method: "GET", status: "up_to_date", title: "User info", summary: "Returns an info about currently logged user. This can be used for login forms, and JWT validness monitoring.")
     users_me_endpoint.request.update(status: "up_to_date", body: nil, body_draft: nil)
     Fabricate(:response, endpoint:users_me_endpoint, http_status_code: 200, status: "up_to_date", body: {"type"=>"object", "schema"=>"http://json-schema.org/draft-04/schema#", "required"=>["created_at", "email", "id", "updated_at"], "properties"=>{"id"=>{"type"=>"number"}, "email"=>{"type"=>"string"}, "created_at"=>{"type"=>"string"}, "updated_at"=>{"type"=>"string"}}}, body_draft: nil)
+  end
 
-    # Document Endpoints
+  def create_document_group
     document_group = Fabricate(:group, project: project, name: 'Documents', description: 'Set of endpoints for Document resource management')
 
     create_document_endpoint = Fabricate(:endpoint, project: project, group: document_group, url: "/api/v1/documents", http_method: "POST", status: "outdated", title: "Create document", summary: "Creates new Document entry")
@@ -39,8 +52,9 @@ class CreateSampleProject
     Fabricate(:response, endpoint: delete_document_endpoint, http_status_code: 403, status: "outdated", body: {"type"=>"object", "$schema"=>"http://json-schema.org/draft-04/schema#", "required"=>["errors"], "properties"=>{"errors"=>{"type"=>"array", "items"=>{"type"=>"object", "required"=>["code", "detail", "tatus"], "properties"=>{"code"=>{"type"=>"string"}, "tatus"=>{"type"=>"string"}, "title"=>{"type"=>"string"}, "detail"=>{"type"=>"string"}}}}}}, body_draft: {"type"=>"object", "schema"=>"http://json-schema.org/draft-04/schema#", "required"=>["errors"], "properties"=>{"errors"=>{"type"=>"array", "items"=>{"type"=>"object", "required"=>["code", "detail", "status", "title"], "properties"=>{"code"=>{"type"=>"string"}, "title"=>{"type"=>"string"}, "detail"=>{"type"=>"string"}, "status"=>{"type"=>"string"}}}}}})
     Fabricate(:response, endpoint: delete_document_endpoint, http_status_code: 200, status: "outdated", body: {"type"=>"object", "schema"=>"http://json-schema.org/draft-04/schema#", "required"=>["created_at", "group_id", "id", "name", "project_id", "text", "updated_at"], "properties"=>{"id"=>{"type"=>"number"}, "name"=>{"type"=>"string"}, "text"=>{"type"=>"string"}, "group_id"=>{"type"=>"null"}, "created_at"=>{"type"=>"string"}, "project_id"=>{"type"=>"number"}, "updated_at"=>{"type"=>"string"}}}, body_draft: {"type"=>"object", "schema"=>"http://json-schema.org/draft-04/schema#", "required"=>["created_at", "group_id", "id", "name", "project_id", "text", "updated_at"], "properties"=>{"id"=>{"type"=>"number"}, "name"=>{"type"=>"string"}, "text"=>{"type"=>"string"}, "group_id"=>{"type"=>"string"}, "created_at"=>{"type"=>"string"}, "project_id"=>{"type"=>"number"}, "updated_at"=>{"type"=>"string"}}})
     Fabricate(:response, endpoint: delete_document_endpoint, http_status_code: 404, status: "up_to_date", body: {"type"=>"object", "schema"=>"http://json-schema.org/draft-04/schema#", "required"=>["errors"], "properties"=>{"errors"=>{"type"=>"array", "items"=>{"type"=>"object", "required"=>["code", "detail", "status", "title"], "properties"=>{"code"=>{"type"=>"string"}, "title"=>{"type"=>"string"}, "detail"=>{"type"=>"string"}, "status"=>{"type"=>"string"}}}}}}, body_draft: nil)
+  end
 
-    # Project Endpoints
+  def create_project_group
     projects_group = Fabricate(:group, project: project, name: 'Projects', description: 'Set of endpoints used for Project resource management')
 
     create_project_endpoint = Fabricate(:endpoint, project: project, group: projects_group, url: "/api/v1/projects", http_method: "POST", status: "outdated", title: "Create project", summary: "Creates new Project entry")
@@ -55,9 +69,7 @@ class CreateSampleProject
     Fabricate(:url_param, endpoint: get_project_endpoint, name: "per_page", status: "up_to_date", required: false, data_type: "number", description: "Set how many projects are you going to get with each page", example: "10", is_part_of_url: false, required_draft: nil)
   end
 
-  private
-
   def sample_project_needed?
-    user.projects.count == 1 && user.projects.samples.blank?
+    user.projects.count.positive? && user.projects.samples.blank?
   end
 end

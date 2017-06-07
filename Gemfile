@@ -36,7 +36,6 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'
   gem 'pry-nav'
-  gem 'fabrication', '~> 2.14', '>= 2.14.1'
   gem 'rubocop', '~> 0.39.0'
   gem 'rubocop-rspec', '~> 1.4', '>= 1.4.1'
 end
@@ -62,6 +61,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'cancancan', '~> 2.0'
 gem 'json-schema', '~> 2.7'
 gem 'validate_url', '~> 1.0', '>= 1.0.2'
+gem 'fabrication', '~> 2.14', '>= 2.14.1'
 gem 'faker', '~> 1.7', '>= 1.7.3'
 gem 'httparty', '~> 0.14.0'
 gem 'seed_dump'

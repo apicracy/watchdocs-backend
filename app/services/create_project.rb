@@ -8,6 +8,7 @@ class CreateProject
   def call
     generate_api_credentials
     create_project_in_reports_service
+    create_sample_project
     project
   end
 
@@ -25,5 +26,9 @@ class CreateProject
     project.save
   rescue ReportsServiceError => e
     project.errors.add(:name, e.message)
+  end
+
+  def create_sample_project
+    CreateSampleProject.new(project.user).call
   end
 end

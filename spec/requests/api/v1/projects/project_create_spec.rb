@@ -31,6 +31,10 @@ RSpec.describe 'POST /projects', type: :request do
         expect(Project.last.app_id).to be_present
         expect(Project.last.app_secret).to be_present
       end
+
+      it 'generates sample project' do
+        expect(user.projects.samples).to be_present
+      end
     end
 
     context 'and params are invalid' do

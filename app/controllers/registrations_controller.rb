@@ -4,7 +4,9 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
-    resource.save
+    resource.save &&
+      ActiveCampaignTracking.for(resource.email)
+                            .add_to_contacts
     yield resource if block_given?
     render_resource(resource)
   end

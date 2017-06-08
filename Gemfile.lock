@@ -56,6 +56,7 @@ GEM
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     configurations (2.2.2)
+    connection_pool (2.2.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
@@ -128,6 +129,8 @@ GEM
     puma (3.8.2)
     rack (2.0.1)
     rack-cors (0.4.1)
+    rack-protection (2.0.0)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.2)
@@ -163,6 +166,7 @@ GEM
       i18n
       ice_cube (= 0.6.8)
       trollop
+    redis (3.3.3)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rspec-core (3.5.4)
@@ -194,6 +198,11 @@ GEM
     safe_yaml (1.0.4)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
+    sidekiq (5.0.2)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (~> 3.3, >= 3.3.3)
     slop (3.6.0)
     spring (2.0.1)
       activesupport (>= 4.2)
@@ -238,6 +247,10 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    wisper (2.0.0)
+    wisper-sidekiq (0.0.1)
+      sidekiq
+      wisper
 
 PLATFORMS
   ruby
@@ -272,9 +285,11 @@ DEPENDENCIES
   vcr (~> 3.0, >= 3.0.3)
   watchdocs-rails (= 0.10.0)
   webmock (~> 2.1)
+  wisper (= 2.0.0)
+  wisper-sidekiq
 
 RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.14.6
+   1.15.1

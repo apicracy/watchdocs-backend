@@ -29,5 +29,6 @@ module WatchdocsBackend
 
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app', 'validators')
+    config.autoload_paths << Rails.root.join('app', 'domains')
   end
 end

@@ -11,4 +11,7 @@ class Project < ApplicationRecord
             presence: true
 
   validates :base_url, url: true
+
+  scope :samples,
+        -> { where(sample: true) }
 end

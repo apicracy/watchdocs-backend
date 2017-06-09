@@ -3,6 +3,7 @@ class ActiveCampaignTracking
   API_KEY = ENV['ACTIVE_CAMPAIGN_API_KEY']
   TRACKING_ACCOUNT_ID = ENV['ACTIVE_CAMPAIGN_TRACKING_ACCOUNT_ID']
   TRACKING_EVENT_KEY = ENV['ACTIVE_CAMPAIGN_TRACKING_EVENT_KEY']
+  CONTACT_LIST_ID = ENV['ACTIVE_CAMPAIGN_CONTACT_LIST_ID']
 
   attr_reader :api, :email
 
@@ -31,6 +32,9 @@ class ActiveCampaignTracking
 
   def add_to_contacts
     return unless email
-    api.contact_add(email: email)
+    api.contact_add(
+      email: email,
+      "p[#{CONTACT_LIST_ID}]" => CONTACT_LIST_ID
+    )
   end
 end

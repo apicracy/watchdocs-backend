@@ -21,7 +21,9 @@ class CreateEndpoint
   def track
     return unless first_endpoint_created?
     ActiveCampaignTracking.for(endpoint.user.email)
-                          .create_event('first_endpoint_created')
+                          .create_event(
+                            ActiveCampaignTracking::EVENTS[:first_endpoint_created]
+                          )
   end
 
   def first_endpoint_created?

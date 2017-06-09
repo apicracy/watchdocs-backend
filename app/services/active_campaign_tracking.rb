@@ -5,6 +5,10 @@ class ActiveCampaignTracking
   TRACKING_EVENT_KEY = ENV['ACTIVE_CAMPAIGN_TRACKING_EVENT_KEY']
   CONTACT_LIST_ID = ENV['ACTIVE_CAMPAIGN_CONTACT_LIST_ID']
 
+  EVENTS = {
+    first_endpoint_created: 'first_endpoint_created'
+  }.freeze
+
   attr_reader :api, :email
 
   def self.for(email)

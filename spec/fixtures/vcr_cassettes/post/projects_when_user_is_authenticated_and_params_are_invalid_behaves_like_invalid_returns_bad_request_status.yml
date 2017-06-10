@@ -27,7 +27,7 @@ http_interactions:
       Server:
       - WEBrick/1.3.1 (Ruby/2.3.0/2015-12-25)
       Date:
-      - Mon, 05 Jun 2017 06:13:24 GMT
+      - Sat, 10 Jun 2017 21:17:31 GMT
       Via:
       - 1.1 vegur
     body:
@@ -35,5 +35,5 @@ http_interactions:
       string: '{"errors":"The property ''#/app_id'' of type null did not match the
         following type: string"}'
     http_version: 
-  recorded_at: Mon, 05 Jun 2017 06:13:25 GMT
+  recorded_at: Sat, 10 Jun 2017 21:17:31 GMT
 recorded_with: VCR 3.0.3

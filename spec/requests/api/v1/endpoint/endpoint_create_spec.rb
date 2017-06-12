@@ -41,6 +41,9 @@ RSpec.describe 'POST /endpoints', type: :request do
   context 'when user is the owner of the project' do
     context 'and params are valid' do
       before do
+        allow_any_instance_of(ActiveCampaignTracking).to(
+          receive(:create_event).and_return(true)
+        )
         login_as project.user, scope: :user
         post url, params: params
       end

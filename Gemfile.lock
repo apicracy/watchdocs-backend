@@ -24,6 +24,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active-campaign-rails (0.2.3)
+      rest-client
     active_model_serializers (0.10.5)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
@@ -268,6 +270,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active-campaign-rails (~> 0.2.3)
   active_model_serializers (~> 0.10.4)
   byebug
   cancancan (~> 2.0)
@@ -280,7 +283,7 @@ DEPENDENCIES
   httparty (~> 0.14.0)
   json-schema (~> 2.7)
   listen (~> 3.0.5)
-  mailgun_rails
+  mailgun_rails (~> 0.9.0)
   pg
   pry
   pry-nav

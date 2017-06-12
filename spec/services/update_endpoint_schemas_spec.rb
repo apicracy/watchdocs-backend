@@ -15,7 +15,12 @@ RSpec.describe UpdateEndpointSchemas do
   end
 
   context 'when project exists' do
-    before { Fabricate(:project, app_id: 'TEST') }
+    before do
+      allow_any_instance_of(ActiveCampaignTracking).to(
+        receive(:create_event).and_return(true)
+      )
+      Fabricate(:project, app_id: 'TEST')
+    end
 
     context 'and top level group does not exist' do
       let(:top_level_group) do

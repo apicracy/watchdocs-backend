@@ -12,9 +12,9 @@ class UpdateEndpointSchemas
     @endpoint_data = endpoint_schema_params[:endpoint]
     @request_data = endpoint_schema_params[:request]
     @response_data = endpoint_schema_params[:response]
-    @endpoint = project.endpoints.find_or_create_by!(
-      url: endpoint_data[:url],
-      http_method: endpoint_data[:method]
+    @endpoint = find_or_create_endpoint(
+      endpoint_data[:url],
+      endpoint_data[:method]
     )
   end
 
@@ -72,5 +72,10 @@ class UpdateEndpointSchemas
     Project.find_by!(app_id: app_id)
   rescue ActiveRecord::RecordNotFound => exception
     raise ProjectNotFound, exception.message
+  end
+
+  def find_or_create_endpoint(url, method)
+    params = { project: project, url: url, http_method: method }
+    Endpoint.find_by(params) || CreateEndpoint.new(params).call
   end
 end

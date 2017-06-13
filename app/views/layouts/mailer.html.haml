@@ -5,11 +5,11 @@
     %meta{:content => "width=device-width", :name => "viewport"}/
     %link{:href => "https://fonts.googleapis.com/css?family=Roboto&subset=latin-ext", :rel => "stylesheet"}/
     %title JS Bin
-  %body{:style => "background-color: #6C6AB8"}
-    %div{"padding:20px" => "", :style => "width:100%; max-width: 600px; margin: 40px auto; text-align:center; font-family: Roboto, Arial;"}
-      %img{:src => "https://www.dropbox.com/s/rs7lnqrp4o3buq1/watchdocslogo_white_full.png?raw=1", :style => "width: 100%; max-width: 300px; margin-bottom: 40px;"}/
-      %div{:style => "text-align: left; background-color: #fff; border-radius: 5px; padding: 20px; -webkit-box-shadow: 3px 3px 6px -1px rgba(0,0,0,.43); -moz-box-shadow: 3px 3px 6px -1px rgba(0,0,0,.43); box-shadow: 3px 3px 6px -1px rgba(0,0,0,.43); color: #666; width: 100%; position: relative;"}
+  %body{:style => "background: rgba(99,89,220,1); background: -moz-linear-gradient(top, rgba(99,89,220,1) 0%, rgba(107,144,232,1) 100%); background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(99,89,220,1)), color-stop(100%, rgba(107,144,232,1))); background: -webkit-linear-gradient(top, rgba(99,89,220,1) 0%, rgba(107,144,232,1) 100%); background: -o-linear-gradient(top, rgba(99,89,220,1) 0%, rgba(107,144,232,1) 100%); background: -ms-linear-gradient(top, rgba(99,89,220,1) 0%, rgba(107,144,232,1) 100%); background: linear-gradient(to bottom, rgba(99,89,220,1) 0%, rgba(107,144,232,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6359dc', endColorstr='#6b90e8', GradientType=0 ); background-size: cover; text-align: center;" }
+    %div{:style => "width:100%; max-width: 480px; margin: 40px auto; text-align:center; font-family: Roboto, Arial;"}
+      %img{:src => "https://www.dropbox.com/s/rs7lnqrp4o3buq1/watchdocslogo_white_full.png?raw=1", :style => "width: 100%; max-width: 250px; margin-bottom: 40px; text-align: left"}/
+      %div{:style => "text-align: left; background-color: #fff; border-radius: 5px; padding: 40px; -webkit-box-shadow: 3px 3px 6px -1px rgba(0,0,0,.43); -moz-box-shadow: 3px 3px 6px -1px rgba(0,0,0,.43); box-shadow: 3px 3px 6px -1px rgba(0,0,0,.43); color: #666; position: relative;"}
         = yield
-      %div{:style => "margin-top: 30px; color: #aaa; font-size:10px"}
+      %div{:style => "margin-top: 30px; color: rgb(201, 200, 255); font-size:10px"}
         Watchdocs.io is brought to you by
         %a{:href => "https://apicracy.com", :style => "color: #fff"} Apicracy

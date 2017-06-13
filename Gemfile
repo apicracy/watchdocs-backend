@@ -19,7 +19,7 @@ gem 'puma', '~> 3.0'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'haml'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -54,6 +54,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec', require: false
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -65,4 +66,5 @@ gem 'fabrication', '~> 2.14', '>= 2.14.1'
 gem 'faker', '~> 1.7', '>= 1.7.3'
 gem 'httparty', '~> 0.14.0'
 gem 'seed_dump'
+gem 'mailgun_rails', '~> 0.9.0'
 gem 'active-campaign-rails', '~> 0.2.3'

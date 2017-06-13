@@ -28,6 +28,10 @@ RSpec.describe 'POST /signup', type: :request do
     it 'returns a new user' do
       expect(response.body).to match_schema('user')
     end
+
+    it 'sends welcome email' do
+      expect(ActionMailer::Base.deliveries.size).to eq 1
+    end
   end
 
   context 'when user already exists' do

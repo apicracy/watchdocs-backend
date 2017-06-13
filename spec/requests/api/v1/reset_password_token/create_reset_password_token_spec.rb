@@ -12,7 +12,7 @@ RSpec.describe 'POST /users/reset_password_token', type: :request do
 
   context 'when provided email matches a user' do
     before do
-      get url, params: params
+      post url, params: params
     end
 
     it 'returns 204' do
@@ -28,7 +28,7 @@ RSpec.describe 'POST /users/reset_password_token', type: :request do
     let(:email) { 'some@fakeemail.com' }
 
     before do
-      get url, params: params
+      post url, params: params
     end
 
     it 'returns 204' do

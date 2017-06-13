@@ -31,8 +31,10 @@ Rails.application.routes.draw do
       resources :users, only: [] do
         collection do
           get :me
-          resources :reset_password_token, only: [:create]
         end
+      end
+      namespace :users do
+        resources :reset_password_token, only: [:create]
       end
     end
   end

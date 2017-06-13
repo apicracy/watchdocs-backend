@@ -8,7 +8,7 @@ RSpec.describe UserPasswordMailer, type: :mailer do
 
     it 'contains link to reset password with token' do
       expect(mail.body.encoded)
-        .to include("https://app.watchdocs.io/reset_password?token=#{token}")
+        .to include("#{FRONTEND_DOMAIN}/reset_password?token=#{token}")
     end
   end
 end

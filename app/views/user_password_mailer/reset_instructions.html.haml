@@ -2,8 +2,8 @@
   Hello!
 %p Someone has requested a link to change your password. You can do this through the link below.
 
-%a{style: "display: block; width:200px; margin: 30px auto; background: #62B8F5; color: white; padding:15px; text-align:center; text-transform: uppercase; border-radius: 5px; text-decoration:none;", href: "https://app.watchdocs.io/reset_password?token=#{@token}"}
-  Change my password
+= MailerHelpers::UrlHelper.button_link_to_frontend('Change my password', "reset_password?token=#{@token}")
+
 
 %p If you didn't request this, please ignore this email.
 %p Your password won't change until you access the link above and create a new one.

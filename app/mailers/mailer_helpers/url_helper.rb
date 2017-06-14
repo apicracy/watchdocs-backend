@@ -9,7 +9,7 @@ module MailerHelpers
               href="#{href}">
             #{text}
           </a>
-        )
+        ).html_safe
       end
 
       def button_link_to_frontend(text, path)

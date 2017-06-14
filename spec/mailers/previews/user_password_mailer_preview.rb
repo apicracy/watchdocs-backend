@@ -4,4 +4,9 @@ class UserPasswordMailerPreview < ActionMailer::Preview
     token = '8c7w4ba98nd73wxr8oa3nx3ha'
     UserPasswordMailer.reset_instructions(user.id, token)
   end
+
+  def changed
+    user = User.first
+    UserPasswordMailer.changed(user.id)
+  end
 end

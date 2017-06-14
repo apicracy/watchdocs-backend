@@ -11,17 +11,19 @@ RSpec.describe 'PUT /users/passwords', type: :request do
       password_confirmation: 'pass'
     }
   end
-  let(:public_token) do
+  let!(:public_token) do
     CreateResetPasswordToken.new(email).call
   end
 
   context 'when token is valid and passwords match' do
-    before do
+    it 'returns 204' do
       put url, params: params
+      expect(response).to have_http_status(204)
     end
 
-    it 'returns 204' do
-      expect(response).to have_http_status(204)
+    it 'sends email about password being changed' do
+      expect { put url, params: params }
+        .to change { ActionMailer::Base.deliveries.size }.by 1
     end
   end
 
@@ -33,6 +35,11 @@ RSpec.describe 'PUT /users/passwords', type: :request do
     end
 
     it_behaves_like 'invalid'
+
+    it 'returns token validation error' do
+      expect(json['errors'].first['detail']['reset_password_token'])
+        .to be_present
+    end
   end
 
   context 'when token is valid and passwords do not match' do
@@ -43,14 +50,25 @@ RSpec.describe 'PUT /users/passwords', type: :request do
     end
 
     it_behaves_like 'invalid'
+
+    it 'returns password validation error' do
+      expect(json['errors'].first['detail']['password_confirmation'])
+        .to be_present
+    end
   end
 
   context 'when token has expired' do
     before do
-      time_travel_to(8.hours.ago) { public_token }
+      Delorean.jump 8.hours.to_i
       put url, params: params
+      Delorean.back_to_the_present
     end
 
     it_behaves_like 'invalid'
+
+    it 'returns token validation error' do
+      expect(json['errors'].first['detail']['reset_password_token'])
+        .to be_present
+    end
   end
 end

@@ -1,5 +1,6 @@
 class ResetPassword
-  attr_reader :password, :password_confirmation, :token
+  attr_reader :password, :password_confirmation,
+              :token, :user
 
   def initialize(attributes = {})
     @password = attributes[:password]
@@ -8,10 +9,17 @@ class ResetPassword
   end
 
   def call
-    User.reset_password_by_token(
+    @user = User.reset_password_by_token(
       reset_password_token: token,
       password: password,
       password_confirmation: password_confirmation
     )
+    password_changed_email if user.errors.empty?
+    user
+  end
+
+  def password_changed_email
+    UserPasswordMailer.changed(user.id)
+                      .deliver_now
   end
 end

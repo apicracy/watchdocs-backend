@@ -46,6 +46,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'webmock', '~> 2.1'
   gem 'vcr', '~> 3.0', '>= 3.0.3'
+  gem 'delorean', '~> 2.1'
 end
 
 group :development do

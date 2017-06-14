@@ -8,8 +8,9 @@ class ApplicationController < ActionController::API
   rescue_from CanCan::AccessDenied, with: :forbidden_error
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
 
-  def render_resource(resource)
+  def render_resource(resource, no_content: false)
     if resource.errors.empty?
+      head :no_content and return if no_content
       render json: resource
     else
       validation_error(resource)

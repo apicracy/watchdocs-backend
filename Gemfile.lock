@@ -55,12 +55,15 @@ GEM
     cancancan (2.0.0)
     case_transform (0.2)
       activesupport
+    chronic (0.10.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     configurations (2.2.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
+    delorean (2.1.0)
+      chronic
     devise (4.2.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -279,6 +282,7 @@ DEPENDENCIES
   byebug
   cancancan (~> 2.0)
   database_cleaner (~> 1.5, >= 1.5.3)
+  delorean (~> 2.1)
   devise-jwt (~> 0.1.1)
   dotenv-rails (~> 2.1, >= 2.1.1)
   fabrication (~> 2.14, >= 2.14.1)

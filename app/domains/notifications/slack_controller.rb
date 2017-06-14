@@ -1,9 +1,10 @@
 module Notifications
   class SlackController < ApplicationController
+    skip_authorization_check
     respond_to :json
 
     def callback
-      if SlackConnect.new(user: User.last, code: params[:code]).call
+      if SlackConnect.new(user: current_user || User.last, code: params[:code]).call
         render :ok
       else
         render json: {

@@ -9,9 +9,9 @@ module Api
       end
 
       def create
-        endpoint = Endpoint.new(create_endpoint_params)
-        authorize! :create, endpoint
-        endpoint.save
+        endpoint_creator = CreateEndpoint.new(create_endpoint_params)
+        authorize! :create, endpoint_creator.endpoint
+        endpoint = endpoint_creator.call
         render_resource(endpoint)
       end
 

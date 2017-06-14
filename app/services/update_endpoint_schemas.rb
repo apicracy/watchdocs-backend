@@ -8,16 +8,18 @@ class UpdateEndpointSchemas
   # TODO: Add json schema validation for params
   def initialize(endpoint_schema_params)
     @project = find_project(endpoint_schema_params[:app_id])
+
     @endpoint_data = endpoint_schema_params[:endpoint]
     @request_data = endpoint_schema_params[:request]
     @response_data = endpoint_schema_params[:response]
-    @endpoint = project.endpoints.find_or_create_by!(
-      url: endpoint_data[:url],
-      http_method: endpoint_data[:method]
+    @endpoint = find_or_create_endpoint(
+      endpoint_data[:url],
+      endpoint_data[:method]
     )
   end
 
   def call
+    add_group
     update_response
     return unless request_data
     update_url_params
@@ -29,26 +31,16 @@ class UpdateEndpointSchemas
   def update_response
     response = endpoint.responses
                        .find_or_initialize_by(http_status_code: response_data[:status])
-    old_body = response.body
     new_body = response_data[:body]
 
-    if old_body.present? && new_body != old_body
-      response.update(body_draft: new_body)
-    else
-      response.update(body: new_body)
-    end
+    response.update(body_draft: new_body)
   end
 
   def update_request
     request = endpoint.request
-    old_body = request.body
     new_body = request_data[:body]
 
-    if old_body.present? && new_body != old_body
-      request.update(body_draft: new_body)
-    else
-      request.update(body: new_body)
-    end
+    request.update(body_draft: new_body)
   end
 
   def update_url_params
@@ -63,6 +55,15 @@ class UpdateEndpointSchemas
     end
   end
 
+  def add_group
+    return if @endpoint.group.present?
+    @group = @project.groups.find_or_create_by!(
+      name: CreateGroupName.new(url: endpoint_data[:url]).parse_url,
+      group_id: nil
+    )
+    @endpoint.update(group: @group)
+  end
+
   def discovered_params
     UrlParamsSchema.new(request_data[:url_params]).params
   end
@@ -71,5 +72,10 @@ class UpdateEndpointSchemas
     Project.find_by!(app_id: app_id)
   rescue ActiveRecord::RecordNotFound => exception
     raise ProjectNotFound, exception.message
+  end
+
+  def find_or_create_endpoint(url, method)
+    params = { project: project, url: url, http_method: method }
+    Endpoint.find_by(params) || CreateEndpoint.new(params).call
   end
 end

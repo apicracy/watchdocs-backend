@@ -21,10 +21,22 @@ module HttpMessageable
 
     delegate :user, to: :endpoint
 
+    before_save :normalize_json_schemas
+    before_save :cleanup_unnecessary_draft
     before_save :set_status
   end
 
   private
+
+  def normalize_json_schemas
+    self.body = JsonSchemaNormalizer.new(body).normalize if body_changed? && body
+    self.body_draft = JsonSchemaNormalizer.new(body_draft).normalize if body_draft_changed? && body_draft
+  end
+
+  def cleanup_unnecessary_draft
+    self.body = body_draft unless body.present?
+    self.body_draft = nil if body_draft == body
+  end
 
   def set_status
     self.status = body_draft.present? ? :outdated : :up_to_date

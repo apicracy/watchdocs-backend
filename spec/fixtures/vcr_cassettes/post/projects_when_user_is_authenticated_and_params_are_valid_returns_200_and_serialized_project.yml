@@ -5,7 +5,7 @@ http_interactions:
     uri: http://watchdocs-api.herokuapp.com/api/v1/projects
     body:
       encoding: UTF-8
-      string: '{"app_id":"WATCHDOCSIOLTD6b6c1","app_secret":"mmaa29yUx3FvG1KBEpfCPLwPvQCVfU98Uj"}'
+      string: '{"app_id":"WATCHDOCSIOLTDe7342","app_secret":"mj6W6ggzUx7vJ3zeGucrrgcsMTZorpAmZ7"}'
     headers:
       Content-Type:
       - application/json
@@ -31,12 +31,12 @@ http_interactions:
       Server:
       - WEBrick/1.3.1 (Ruby/2.3.0/2015-12-25)
       Date:
-      - Sat, 10 Jun 2017 21:17:28 GMT
+      - Sat, 10 Jun 2017 21:19:19 GMT
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
       string: Success!
     http_version: 
-  recorded_at: Sat, 10 Jun 2017 21:17:28 GMT
+  recorded_at: Sat, 10 Jun 2017 21:19:19 GMT
 recorded_with: VCR 3.0.3

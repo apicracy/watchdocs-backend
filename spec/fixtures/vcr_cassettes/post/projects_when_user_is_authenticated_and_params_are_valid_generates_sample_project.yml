@@ -5,7 +5,7 @@ http_interactions:
     uri: http://watchdocs-api.herokuapp.com/api/v1/projects
     body:
       encoding: UTF-8
-      string: '{"app_id":"WATCHDOCSIOLTD29211","app_secret":"mtLvU86GpmSxzZzyH6Dk1qXTa3dQsWXKLB"}'
+      string: '{"app_id":"WATCHDOCSIOLTD92528","app_secret":"mtbBJj5QAyAmK3PbpvogZcqpWsq9zRbxYK"}'
     headers:
       Content-Type:
       - application/json
@@ -13,15 +13,17 @@ http_interactions:
       - Basic dHZMdVFCRksyRHNEY3lZWXhEeTZSbWhOdUpOUnoyRzpaSEtCbndxbWNUZTRFWXRablJwNWpWMktxMkxENWhm
   response:
     status:
-      code: 200
-      message: 'OK '
+      code: 401
+      message: 'Unauthorized '
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - text/html;charset=utf-8
+      Www-Authenticate:
+      - Basic realm="Restricted Area"
       Content-Length:
-      - '8'
+      - '15'
       X-Xss-Protection:
       - 1; mode=block
       X-Content-Type-Options:
@@ -31,12 +33,14 @@ http_interactions:
       Server:
       - WEBrick/1.3.1 (Ruby/2.3.0/2015-12-25)
       Date:
-      - Sat, 10 Jun 2017 21:19:22 GMT
+      - Wed, 14 Jun 2017 07:12:36 GMT
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
-      string: Success!
+      string: 'Not authorized
+
+'
     http_version: 
-  recorded_at: Sat, 10 Jun 2017 21:19:22 GMT
+  recorded_at: Wed, 14 Jun 2017 07:12:37 GMT
 recorded_with: VCR 3.0.3

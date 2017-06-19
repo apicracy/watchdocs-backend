@@ -5,12 +5,11 @@ class Project < ApplicationRecord
   has_many :documents
 
   validates :name,
-            :base_url,
             :app_id,
             :app_secret,
             presence: true
 
-  validates :base_url, url: true
+  validates :base_url, url: true, allow_nil: true
 
   scope :samples,
         -> { where(sample: true) }

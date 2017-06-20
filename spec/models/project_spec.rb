@@ -21,6 +21,12 @@ RSpec.describe Project, type: :model do
       expect(project.slug).to eq('sample-project')
     end
 
+    it 'changes slug when updating a name' do
+      project.save
+      project.update(name: 'test project')
+      expect(project.slug).to eq('test-project')
+    end
+
     context 'when project under the same name exists' do
       before do
         Fabricate :project, name: project.name

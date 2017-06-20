@@ -34,8 +34,7 @@ RSpec.describe Project, type: :model do
 
       it 'sets to something different' do
         project.save
-        expect(project.slug).to include('sample-project')
-        expect(project.slug).not_to eq('sample-project')
+        expect(project.slug).to eq('sample-project-1')
       end
     end
   end

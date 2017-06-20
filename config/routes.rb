@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     post '/signup', to: 'registrations#create'
   end
 
+  mount ActionCable.server => '/cable'
+
   namespace :api do
     namespace :v1 do
       post '/endpoint_schemas', to: 'endpoint_schemas#create'

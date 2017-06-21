@@ -3,11 +3,13 @@ require 'rails_helper'
 RSpec.describe 'POST /signup', type: :request do
   let(:url) { '/signup' }
   let(:email) { 'user@example.com' }
+  let(:password) { 'password' }
   let(:params) do
     {
       user: {
         email: email,
-        password: 'password'
+        password: password,
+        password_confirmation: 'password'
       }
     }
   end
@@ -53,6 +55,13 @@ RSpec.describe 'POST /signup', type: :request do
 
   context 'when email is not valid' do
     let(:email) { 'a@' }
+    before { post url, params: params }
+
+    it_behaves_like 'invalid'
+  end
+
+  context 'when password_confirmation does not match' do
+    let(:password) { 'otherpass' }
     before { post url, params: params }
 
     it_behaves_like 'invalid'

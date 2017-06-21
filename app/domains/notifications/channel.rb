@@ -5,7 +5,7 @@ module Notifications
     enum provider: [:slack]
 
     def notify
-      notificable.notify("Hello, Slack! - :heart:")
+      notificable.notify("Hello Channel! - :heart:")
     end
   end
 end

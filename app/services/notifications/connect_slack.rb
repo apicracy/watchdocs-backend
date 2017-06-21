@@ -1,13 +1,15 @@
 require 'slack'
 module Notifications
-  class SlackConnect
+  class ConnectSlack
     def initialize(user:, code:)
       @user = user
       @code = code
     end
 
     def call
-      return false if Notifications::Channel.where(user_id: @user).slack.exists?
+      if Notifications::Channel.where(user_id: @user).slack.exists?
+        raise SlackConnectError, 'User already has conneced account'
+      end
       response = authorize_slack
       connect_slack_account(response)
     end
@@ -25,7 +27,7 @@ module Notifications
     end
 
     def connect_slack_account(response)
-      return false unless response['ok'] == true
+      raise SlackConnectError, "Slack Error: #{response['error']}" unless response['ok'] == true
       Notifications::SlackChannel.create(
         access_token: response['access_token'],
         webhook_url: response['incoming_webhook']['url'],

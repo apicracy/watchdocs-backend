@@ -2,25 +2,55 @@ class ProjectTreeSerializer < TreeItemSerializer
   attributes :id, :tree
 
   def tree
-    generate_tree(grupped: false, parent_serializer: self.class)
+    descendants = object.tree_root.descendants.includes(:itemable)
+    tree = BuildProjectTree.new(descendants).call
+    serialize_tree(tree)
   end
 
-  # Class for generating an entry for group on a tree json
-  class GroupItem < TreeItemSerializer
-    attributes :id, :type, :items, :name, :description
+  private
 
-    def items
-      generate_tree(parent_serializer: ProjectTreeSerializer)
+  def serialize_tree(tree)
+    tree.to_a.map do |pair|
+      parent, children = *pair
+      item = parent.itemable
+      {
+        id: item.id,
+        tree_item_id: parent.id,
+        type: item.class.to_s
+      }.merge(serialize_item(item, children))
     end
   end
 
-  # Class for generating an entry for endpoint on a tree json
-  class EndpointItem < TreeItemSerializer
-    attributes :id, :type, :url, :status
-    attribute :http_method, key: :method
+  def serialize_item(item, children)
+    if item.is_a?(Group)
+      serialize_group(item, children)
+    elsif item.is_a?(Document)
+      serialize_document(item)
+    elsif item.is_a?(Endpoint)
+      serialize_endpoint(item)
+    end
   end
 
-  class DocumentItem < TreeItemSerializer
-    attributes :id, :type, :name, :text
+  def serialize_group(group, children)
+    {
+      name: group.name,
+      description: group.description,
+      items: serialize_tree(children)
+    }
+  end
+
+  def serialize_document(document)
+    {
+      name: document.name,
+      text: document.text
+    }
+  end
+
+  def serialize_endpoint(endpoint)
+    {
+      url: endpoint.url,
+      status: endpoint.status,
+      method: endpoint.http_method
+    }
   end
 end

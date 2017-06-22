@@ -5,6 +5,8 @@ class Project < ApplicationRecord
   has_many :endpoints
   has_many :groups
   has_many :documents
+  has_one :tree_root,
+          class_name: TreeItem
 
   validates :name,
             :app_id,
@@ -19,6 +21,8 @@ class Project < ApplicationRecord
         -> { where(sample: true) }
 
   friendly_id :slug_candidates, use: :slugged
+
+  before_validation :build_tree_root, on: :create, unless: :tree_root
 
   def slug_candidates
     [

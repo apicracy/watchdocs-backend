@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  item: one
+  item_type: Item
+  parent_id: 1
+  position: 1
+
+two:
+  project: two
+  item: two
+  item_type: Item
+  parent_id: 1
+  position: 1

@@ -8,6 +8,7 @@ module Api
         group = Group.new(create_group_params)
         authorize! :create, group
         group.save
+        CreateTreeItem.new(group).call
         render_resource(group)
       end
 

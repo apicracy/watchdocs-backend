@@ -8,6 +8,7 @@ module Api
         document = Document.new(create_document_params)
         authorize! :create, document
         document.save
+        CreateTreeItem.new(document).call
         render_resource(document)
       end
 
@@ -15,7 +16,7 @@ module Api
         @document.destroy
         render json: @document
       end
-      
+
       def update
         @document.update(update_document_params)
         render_resource(@document)

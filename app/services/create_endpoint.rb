@@ -8,11 +8,16 @@ class CreateEndpoint
 
   def call
     return endpoint unless endpoint.save
+    create_tree_item
     track unless in_sample_project?
     endpoint
   end
 
   private
+
+  def create_tree_item
+    CreateTreeItem.new(endpoint).call
+  end
 
   def in_sample_project?
     endpoint.project.sample
@@ -24,6 +29,8 @@ class CreateEndpoint
                           .create_event(
                             ActiveCampaignTracking::EVENTS[:first_endpoint_created]
                           )
+  rescue => e
+    Rails.logger.error "ActiveCampaignTracking Error: #{e.message} #{e.backtrace}"
   end
 
   def first_endpoint_created?

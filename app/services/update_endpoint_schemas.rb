@@ -61,7 +61,9 @@ class UpdateEndpointSchemas
       name: CreateGroupName.new(url: endpoint_data[:url]).parse_url,
       group_id: nil
     )
-    @endpoint.update(group: @group)
+    CreateTreeItem.new(@group).call
+    MoveTreeItem.new(@endpoint, to: @group)
+                .call
   end
 
   def discovered_params

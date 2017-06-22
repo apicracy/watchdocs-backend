@@ -1,4 +1,4 @@
-class ProjectDocumentationSerializer < TreeItemSerializer
+class ProjectDocumentationSerializer < ActiveModel::Serializer
   attributes :id, :documentation
 
   def documentation
@@ -49,9 +49,8 @@ class ProjectDocumentationSerializer < TreeItemSerializer
     EndpointItem.new(endpoint).as_json
   end
 
-  class EndpointItem < TreeItemSerializer
+  class EndpointItem < ActiveModel::Serializer
     attributes :id,
-               :type,
                :url,
                :status,
                :description

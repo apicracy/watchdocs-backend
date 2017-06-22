@@ -1,4 +1,4 @@
-class ProjectTreeSerializer < TreeItemSerializer
+class ProjectTreeSerializer < ActiveModel::Serializer
   attributes :id, :tree
 
   def tree

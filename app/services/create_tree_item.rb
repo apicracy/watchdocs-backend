@@ -7,7 +7,7 @@ class CreateTreeItem
 
   def call
     return unless itemable.persisted?
-    return if itemable.tree_item
+    return itemable.tree_item if itemable.tree_item
     itemable.project
             .tree_root
             .children

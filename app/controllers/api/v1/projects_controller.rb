@@ -37,14 +37,16 @@ module Api
       def create_project_params
         params.permit(
           :name,
-          :base_url
+          :base_url,
+          :public
         ).merge(user: current_user)
       end
 
       def update_project_params
         params.permit(
           :name,
-          :base_url
+          :base_url,
+          :public
         )
       end
     end

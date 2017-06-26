@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'POST /auth/slack/callback', type: :request do
-  let(:url) { '/auth/slack/callback' }
+RSpec.describe 'POST /auth/slack/connect', type: :request do
+  let(:url) { '/auth/slack/connect' }
   let(:code) { 'secret_code' }
   let(:user) { Fabricate(:user) }
   let(:params) do

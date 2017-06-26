@@ -4,8 +4,6 @@ module Notifications
 
     enum provider: [:slack]
 
-    def notify
-      notificable.notify("Hello Channel! - :heart:")
-    end
+    delegate :notify, to: :notificable
   end
 end

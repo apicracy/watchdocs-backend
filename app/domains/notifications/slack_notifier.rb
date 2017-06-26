@@ -1,5 +1,5 @@
 module Notifications
-  class SlackChannel < ApplicationRecord
+  class SlackNotifier < ApplicationRecord
     has_one :channel, as: :notificable
     accepts_nested_attributes_for :channel
 

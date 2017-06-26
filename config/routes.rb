@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     post '/signup', to: 'registrations#create'
   end
 
-  post '/auth/slack/callback', to: 'notifications/slack#callback'
+  post '/auth/slack/connect', to: 'notifications/slack#connect'
 
   namespace :api do
     namespace :v1 do

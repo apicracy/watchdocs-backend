@@ -28,7 +28,7 @@ module Notifications
 
     def connect_slack_account(response)
       raise SlackConnectError, "Slack Error: #{response['error']}" unless response['ok'] == true
-      Notifications::SlackChannel.create(
+      Notifications::SlackNotifier.create(
         access_token: response['access_token'],
         webhook_url: response['incoming_webhook']['url'],
         channel_attributes: {user_id: @user.id, provider: 'slack'}

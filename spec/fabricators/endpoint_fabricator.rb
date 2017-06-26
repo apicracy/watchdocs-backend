@@ -5,13 +5,6 @@ Fabricator(:endpoint) do
   status { Endpoint.statuses[:up_to_date] }
   title { Faker::Lorem.sentence }
   summary { Faker::Lorem.paragraph }
-  tree_item(inverse_of: :itemable) do |attrs|
-    Fabricate(
-      :tree_item,
-      parent_id: attrs[:group]&.tree_item&.id ||
-                  attrs[:project]&.tree_root&.id
-    )
-  end
 end
 
 Fabricator(:full_endpoint, from: :endpoint) do

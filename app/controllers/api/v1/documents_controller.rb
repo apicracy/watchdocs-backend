@@ -8,7 +8,6 @@ module Api
         document = Document.new(create_document_params)
         authorize! :create, document
         document.save
-        CreateTreeItem.new(document).call
         render_resource(document)
       end
 

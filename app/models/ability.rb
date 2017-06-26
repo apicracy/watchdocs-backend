@@ -50,7 +50,7 @@ class Ability
 
     # TreeItem
     can :crud, TreeItem do |tree_item|
-      can? :crud, tree_item&.itemable&.project
+      can? :crud, tree_item.itemable
     end
   end
 end

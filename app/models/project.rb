@@ -32,6 +32,11 @@ class Project < ApplicationRecord
     ]
   end
 
+  def top_level_groups
+    groups.includes(:tree_item)
+          .where(tree_items: { parent_id: tree_root.id })
+  end
+
   private
 
   def should_generate_new_friendly_id?

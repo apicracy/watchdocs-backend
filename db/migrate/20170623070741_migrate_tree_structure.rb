@@ -11,14 +11,14 @@ class MigrateTreeStructure < ActiveRecord::Migration[5.0]
 
       project.endpoints.each do |endpoint|
         CreateTreeItem.new(endpoint).call
-        next unless endpoint.group
-        MoveTreeItem.new(endpoint, to: endpoint.group).call
+        next unless endpoint.old_group
+        MoveTreeItem.new(endpoint, to: endpoint.old_group).call
       end
 
       project.documents.each do |document|
         CreateTreeItem.new(document).call
-        next unless document.group
-        MoveTreeItem.new(document, to: document.group).call
+        next unless document.old_group
+        MoveTreeItem.new(document, to: document.old_group).call
       end
     end
   end
@@ -27,7 +27,7 @@ class MigrateTreeStructure < ActiveRecord::Migration[5.0]
 
   def create_tree_item_for_group(group)
     CreateTreeItem.new(group).call
-    parent = group.group
+    parent = group.old_group
     return unless parent
     create_tree_item_for_group(parent) unless parent.tree_item
     MoveTreeItem.new(group, to: parent).call

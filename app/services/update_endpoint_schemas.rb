@@ -57,13 +57,10 @@ class UpdateEndpointSchemas
 
   def add_group
     return if @endpoint.group.present?
-    @group = @project.groups.find_or_create_by!(
-      name: CreateGroupName.new(url: endpoint_data[:url]).parse_url,
-      group_id: nil
+    @group = @project.top_level_groups.find_or_create_by!(
+      name: CreateGroupName.new(url: endpoint_data[:url]).parse_url
     )
-    CreateTreeItem.new(@group).call
-    MoveTreeItem.new(@endpoint, to: @group)
-                .call
+    MoveTreeItem.new(@endpoint, to: @group).call
   end
 
   def discovered_params

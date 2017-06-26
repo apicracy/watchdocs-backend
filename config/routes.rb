@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   post '/auth/slack/connect', to: 'notifications/slack#connect'
+  post '/auth/slack/deactivate', to: 'notifications/slack#deactivate'
 
   namespace :api do
     namespace :v1 do

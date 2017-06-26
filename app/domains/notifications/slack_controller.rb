@@ -18,5 +18,12 @@ module Notifications
         ]
       }, status: :bad_request
     end
+
+    def deactivate
+      @channel = Channel.slack.first
+      authorize! :update, @channel
+      @channel.update(active: false)
+      render_resource(@channel)
+    end
   end
 end

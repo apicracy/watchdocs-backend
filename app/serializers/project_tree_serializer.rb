@@ -1,4 +1,4 @@
-class ProjectTreeSerializer < TreeSerializer
+class ProjectTreeSerializer < AbstractTreeSerializer
   attributes :id, :tree
 
   def tree

@@ -1,4 +1,4 @@
-class ProjectDocumentationSerializer < TreeSerializer
+class ProjectDocumentationSerializer < AbstractTreeSerializer
   attributes :id, :documentation
 
   def documentation

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170620072825) do
+ActiveRecord::Schema.define(version: 20170623070741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,18 @@ ActiveRecord::Schema.define(version: 20170620072825) do
     t.index ["endpoint_id"], name: "index_responses_on_endpoint_id", using: :btree
   end
 
+  create_table "tree_items", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "itemable_type"
+    t.integer  "itemable_id"
+    t.integer  "parent_id"
+    t.integer  "position"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["itemable_type", "itemable_id"], name: "index_tree_items_on_itemable_type_and_itemable_id", using: :btree
+    t.index ["project_id"], name: "index_tree_items_on_project_id", using: :btree
+  end
+
   create_table "url_params", force: :cascade do |t|
     t.integer  "endpoint_id"
     t.string   "name"
@@ -155,5 +167,6 @@ ActiveRecord::Schema.define(version: 20170620072825) do
   add_foreign_key "projects", "users"
   add_foreign_key "requests", "endpoints"
   add_foreign_key "responses", "endpoints"
+  add_foreign_key "tree_items", "projects"
   add_foreign_key "url_params", "endpoints"
 end

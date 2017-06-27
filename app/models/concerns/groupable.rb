@@ -14,6 +14,7 @@ module Groupable
     # needed for migration to new structure
     belongs_to :old_group,
                class_name: Group,
+               foreign_key: :group_id,
                optional: true
 
     after_create :insert_to_project_tree

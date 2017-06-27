@@ -62,6 +62,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'cancancan', '~> 2.0'
 gem 'json-schema', '~> 2.7'
+gem 'onesignal'
 gem 'validate_url', '~> 1.0', '>= 1.0.2'
 gem 'fabrication', '~> 2.14', '>= 2.14.1'
 gem 'faker', '~> 1.7', '>= 1.7.3'

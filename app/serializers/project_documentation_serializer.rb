@@ -1,5 +1,5 @@
 class ProjectDocumentationSerializer < TreeItemSerializer
-  attributes :id, :documentation
+  attributes :id, :documentation, :base_url, :user_id, :name
 
   def documentation
     generate_tree(grupped: false, parent_serializer: self.class)

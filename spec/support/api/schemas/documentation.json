@@ -4,13 +4,24 @@
     "documentation": {
       "$ref": "#/definitions/documentation_items"
     },
+    "base_url": {
+      "type": "string"
+    },
     "id": {
       "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
     }
   },
   "required": [
     "documentation",
-    "id"
+    "id",
+    "base_url",
+    "name",
   ],
   "type": "object",
 

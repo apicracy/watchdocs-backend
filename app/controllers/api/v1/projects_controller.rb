@@ -22,7 +22,7 @@ module Api
       end
 
       def documentation
-        @project = Project.find(params[:id])
+        @project = Project.friendly.find(params[:id])
         authenticate_user! unless @project.public
         authorize! :read_documentation, @project
         render json: ProjectDocumentationSerializer.new(@project).to_json

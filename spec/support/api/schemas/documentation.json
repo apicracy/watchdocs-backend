@@ -21,7 +21,7 @@
     "documentation",
     "id",
     "base_url",
-    "name",
+    "name"
   ],
   "type": "object",
 

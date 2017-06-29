@@ -9,6 +9,8 @@ class Ability
     # Project
     can :index, Project
     can :crud, Project, user: user
+    can :read_documentation, Project, user: user
+    can :read_documentation, Project, public: true
 
     # User
     can :read, User, id: user.id

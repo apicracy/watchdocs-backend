@@ -1,5 +1,5 @@
 class ProjectDocumentationSerializer < AbstractTreeSerializer
-  attributes :id, :documentation
+  attributes :id, :documentation, :base_url, :user_id, :name
 
   def documentation
     serialize_tree(generate_tree)

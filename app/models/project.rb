@@ -20,7 +20,7 @@ class Project < ApplicationRecord
   scope :samples,
         -> { where(sample: true) }
 
-  friendly_id :slug_candidates, use: :slugged
+  friendly_id :slug_candidates, use: [:slugged]
 
   before_validation :build_tree_root, on: :create, unless: :tree_root
 

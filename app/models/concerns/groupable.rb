@@ -6,7 +6,8 @@ module Groupable
 
     has_one :tree_item,
             as: :itemable,
-            inverse_of: :itemable
+            inverse_of: :itemable,
+            dependent: :destroy
 
     belongs_to :project
 

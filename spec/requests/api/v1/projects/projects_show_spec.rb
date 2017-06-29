@@ -40,7 +40,7 @@ RSpec.describe 'GET /projects/:id', type: :request do
     end
 
     it 'returns required fields' do
-      expect(json.keys).to eq %w(id tree)
+      expect(json).to match_schema('project_tree')
     end
   end
 end

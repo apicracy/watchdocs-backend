@@ -33,6 +33,9 @@ RSpec.describe Ability, type: :model do
 
     # Header
     it { is_expected.not_to be_able_to(:crud, Group.new) }
+
+    # TreeItem
+    it { is_expected.not_to be_able_to(:crud, TreeItem.new) }
   end
 
   context 'when is a signed in user' do
@@ -100,6 +103,13 @@ RSpec.describe Ability, type: :model do
     it do
       is_expected.not_to be_able_to(
         :crud, Group.new(project: Project.new)
+      )
+    end
+
+    # TreeItem
+    it do
+      is_expected.to be_able_to(
+        :crud, TreeItem.new(itemable: owned_endpoint)
       )
     end
   end

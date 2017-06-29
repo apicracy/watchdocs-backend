@@ -24,6 +24,8 @@ class CreateEndpoint
                           .create_event(
                             ActiveCampaignTracking::EVENTS[:first_endpoint_created]
                           )
+  rescue => e
+    Rails.logger.error "ActiveCampaignTracking Error: #{e.message} #{e.backtrace}"
   end
 
   def first_endpoint_created?

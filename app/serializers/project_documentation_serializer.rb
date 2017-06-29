@@ -1,22 +1,18 @@
-class ProjectDocumentationSerializer < TreeItemSerializer
+class ProjectDocumentationSerializer < AbstractTreeSerializer
   attributes :id, :documentation, :base_url, :user_id, :name
 
   def documentation
-    generate_tree(grupped: false, parent_serializer: self.class)
+    serialize_tree(generate_tree)
   end
 
-  class GroupItem < TreeItemSerializer
-    attributes :id, :type, :items, :name, :description
+  private
 
-    def items
-      generate_tree(parent_serializer: ProjectDocumentationSerializer)
-    end
+  def serialize_endpoint(endpoint)
+    EndpointItem.new(endpoint).as_json
   end
 
-  class EndpointItem < TreeItemSerializer
-    attributes :id,
-               :type,
-               :url,
+  class EndpointItem < ActiveModel::Serializer
+    attributes :url,
                :status,
                :description
 
@@ -29,9 +25,5 @@ class ProjectDocumentationSerializer < TreeItemSerializer
     def responses
       object.responses.order(:http_status_code)
     end
-  end
-
-  class DocumentItem < TreeItemSerializer
-    attributes :id, :type, :name, :text
   end
 end

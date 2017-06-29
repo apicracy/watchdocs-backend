@@ -38,6 +38,6 @@ class MoveTreeItem
   end
 
   def move_before(new_following)
-    item.move_to_bottom_of(new_following)
+    item.move_to_above_of(new_following)
   end
 end

@@ -27,6 +27,11 @@ module Api
         render json: ProjectDocumentationSerializer.new(@project).to_json
       end
 
+      def update
+        @project.update(update_project_params)
+        render_resource(@project)
+      end
+
       private
 
       def create_project_params
@@ -34,6 +39,13 @@ module Api
           :name,
           :base_url
         ).merge(user: current_user)
+      end
+
+      def update_project_params
+        params.permit(
+          :name,
+          :base_url
+        )
       end
     end
   end

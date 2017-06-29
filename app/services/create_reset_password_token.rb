@@ -9,6 +9,7 @@ class CreateResetPasswordToken
     return unless user
     create_token
     send_reset_password_instructions
+    public_token
   end
 
   private

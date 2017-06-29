@@ -47,5 +47,10 @@ class Ability
     can :crud, Group do |group|
       can? :crud, group.project
     end
+
+    # Notifications::Channel
+    can :update, Notifications::Channel do |channel|
+      channel.user_id == user.id
+    end
   end
 end

@@ -40,7 +40,7 @@ RSpec.describe 'DELETE /projects/:id', type: :request do
 
     it 'returns 200' do
       expect(response.status).to eq 200
-      expect(response.body).to match_schema('project')
+      expect(json).to eq(serialized(project))
     end
 
     it 'removes all connected data' do

@@ -15,7 +15,7 @@ module Api
         @document.destroy
         render json: @document
       end
-      
+
       def update
         @document.update(update_document_params)
         render_resource(@document)

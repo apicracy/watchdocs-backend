@@ -20,6 +20,7 @@ Rails.application.routes.draw do
           get :documentation
         end
       end
+      resources :tree_items, only: [:update]
       resources :documents
       resources :groups
       resources :responses

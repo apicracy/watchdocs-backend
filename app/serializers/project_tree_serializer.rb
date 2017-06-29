@@ -1,26 +1,11 @@
-class ProjectTreeSerializer < TreeItemSerializer
-  attributes :id, :tree
+class ProjectTreeSerializer < AbstractTreeSerializer
+  attributes :id, :tree, :tree_root_id
 
   def tree
-    generate_tree(grupped: false, parent_serializer: self.class)
+    serialize_tree(generate_tree)
   end
 
-  # Class for generating an entry for group on a tree json
-  class GroupItem < TreeItemSerializer
-    attributes :id, :type, :items, :name, :description
-
-    def items
-      generate_tree(parent_serializer: ProjectTreeSerializer)
-    end
-  end
-
-  # Class for generating an entry for endpoint on a tree json
-  class EndpointItem < TreeItemSerializer
-    attributes :id, :type, :url, :status
-    attribute :http_method, key: :method
-  end
-
-  class DocumentItem < TreeItemSerializer
-    attributes :id, :type, :name, :text
+  def tree_root_id
+    object.tree_root.id
   end
 end

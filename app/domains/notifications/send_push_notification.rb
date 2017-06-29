@@ -21,7 +21,7 @@ module Notifications
     private
 
     def filtered_channels
-      PushNotificationCredential.where(id: channels.push_notification.notificable_id)
+      PushNotificationCredential.where(id: channels.push_notification.select(:notificable_id))
     end
 
     def send_notifications_to(players = [])

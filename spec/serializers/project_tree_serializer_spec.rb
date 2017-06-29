@@ -2,8 +2,11 @@ require 'rails_helper'
 
 # TODO: Refactor to user json schema
 RSpec.describe ProjectTreeSerializer, type: :serializer do
-  subject(:serializer) { described_class.new(project) }
+  subject(:serialized) { serialized_json(serializer) }
+  let(:serializer) { serializer_for(project) }
   let(:project) { Fabricate :project }
+
+  it { is_expected.to match_schema('project_tree') }
 
   describe '#tree' do
     subject(:json_tree) { JSON.parse(serializer.to_json)['tree'] }

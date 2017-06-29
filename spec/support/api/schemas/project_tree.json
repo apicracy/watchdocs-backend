@@ -6,11 +6,15 @@
     },
     "id": {
       "type": "integer"
+    },
+    "tree_root_id": {
+      "type": "integer"
     }
   },
   "required": [
     "tree",
-    "id"
+    "id",
+    "tree_root_id"
   ],
   "type": "object",
 

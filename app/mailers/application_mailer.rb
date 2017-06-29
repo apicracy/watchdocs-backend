@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'k.szromek@watchdocs.io'
+  default from: 'noreply@watchdocs.io'
   layout 'mailer'
 end

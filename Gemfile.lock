@@ -55,6 +55,7 @@ GEM
     cancancan (2.0.0)
     case_transform (0.2)
       activesupport
+    chronic (0.10.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     configurations (2.2.2)
@@ -62,6 +63,8 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
+    delorean (2.1.0)
+      chronic
     devise (4.2.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -98,6 +101,8 @@ GEM
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     ffi (1.9.18)
+    friendly_id (5.2.1)
+      activerecord (>= 4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     haml (5.0.1)
@@ -143,6 +148,7 @@ GEM
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
+    onesignal (0.3.0)
     orm_adapter (0.5.0)
     parser (2.4.0.0)
       ast (~> 2.2)
@@ -307,16 +313,19 @@ DEPENDENCIES
   byebug
   cancancan (~> 2.0)
   database_cleaner (~> 1.5, >= 1.5.3)
+  delorean (~> 2.1)
   devise-jwt (~> 0.1.1)
   dotenv-rails (~> 2.1, >= 2.1.1)
   fabrication (~> 2.14, >= 2.14.1)
   faker (~> 1.7, >= 1.7.3)
+  friendly_id
   haml
   httparty (~> 0.14.0)
   json-schema (~> 2.7)
   letter_opener
   listen (~> 3.0.5)
   mailgun_rails (~> 0.9.0)
+  onesignal
   pg
   pry
   pry-nav

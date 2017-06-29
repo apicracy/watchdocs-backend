@@ -47,6 +47,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'webmock', '~> 2.1'
   gem 'vcr', '~> 3.0', '>= 3.0.3'
+  gem 'delorean', '~> 2.1'
 end
 
 group :development do
@@ -62,6 +63,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'cancancan', '~> 2.0'
 gem 'json-schema', '~> 2.7'
+gem 'onesignal'
 gem 'validate_url', '~> 1.0', '>= 1.0.2'
 gem 'fabrication', '~> 2.14', '>= 2.14.1'
 gem 'faker', '~> 1.7', '>= 1.7.3'
@@ -71,3 +73,4 @@ gem 'wisper-sidekiq'
 gem 'seed_dump'
 gem 'mailgun_rails', '~> 0.9.0'
 gem 'active-campaign-rails', '~> 0.2.3'
+gem 'friendly_id'

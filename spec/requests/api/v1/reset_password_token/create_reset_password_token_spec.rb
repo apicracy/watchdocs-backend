@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe 'POST /users/reset_password_token', type: :request do
+RSpec.describe 'POST /users/reset_password_tokens', type: :request do
   let(:user) { Fabricate(:user) }
   let(:email) { user.email }
-  let(:url) { '/api/v1/users/reset_password_token' }
+  let(:url) { '/api/v1/users/reset_password_tokens' }
   let(:params) do
     {
       email: email

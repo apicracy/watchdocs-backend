@@ -15,6 +15,16 @@ ActiveRecord::Schema.define(version: 20170627175951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "channels", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "notificable_type"
+    t.integer  "notificable_id"
+    t.integer  "provider"
+    t.boolean  "active",           default: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
   create_table "documents", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "group_id"
@@ -121,6 +131,13 @@ ActiveRecord::Schema.define(version: 20170627175951) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.index ["endpoint_id"], name: "index_responses_on_endpoint_id", using: :btree
+  end
+
+  create_table "slack_notifiers", force: :cascade do |t|
+    t.string   "access_token"
+    t.string   "webhook_url"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "url_params", force: :cascade do |t|

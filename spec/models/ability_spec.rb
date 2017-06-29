@@ -100,5 +100,12 @@ RSpec.describe Ability, type: :model do
         :crud, Group.new(project: Project.new)
       )
     end
+
+    # Notifications::Channel
+    it do
+      is_expected.to be_able_to(
+        :update, Notifications::Channel.new(user_id: user.id)
+      )
+    end
   end
 end

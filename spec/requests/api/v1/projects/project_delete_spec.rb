@@ -37,7 +37,7 @@ RSpec.describe 'DELETE /projects/:id', type: :request do
       login_as user, scope: :user
 
       endpoint = Fabricate :endpoint, project: project
-      request = Fabricate :request, endpoint: endpoint
+      request = endpoint.request
       Fabricate :response, endpoint: endpoint
       Fabricate :url_param, endpoint: endpoint
       Fabricate :header, headerable: request

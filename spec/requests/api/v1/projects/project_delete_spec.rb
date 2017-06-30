@@ -35,6 +35,13 @@ RSpec.describe 'DELETE /projects/:id', type: :request do
 
     before do
       login_as user, scope: :user
+
+      endpoint = Fabricate :endpoint, project: project
+      request = Fabricate :request, endpoint: endpoint
+      Fabricate :response, endpoint: endpoint
+      Fabricate :url_param, endpoint: endpoint
+      Fabricate :header, headerable: request
+
       delete url
     end
 
@@ -49,6 +56,7 @@ RSpec.describe 'DELETE /projects/:id', type: :request do
       expect(Request.count).to eq 0
       expect(Response.count).to eq 0
       expect(Header.count).to eq 0
+      expect(TreeItem.count).to eq 0
     end
   end
 end

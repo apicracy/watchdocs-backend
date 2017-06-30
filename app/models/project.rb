@@ -2,11 +2,12 @@ class Project < ApplicationRecord
   extend FriendlyId
 
   belongs_to :user
-  has_many :endpoints
-  has_many :groups
-  has_many :documents
+  has_many :endpoints, dependent: :destroy
+  has_many :groups, dependent: :destroy
+  has_many :documents, dependent: :destroy
   has_one :tree_root,
-          class_name: TreeItem
+          class_name: TreeItem,
+          dependent: :destroy
 
   validates :name,
             :app_id,

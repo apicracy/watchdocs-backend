@@ -33,6 +33,11 @@ module Api
         render_resource(@project)
       end
 
+      def destroy
+        @project.destroy
+        render_resource(@project)
+      end
+
       private
 
       def create_project_params

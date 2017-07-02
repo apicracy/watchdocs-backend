@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20170627175951) do
   end
 
   create_table "push_notifications_credentials", force: :cascade do |t|
-    t.integer  "player_id"
+    t.string   "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_push_notifications_credentials_on_player_id", using: :btree

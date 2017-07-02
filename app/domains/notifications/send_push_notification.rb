@@ -1,6 +1,8 @@
+require 'httparty'
+
 module Notifications
   class SendPushNotification
-    attr_reader :client, :channels, :message
+    attr_reader :client, :channels, :message, :success
 
     def initialize(channels:, message:)
       @channels = channels
@@ -16,12 +18,21 @@ module Notifications
       filtered_channels.find_in_batches(batch_size: 2000) do |credentials|
         send_notifications_to(credentials.map(&:player_id))
       end
+      success!
+    rescue OneSignal::RequestError => e
+      fail!
+      JSON.parse(e.http_body)
+    end
+
+    def success?
+      success
     end
 
     private
 
     def filtered_channels
-      PushNotificationCredential.where(id: channels.push_notification.select(:notificable_id))
+      subquery = channels.push_notification.select(:notificable_id)
+      ::Notifications::PushNotificationsCredential.where(id: subquery)
     end
 
     def send_notifications_to(players = [])
@@ -33,6 +44,14 @@ module Notifications
         include_player_ids: players,
         contents: { en: message }
       }
+    end
+
+    def success!
+      @success = true
+    end
+
+    def fail!
+      @success = false
     end
   end
 end

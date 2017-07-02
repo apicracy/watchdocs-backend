@@ -21,5 +21,7 @@ class CreateUser
   def track
     ActiveCampaignTracking.for(user.email)
                           .add_to_contacts
+  rescue => e
+    Rails.logger.error "ActiveCampaignTracking Error: #{e.message} #{e.backtrace}"
   end
 end

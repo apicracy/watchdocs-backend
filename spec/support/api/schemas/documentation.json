@@ -4,13 +4,24 @@
     "documentation": {
       "$ref": "#/definitions/documentation_items"
     },
+    "base_url": {
+      "type": "string"
+    },
     "id": {
       "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
     }
   },
   "required": [
     "documentation",
-    "id"
+    "id",
+    "base_url",
+    "name"
   ],
   "type": "object",
 
@@ -52,6 +63,9 @@
         "id": {
           "type": "integer"
         },
+        "tree_item_id": {
+          "type": "integer"
+        },
         "method": {
           "type": "string"
         },
@@ -83,6 +97,7 @@
         "method",
         "type",
         "id",
+        "tree_item_id",
         "responses"
       ]
     },
@@ -93,6 +108,9 @@
         },
         "id": {
             "type": "integer"
+        },
+        "tree_item_id": {
+          "type": "integer"
         },
         "items": {
           "$ref": "#/definitions/documentation_items"
@@ -109,6 +127,7 @@
         "description",
         "type",
         "id",
+        "tree_item_id",
         "name"
       ]
     },
@@ -119,6 +138,9 @@
         },
         "id": {
             "type": "integer"
+        },
+        "tree_item_id": {
+          "type": "integer"
         },
         "name": {
             "type": "string"
@@ -131,7 +153,8 @@
         "name",
         "type",
         "id",
-        "name"
+        "tree_item_id",
+        "text"
       ]
     },
 

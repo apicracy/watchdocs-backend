@@ -97,10 +97,11 @@ ActiveRecord::Schema.define(version: 20170627175951) do
     t.string   "base_url"
     t.string   "app_id"
     t.string   "app_secret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.boolean  "sample"
     t.string   "slug"
+    t.boolean  "public",     default: false
     t.index ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
   end
@@ -138,6 +139,18 @@ ActiveRecord::Schema.define(version: 20170627175951) do
     t.string   "webhook_url"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "tree_items", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "itemable_type"
+    t.integer  "itemable_id"
+    t.integer  "parent_id"
+    t.integer  "position"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["itemable_type", "itemable_id"], name: "index_tree_items_on_itemable_type_and_itemable_id", using: :btree
+    t.index ["project_id"], name: "index_tree_items_on_project_id", using: :btree
   end
 
   create_table "url_params", force: :cascade do |t|
@@ -179,5 +192,6 @@ ActiveRecord::Schema.define(version: 20170627175951) do
   add_foreign_key "projects", "users"
   add_foreign_key "requests", "endpoints"
   add_foreign_key "responses", "endpoints"
+  add_foreign_key "tree_items", "projects"
   add_foreign_key "url_params", "endpoints"
 end

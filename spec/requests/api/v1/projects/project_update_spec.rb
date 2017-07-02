@@ -7,7 +7,8 @@ RSpec.describe 'PUT /endpoints/:id', type: :request do
   let(:params) do
     {
       name: 'Watchdocs.io Ltd.',
-      base_url: 'https://watchdocs.io/'
+      base_url: 'https://watchdocs.io/',
+      public: true
     }
   end
 

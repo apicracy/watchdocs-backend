@@ -9,6 +9,8 @@ class Ability
     # Project
     can :index, Project
     can :crud, Project, user: user
+    can :read_documentation, Project, user: user
+    can :read_documentation, Project, public: true
 
     # User
     can :read, User, id: user.id
@@ -51,6 +53,11 @@ class Ability
     # Notifications::Channel
     can :update, Notifications::Channel do |channel|
       channel.user_id == user.id
+    end
+
+    # TreeItem
+    can :crud, TreeItem do |tree_item|
+      can? :crud, tree_item.itemable
     end
   end
 end

@@ -4,11 +4,11 @@ RSpec.describe 'PUT /users/passwords', type: :request do
   let(:url) { "/api/v1/users/passwords/#{public_token}" }
   let(:user) { Fabricate(:user) }
   let(:email) { user.email }
-  let(:password) { 'pass' }
+  let(:password) { 'password' }
   let(:params) do
     {
       password: password,
-      password_confirmation: 'pass'
+      password_confirmation: 'password'
     }
   end
   let!(:public_token) do
@@ -43,7 +43,7 @@ RSpec.describe 'PUT /users/passwords', type: :request do
   end
 
   context 'when token is valid and passwords do not match' do
-    let(:password) { 'pass123' }
+    let(:password) { 'otherpasss' }
 
     before do
       put url, params: params

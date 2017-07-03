@@ -36,7 +36,7 @@ RSpec.describe UpdateEndpointSchemas do
           :group,
           name: 'Users',
           project: Project.last,
-          group_id: top_level_group.id
+          group: top_level_group
         )
       end
 
@@ -46,10 +46,10 @@ RSpec.describe UpdateEndpointSchemas do
         processor.call
       end
 
-      it 'adds top level group' do
-        endpoint = Endpoint.last
-        expect(endpoint.group).to be_present
-        expect(endpoint.group.id).not_to eq(group.id)
+      it 'adds to top level group' do
+        endpoint_tree_item = Endpoint.last.tree_item
+        expect(endpoint_tree_item.ancestors.count).to eq 2 # tree root and group
+        expect(endpoint_tree_item.parent_id).not_to eq(group.tree_item.id)
       end
     end
 
@@ -68,9 +68,9 @@ RSpec.describe UpdateEndpointSchemas do
       end
 
       it 'uses top level group' do
-        endpoint = Endpoint.last
-        expect(endpoint.group).to be_present
-        expect(endpoint.group.id).to eq(top_level_group.id)
+        endpoint_tree_item = Endpoint.last.tree_item
+        expect(endpoint_tree_item.ancestors.count).to eq 2 # tree root and group
+        expect(endpoint_tree_item.parent_id).to eq(top_level_group.tree_item.id)
       end
     end
 
@@ -120,9 +120,9 @@ RSpec.describe UpdateEndpointSchemas do
         expect(endpoint.request).to be_present
       end
 
-      it 'adds group' do
-        endpoint = Endpoint.last
-        expect(endpoint.group).to be_present
+      it 'adds to group' do
+        endpoint_tree_item = Endpoint.last.tree_item
+        expect(endpoint_tree_item.ancestors.count).to eq 2 # tree root and group
       end
     end
 

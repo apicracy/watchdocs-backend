@@ -20,6 +20,7 @@ Rails.application.routes.draw do
           get :documentation
         end
       end
+      resources :tree_items, only: [:update]
       resources :documents
       resources :groups
       resources :responses
@@ -34,7 +35,8 @@ Rails.application.routes.draw do
         end
       end
       namespace :users do
-        resources :reset_password_token, only: [:create]
+        resources :reset_password_tokens, only: [:create]
+        resources :passwords, only: [:update], param: :token
       end
     end
   end

@@ -45,4 +45,19 @@ RSpec.describe 'GET /projects/:id/documentation', type: :request do
       expect(json).to match_schema('documentation')
     end
   end
+
+  context 'when project is public' do
+    before do
+      project.update(public: true)
+      get url
+    end
+
+    it 'returns OK status' do
+      expect(response.status).to eq 200
+    end
+
+    it 'returns required fields' do
+      expect(json).to match_schema('documentation')
+    end
+  end
 end

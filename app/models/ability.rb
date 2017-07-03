@@ -9,6 +9,8 @@ class Ability
     # Project
     can :index, Project
     can :crud, Project, user: user
+    can :read_documentation, Project, user: user
+    can :read_documentation, Project, public: true
 
     # User
     can :read, User, id: user.id
@@ -46,6 +48,11 @@ class Ability
     # Group
     can :crud, Group do |group|
       can? :crud, group.project
+    end
+
+    # TreeItem
+    can :crud, TreeItem do |tree_item|
+      can? :crud, tree_item.itemable
     end
   end
 end

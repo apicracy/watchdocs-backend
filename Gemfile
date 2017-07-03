@@ -46,6 +46,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'webmock', '~> 2.1'
   gem 'vcr', '~> 3.0', '>= 3.0.3'
+  gem 'delorean', '~> 2.1'
 end
 
 group :development do
@@ -70,3 +71,5 @@ gem 'wisper-sidekiq'
 gem 'seed_dump'
 gem 'mailgun_rails', '~> 0.9.0'
 gem 'active-campaign-rails', '~> 0.2.3'
+gem 'friendly_id', '~> 5.2', '>= 5.2.1'
+gem 'acts_as_ordered_tree', '~> 1.3', '>= 1.3.1'

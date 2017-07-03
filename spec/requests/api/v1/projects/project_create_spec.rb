@@ -6,7 +6,8 @@ RSpec.describe 'POST /projects', type: :request do
   let(:params) do
     {
       name: 'Watchdocs.io Ltd.',
-      base_url: 'https://watchdocs.io/'
+      base_url: 'https://watchdocs.io/',
+      public: true
     }
   end
 
@@ -24,7 +25,7 @@ RSpec.describe 'POST /projects', type: :request do
 
       it 'returns 200 and serialized project' do
         expect(response.status).to eq 200
-        expect(json.keys).to eq %w(id name base_url updated_at app_id app_secret sample)
+        expect(json.keys).to eq %w(id name base_url updated_at app_id app_secret sample slug public)
       end
 
       it 'generates api credentials' do

@@ -10,6 +10,8 @@ RSpec.describe Ability, type: :model do
   context 'when is a guest' do
     # Project
     it { is_expected.not_to be_able_to(:crud, Project.new(user_id: 3)) }
+    it { is_expected.not_to be_able_to(:read_documentation, Project.new(user_id: 3)) }
+    it { is_expected.to be_able_to(:read_documentation, Project.new(user_id: 3, public: true)) }
 
     # User
     it { is_expected.not_to be_able_to(:read, User.new(id: 1)) }
@@ -31,6 +33,9 @@ RSpec.describe Ability, type: :model do
 
     # Header
     it { is_expected.not_to be_able_to(:crud, Group.new) }
+
+    # TreeItem
+    it { is_expected.not_to be_able_to(:crud, TreeItem.new) }
   end
 
   context 'when is a signed in user' do
@@ -98,6 +103,13 @@ RSpec.describe Ability, type: :model do
     it do
       is_expected.not_to be_able_to(
         :crud, Group.new(project: Project.new)
+      )
+    end
+
+    # TreeItem
+    it do
+      is_expected.to be_able_to(
+        :crud, TreeItem.new(itemable: owned_endpoint)
       )
     end
   end

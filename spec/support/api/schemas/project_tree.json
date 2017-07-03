@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "tree": {
+      "$ref": "#/definitions/tree_items"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "tree_root_id": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "tree",
+    "id",
+    "tree_root_id"
+  ],
+  "type": "object",
+
+  // Definitions
+
+  "definitions":{
+    // Main items schema
+    "tree_items":{
+      "items": {
+        "type": "object",
+        "oneOf": [
+          { "$ref": "#/definitions/endpoint" },
+          { "$ref": "#/definitions/group" },
+          { "$ref": "#/definitions/document" }
+        ],
+        "minItems": 0
+      },
+      "type": "array"
+    },
+
+    // Items types schemas
+    "endpoint":{
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "tree_item_id": {
+          "type": "integer"
+        },
+        "method": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "url",
+        "method",
+        "type",
+        "id",
+        "tree_item_id"
+      ]
+    },
+    "group":{
+      "properties": {
+        "description": {
+            "type": "string"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "tree_item_id": {
+          "type": "integer"
+        },
+        "items": {
+          "$ref": "#/definitions/tree_items"
+        },
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        }
+      },
+      "required": [
+        "items",
+        "description",
+        "type",
+        "id",
+        "tree_item_id",
+        "name"
+      ]
+    },
+    "document":{
+      "properties": {
+        "text": {
+            "type": "string"
+        },
+        "tree_item_id": {
+          "type": "integer"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "id",
+        "text",
+        "tree_item_id"
+      ]
+    }
+  }
+}

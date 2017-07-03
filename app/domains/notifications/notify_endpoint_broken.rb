@@ -1,5 +1,5 @@
 module Notifications
-  class NotifyEndpointBroken
+  class NotifyEndpointOutdated
     attr_reader :channels, :endpoint_id
 
     def initialize(project_id, endpoint_id)

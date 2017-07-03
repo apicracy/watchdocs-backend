@@ -1,7 +1,7 @@
 module Notifications
   class DomainEventHandler
-    def self.endpoint_broken(project_id, endpoint_id)
-      NotifyEventBroken.new(project_id, endpoint_id).call
+    def self.endpoint_outdated(project_id, endpoint_id)
+      NotifyEndpointOutdated.new(project_id, endpoint_id).call
     end
 
     # etc...

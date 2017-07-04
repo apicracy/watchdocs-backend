@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627175951) do
+ActiveRecord::Schema.define(version: 20170629215514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 20170627175951) do
     t.index ["endpoint_id"], name: "index_responses_on_endpoint_id", using: :btree
   end
 
-  create_table "slack_notifiers", force: :cascade do |t|
+  create_table "slack_credentials", force: :cascade do |t|
     t.string   "access_token"
     t.string   "webhook_url"
     t.datetime "created_at",   null: false

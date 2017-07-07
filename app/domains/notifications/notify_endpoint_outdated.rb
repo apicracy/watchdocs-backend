@@ -10,7 +10,7 @@ module Notifications
 
     def call
       message = "Endpoint id: #{endpoint_id} has been broken."
-      SendPushNotification.new(channels: channels.push_notifications, message: message).call
+      SendPushNotification.new(channels: channels.push_notification, message: message).call
       SendSlackNotification.new(channels: channels.slack, message: message).call
       # Other providers...
     end

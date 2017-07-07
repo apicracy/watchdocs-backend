@@ -8,7 +8,7 @@ module Notifications
 
     def call
       if Notifications::Channel.where(user_id: @user).slack.exists?
-        raise SlackConnectError, 'User already has conneced account'
+        raise SlackConnectError, 'User already has already connected an account'
       end
       response = authorize_slack
       connect_slack_account(response)

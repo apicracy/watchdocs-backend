@@ -106,6 +106,13 @@ RSpec.describe Ability, type: :model do
       )
     end
 
+    # Notifications::Channel
+    it do
+      is_expected.to be_able_to(
+        :update, Notifications::Channel.new(user_id: user.id)
+      )
+    end
+
     # TreeItem
     it do
       is_expected.to be_able_to(

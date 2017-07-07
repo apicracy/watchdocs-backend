@@ -3,7 +3,12 @@
     "test": {
       "addons":[
          "heroku-postgresql"
-      ]
+      ],
+      "env": {
+        "ONESIGNAL_APP_ID": "387c8ee0-f813-400a-b10e-078a0d4108c0",
+        "ONESIGNAL_USER_AUTH_KEY": "ODQ4MzM4NDMtNzdkMS00ZjczLTg5YzUtZjYxZDZiZjMzZjA5",
+        "ONESIGNAL_REST_API_KEY": "NjI4MjU3YzQtY2FjYS00M2NhLTg5MDUtZjcyMjQ1YTJmODkw"
+      }
     }
   }
 }

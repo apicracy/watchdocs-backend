@@ -11,6 +11,13 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              }
 
+  devise_scope :user do
+    post '/signup', to: 'registrations#create'
+  end
+
+  post '/auth/slack/connect', to: 'notifications/slack#connect'
+  post '/auth/slack/deactivate', to: 'notifications/slack#deactivate'
+
   namespace :api do
     namespace :v1 do
       post '/endpoint_schemas', to: 'endpoint_schemas#create'

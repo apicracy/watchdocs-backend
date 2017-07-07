@@ -12,6 +12,6 @@ Project.create(
   user: user,
   name: 'Project',
   base_url: 'https://api.project.com/',
-  api_key: 'ASW4vohno48c7arhw4coraw4hjroaw3va',
-  api_secret: 'Safuifa9w83fnw83nwefniusdjfajsdfa'
+  app_id: 'ASW4vohno48c7arhw4coraw4hjroaw3va',
+  app_secret: 'Safuifa9w83fnw83nwefniusdjfajsdfa'
 )

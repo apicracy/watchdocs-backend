@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://onesignal.com/api/v1/notifications
+    body:
+      encoding: UTF-8
+      string: '{"include_player_ids":["1f65fac8-09f5-4c9e-bc91-7b9c93708e7c"],"contents":{"en":"Test
+        message."},"app_id":"387c8ee0-f813-400a-b10e-078a0d4108c0"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic NjI4MjU3YzQtY2FjYS00M2NhLTg5MDUtZjcyMjQ1YTJmODkw
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 02 Jul 2017 11:16:38 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=df05d3c7e64816591d2a993420b126a381498994198; expires=Mon, 02-Jul-18
+        11:16:38 GMT; path=/; domain=.onesignal.com; HttpOnly
+      Status:
+      - 200 OK
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - edc70ba4-25c4-40df-925b-63e15464e7bc
+      Access-Control-Allow-Headers:
+      - SDK-Version
+      Etag:
+      - W/"4bb64a1eba82a90f5d665171a3973939"
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Runtime:
+      - '0.035534'
+      X-Content-Type-Options:
+      - nosniff
+      X-Powered-By:
+      - Phusion Passenger 5.1.4
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 378131ac895a2b09-WAW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"12a081a1-f816-4710-b3c8-9085e943efbf","recipients":1}'
+    http_version: 
+  recorded_at: Sun, 02 Jul 2017 11:16:38 GMT
+recorded_with: VCR 3.0.3

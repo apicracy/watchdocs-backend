@@ -50,6 +50,11 @@ class Ability
       can? :crud, group.project
     end
 
+    # Notifications::Channel
+    can :update, Notifications::Channel do |channel|
+      channel.user_id == user.id
+    end
+
     # TreeItem
     can :crud, TreeItem do |tree_item|
       can? :crud, tree_item.itemable

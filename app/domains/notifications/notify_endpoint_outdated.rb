@@ -3,10 +3,10 @@ module Notifications
     attr_reader :channels, :endpoint, :project
 
     def initialize(project_id, endpoint_id)
-      users        = Projects::FetchUsers.new.call(project_id)
-      @channels    = Channel.where(user_id: users.select(:id))
-      @endpoint = ::Endpoint.find(endpoint_id)
-      @project = ::Project.find(project_id)
+      users     = Projects::FetchUsers.new(project_id).call
+      @channels = Channel.where(user_id: users.select(:id))
+      @endpoint = Projects::FetchEndpoint.new(endpoint_id).call
+      @project  = Projects::FetchProject.new(project_id).call
     end
 
     def call

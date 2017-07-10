@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Group, type: :model do
+RSpec.describe SlackCredential, type: :model do
   subject(:slack_credentials) { Fabricate.build(:slack_credentials) }
 
   describe '#valid?' do

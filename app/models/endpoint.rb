@@ -48,13 +48,12 @@ class Endpoint < ApplicationRecord
   end
 
   def refresh_status
-    new_status = if responses.outdated.any? ||
-                    request&.outdated? ||
-                    url_params.outdated.any?
-                   :outdated
-                 else
-                   :up_to_date
-                 end
+    if responses.outdated.any? || request&.outdated? || url_params.outdated.any?
+      new_status = :outdated
+      DomainEventPublisher.call(:endpoint_outdated, project_id, id)
+    else
+      new_status = :up_to_date
+    end
     # We don't want further callbacks :)
     # This is just cache updating
     update_column(:status, new_status)

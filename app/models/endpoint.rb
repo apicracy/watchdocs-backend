@@ -59,3 +59,4 @@ class Endpoint < ApplicationRecord
     update_column(:status, new_status)
   end
 end
+

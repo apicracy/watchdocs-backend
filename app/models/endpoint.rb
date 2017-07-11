@@ -50,7 +50,7 @@ class Endpoint < ApplicationRecord
   def refresh_status
     if responses.outdated.any? || request&.outdated? || url_params.outdated.any?
       new_status = :outdated
-      DomainEventPublisher.call(:endpoint_outdated, project_id, id)
+      DomainEventPublisher.new.call(:endpoint_outdated, project_id, id)
     else
       new_status = :up_to_date
     end

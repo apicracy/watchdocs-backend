@@ -30,5 +30,9 @@ module WatchdocsBackend
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app', 'validators')
     config.autoload_paths << Rails.root.join('app', 'domains')
+
+    config.log_level = :debug
+    config.log_tags  = [:subdomain, :uuid]
+    config.logger    = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
   end
 end

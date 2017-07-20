@@ -83,6 +83,4 @@ test:
 #
 production:
   <<: *default
-  database: watchdocs-backend_production
-  username: watchdocs-backend
-  password: <%= ENV['WATCHDOCS_BACKEND_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

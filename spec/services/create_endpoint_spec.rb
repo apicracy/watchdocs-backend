@@ -33,6 +33,16 @@ RSpec.describe CreateEndpoint do
       )
       endpoint_creator.call
     end
+
+    it 'creates title of endpoint' do
+      endpoint = endpoint_creator.call
+      expect(endpoint.title).to be_present
+    end
+
+    it 'creates description of endpoint' do
+      endpoint = endpoint_creator.call
+      expect(endpoint.summary).to be_present
+    end
   end
 
   context 'when params are invalid' do

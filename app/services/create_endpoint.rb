@@ -4,6 +4,8 @@ class CreateEndpoint
   def initialize(initial_params)
     @endpoint = Endpoint.new(initial_params)
     @project = @endpoint.project
+    set_title
+    set_description
   end
 
   def call
@@ -13,6 +15,36 @@ class CreateEndpoint
   end
 
   private
+
+  def set_title
+    case endpoint.http_method
+    when 'GET'
+      endpoint.update(title: "Get #{name} details")
+    when 'POST'
+      endpoint.update(title: "Create #{name} resource")
+    when 'PUT'
+      endpoint.update(title: "Update #{name} resource")
+    when 'DELETE'
+      endpoint.update(title: "Remove #{name} resource")
+    end
+  end
+
+  def set_description
+    case endpoint.http_method
+    when 'GET'
+      endpoint.update(summary: "Endpoint geting #{name} details")
+    when 'POST'
+      endpoint.update(summary: "Endpoint creating new #{name} resource")
+    when 'PUT'
+      endpoint.update(summary: "Endpoint updating #{name} resource")
+    when 'DELETE'
+      endpoint.update(summary: "Endpoint removing #{name} resource")
+    end
+  end
+
+  def name
+    CreateGroupName.new(url: endpoint[:url]).parse_url if endpoint[:url]
+  end
 
   def in_sample_project?
     endpoint.project.sample

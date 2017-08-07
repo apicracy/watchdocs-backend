@@ -36,12 +36,12 @@ RSpec.describe CreateEndpoint do
 
     it 'creates title of endpoint' do
       endpoint = endpoint_creator.call
-      expect(endpoint.title).to eq 'Get Test details'
+      expect(endpoint.title).to eq 'Show Tests'
     end
 
     it 'creates description of endpoint' do
       endpoint = endpoint_creator.call
-      expect(endpoint.summary).to eq 'Endpoint geting Test details'
+      expect(endpoint.summary).to eq 'Endpoint showing Tests'
     end
   end
 

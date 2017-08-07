@@ -60,6 +60,14 @@ RSpec.describe 'POST /endpoints', type: :request do
       it 'returns auto-created request with id' do
         expect(json['request']['id']).to eq Request.last.id
       end
+
+      it 'creates title of endpoint' do
+        expect(json['title']).to be_present
+      end
+
+      it 'creates description of endpoint' do
+        expect(json['description']).to be_present
+      end
     end
 
     context 'and url & method params are duplicated' do

@@ -36,12 +36,12 @@ RSpec.describe CreateEndpoint do
 
     it 'creates title of endpoint' do
       endpoint = endpoint_creator.call
-      expect(endpoint.title).to eq 'List'
+      expect(endpoint.title).to eq 'Return list of Test'
     end
 
     it 'creates description of endpoint' do
       endpoint = endpoint_creator.call
-      expect(endpoint.summary).to eq 'Endpoint list'
+      expect(endpoint.summary).to eq 'Endpoint returning list of Test'
     end
 
     context 'if endpoint included url params' do

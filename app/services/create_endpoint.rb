@@ -22,7 +22,7 @@ class CreateEndpoint
       if url_contains_param?
         endpoint.update(title: "Show #{name.singularize} details")
       else
-        endpoint.update(title: 'List')
+        endpoint.update(title: "Return list of #{name}")
       end
     when 'POST'
       endpoint.update(title: "Create #{name}")
@@ -39,7 +39,7 @@ class CreateEndpoint
       if url_contains_param?
         endpoint.update(summary: "Endpoint showing #{name.singularize} details")
       else
-        endpoint.update(summary: 'Endpoint list')
+        endpoint.update(summary: "Endpoint returning list of #{name}")
       end
     when 'POST'
       endpoint.update(summary: "Endpoint creating new #{name}")

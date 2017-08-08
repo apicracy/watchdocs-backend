@@ -19,28 +19,30 @@ class CreateEndpoint
   def set_title
     case endpoint.http_method
     when 'GET'
-      if endpoint.group
-        endpoint.update(title: "Show #{name.pluralize(2)} of #{endpoint.group}")
-      elsif endpoint.url.split('/').last.to_i.positive?
-        endpoint.update(title: "Show #{name} details")
+      if endpoint.group && name.pluralize == name
+        endpoint.update(title: "Show #{name.pluralize} of #{endpoint.group.name}")
+      elsif endpoint.group
+        endpoint.update(title: "Show #{name} of #{endpoint.group.name} details")
+      elsif name.pluralize == name
+        endpoint.update(title: "Show #{name.pluralize}")
       else
-        endpoint.update(title: "Show #{name.pluralize(2)}")
+        endpoint.update(title: "Show #{name} details")
       end
     when 'POST'
       if endpoint.group
-        endpoint.update(title: "Create #{name} of #{endpoint.group}")
+        endpoint.update(title: "Create #{name} of #{endpoint.group.name}")
       else
         endpoint.update(title: "Create #{name}")
       end
     when 'PUT'
       if endpoint.group
-        endpoint.update(title: "Update #{name} of #{endpoint.group}")
+        endpoint.update(title: "Update #{name} of #{endpoint.group.name}")
       else
         endpoint.update(title: "Update #{name}")
       end
     when 'DELETE'
       if endpoint.group
-        endpoint.update(title: "Remove #{name} of #{endpoint.group}")
+        endpoint.update(title: "Remove #{name} of #{endpoint.group.name}")
       else
         endpoint.update(title: "Remove #{name}")
       end
@@ -50,28 +52,30 @@ class CreateEndpoint
   def set_description
     case endpoint.http_method
     when 'GET'
-      if endpoint.group
-        endpoint.update(summary: "Endpoint showing #{name.pluralize(2)} of #{endpoint.group}")
-      elsif endpoint.url.split('/').last.to_i.positive?
-        endpoint.update(title: "Endpoint showing #{name} details")
+      if endpoint.group && name.pluralize == name
+        endpoint.update(summary: "Endpoint showing #{name.pluralize} of #{endpoint.group.name}")
+      elsif endpoint.group
+        endpoint.update(summary: "Endpoint showing #{name} of #{endpoint.group.name} details")
+      elsif name.pluralize == name
+        endpoint.update(summary: "Endpoint showing #{name.pluralize}")
       else
-        endpoint.update(summary: "Endpoint showing #{name.pluralize(2)}")
+        endpoint.update(summary: "Endpoint showing #{name} details")
       end
     when 'POST'
       if endpoint.group
-        endpoint.update(summary: "Endpoint creating new #{name} of #{endpoint.group}")
+        endpoint.update(summary: "Endpoint creating new #{name} of #{endpoint.group.name}")
       else
         endpoint.update(summary: "Endpoint creating new #{name}")
       end
     when 'PUT'
       if endpoint.group
-        endpoint.update(summary: "Endpoint updating #{name} of #{endpoint.group}")
+        endpoint.update(summary: "Endpoint updating #{name} of #{endpoint.group.name}")
       else
         endpoint.update(summary: "Endpoint updating #{name}")
       end
     when 'DELETE'
       if endpoint.group
-        endpoint.update(summary: "Endpoint removing #{name} of #{endpoint.group}")
+        endpoint.update(summary: "Endpoint removing #{name} of #{endpoint.group.name}")
       else
         endpoint.update(summary: "Endpoint removing #{name}")
       end

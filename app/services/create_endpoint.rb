@@ -25,7 +25,8 @@ class CreateEndpoint
         endpoint.update(title: "Return list of #{name}")
       end
     when 'POST'
-      endpoint.update(title: "Create #{name ? name.singularize : ''}")
+      return unless name
+      endpoint.update(title: "Create #{name.singularize}")
     when 'PUT'
       endpoint.update(title: "Update #{name.singularize}")
     when 'DELETE'
@@ -42,7 +43,8 @@ class CreateEndpoint
         endpoint.update(summary: "Endpoint returning list of #{name}")
       end
     when 'POST'
-      endpoint.update(summary: "Endpoint creating new #{name ? name.singularize : ''}")
+      return unless name
+      endpoint.update(summary: "Endpoint creating new #{name.singularize}")
     when 'PUT'
       endpoint.update(summary: "Endpoint updating #{name.singularize}")
     when 'DELETE'

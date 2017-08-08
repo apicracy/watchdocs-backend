@@ -4,6 +4,8 @@ class CreateEndpoint
   def initialize(initial_params)
     @endpoint = Endpoint.new(initial_params)
     @project = @endpoint.project
+    set_title
+    set_description
   end
 
   def call
@@ -13,6 +15,50 @@ class CreateEndpoint
   end
 
   private
+
+  def set_title
+    case endpoint.http_method
+    when 'GET'
+      if url_contains_param?
+        endpoint.update(title: "Return #{name.singularize} details")
+      else
+        endpoint.update(title: "Return list of #{name}")
+      end
+    when 'POST'
+      return unless name
+      endpoint.update(title: "Create #{name.singularize}")
+    when 'PUT'
+      endpoint.update(title: "Update #{name.singularize}")
+    when 'DELETE'
+      endpoint.update(title: "Remove #{name.singularize}")
+    end
+  end
+
+  def set_description
+    case endpoint.http_method
+    when 'GET'
+      if url_contains_param?
+        endpoint.update(summary: "Endpoint returning #{name.singularize} details")
+      else
+        endpoint.update(summary: "Endpoint returning list of #{name}")
+      end
+    when 'POST'
+      return unless name
+      endpoint.update(summary: "Endpoint creating new #{name.singularize}")
+    when 'PUT'
+      endpoint.update(summary: "Endpoint updating #{name.singularize}")
+    when 'DELETE'
+      endpoint.update(summary: "Endpoint removing #{name.singularize}")
+    end
+  end
+
+  def url_contains_param?
+    endpoint.url.include?(':')
+  end
+
+  def name
+    CreateGroupName.new(url: endpoint[:url]).parse_url if endpoint[:url]
+  end
 
   def in_sample_project?
     endpoint.project.sample

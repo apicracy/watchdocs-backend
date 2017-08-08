@@ -33,6 +33,31 @@ RSpec.describe CreateEndpoint do
       )
       endpoint_creator.call
     end
+
+    it 'creates title of endpoint' do
+      endpoint = endpoint_creator.call
+      expect(endpoint.title).to eq 'Return list of Test'
+    end
+
+    it 'creates description of endpoint' do
+      endpoint = endpoint_creator.call
+      expect(endpoint.summary).to eq 'Endpoint returning list of Test'
+    end
+
+    context 'if endpoint included url params' do
+      let(:params) do
+        {
+          project: project,
+          url: '/test/:name',
+          http_method: 'GET'
+        }
+      end
+
+      it 'creates title for list of resources' do
+        endpoint = endpoint_creator.call
+        expect(endpoint.title).to eq 'Return Test details'
+      end
+    end
   end
 
   context 'when params are invalid' do

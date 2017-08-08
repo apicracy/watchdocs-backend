@@ -20,16 +20,16 @@ class CreateEndpoint
     case endpoint.http_method
     when 'GET'
       if url_contains_param?
-        endpoint.update(title: "Show #{name.singularize} details")
+        endpoint.update(title: "Return #{name.singularize} details")
       else
         endpoint.update(title: "Return list of #{name}")
       end
     when 'POST'
-      endpoint.update(title: "Create #{name}")
+      endpoint.update(title: "Create #{name.singularize}")
     when 'PUT'
-      endpoint.update(title: "Update #{name}")
+      endpoint.update(title: "Update #{name.singularize}")
     when 'DELETE'
-      endpoint.update(title: "Remove #{name}")
+      endpoint.update(title: "Remove #{name.singularize}")
     end
   end
 
@@ -37,16 +37,16 @@ class CreateEndpoint
     case endpoint.http_method
     when 'GET'
       if url_contains_param?
-        endpoint.update(summary: "Endpoint showing #{name.singularize} details")
+        endpoint.update(summary: "Endpoint returning #{name.singularize} details")
       else
         endpoint.update(summary: "Endpoint returning list of #{name}")
       end
     when 'POST'
-      endpoint.update(summary: "Endpoint creating new #{name}")
+      endpoint.update(summary: "Endpoint creating new #{name.singularize}")
     when 'PUT'
-      endpoint.update(summary: "Endpoint updating #{name}")
+      endpoint.update(summary: "Endpoint updating #{name.singularize}")
     when 'DELETE'
-      endpoint.update(summary: "Endpoint removing #{name}")
+      endpoint.update(summary: "Endpoint removing #{name.singularize}")
     end
   end
 

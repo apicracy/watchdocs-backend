@@ -55,7 +55,7 @@ RSpec.describe CreateEndpoint do
 
       it 'creates title for list of resources' do
         endpoint = endpoint_creator.call
-        expect(endpoint.title).to eq 'Show Test details'
+        expect(endpoint.title).to eq 'Return Test details'
       end
     end
   end

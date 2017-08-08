@@ -19,67 +19,39 @@ class CreateEndpoint
   def set_title
     case endpoint.http_method
     when 'GET'
-      if endpoint.group && name.pluralize == name
-        endpoint.update(title: "Show #{name.pluralize} of #{endpoint.group.name}")
-      elsif endpoint.group
-        endpoint.update(title: "Show #{name} of #{endpoint.group.name} details")
-      elsif name.pluralize == name
-        endpoint.update(title: "Show #{name.pluralize}")
+      if url_contains_param?
+        endpoint.update(title: "Show #{name.singularize} details")
       else
-        endpoint.update(title: "Show #{name} details")
+        endpoint.update(title: 'List')
       end
     when 'POST'
-      if endpoint.group
-        endpoint.update(title: "Create #{name} of #{endpoint.group.name}")
-      else
-        endpoint.update(title: "Create #{name}")
-      end
+      endpoint.update(title: "Create #{name}")
     when 'PUT'
-      if endpoint.group
-        endpoint.update(title: "Update #{name} of #{endpoint.group.name}")
-      else
-        endpoint.update(title: "Update #{name}")
-      end
+      endpoint.update(title: "Update #{name}")
     when 'DELETE'
-      if endpoint.group
-        endpoint.update(title: "Remove #{name} of #{endpoint.group.name}")
-      else
-        endpoint.update(title: "Remove #{name}")
-      end
+      endpoint.update(title: "Remove #{name}")
     end
   end
 
   def set_description
     case endpoint.http_method
     when 'GET'
-      if endpoint.group && name.pluralize == name
-        endpoint.update(summary: "Endpoint showing #{name.pluralize} of #{endpoint.group.name}")
-      elsif endpoint.group
-        endpoint.update(summary: "Endpoint showing #{name} of #{endpoint.group.name} details")
-      elsif name.pluralize == name
-        endpoint.update(summary: "Endpoint showing #{name.pluralize}")
+      if url_contains_param?
+        endpoint.update(summary: "Endpoint showing #{name.singularize} details")
       else
-        endpoint.update(summary: "Endpoint showing #{name} details")
+        endpoint.update(summary: 'Endpoint list')
       end
     when 'POST'
-      if endpoint.group
-        endpoint.update(summary: "Endpoint creating new #{name} of #{endpoint.group.name}")
-      else
-        endpoint.update(summary: "Endpoint creating new #{name}")
-      end
+      endpoint.update(summary: "Endpoint creating new #{name}")
     when 'PUT'
-      if endpoint.group
-        endpoint.update(summary: "Endpoint updating #{name} of #{endpoint.group.name}")
-      else
-        endpoint.update(summary: "Endpoint updating #{name}")
-      end
+      endpoint.update(summary: "Endpoint updating #{name}")
     when 'DELETE'
-      if endpoint.group
-        endpoint.update(summary: "Endpoint removing #{name} of #{endpoint.group.name}")
-      else
-        endpoint.update(summary: "Endpoint removing #{name}")
-      end
+      endpoint.update(summary: "Endpoint removing #{name}")
     end
+  end
+
+  def url_contains_param?
+    endpoint.url.include?(':')
   end
 
   def name

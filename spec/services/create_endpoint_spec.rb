@@ -36,43 +36,26 @@ RSpec.describe CreateEndpoint do
 
     it 'creates title of endpoint' do
       endpoint = endpoint_creator.call
-      expect(endpoint.title).to eq 'Show Test details'
+      expect(endpoint.title).to eq 'List'
     end
 
     it 'creates description of endpoint' do
       endpoint = endpoint_creator.call
-      expect(endpoint.summary).to eq 'Endpoint showing Test details'
+      expect(endpoint.summary).to eq 'Endpoint list'
     end
 
-    context 'if group exists' do
-      let(:group) { Fabricate(:group, project: project, name: 'Authorization') }
+    context 'if endpoint included url params' do
       let(:params) do
         {
           project: project,
-          url: '/test',
-          http_method: 'GET',
-          group: group
-        }
-      end
-
-      it 'creates title included group name' do
-        endpoint = endpoint_creator.call
-        expect(endpoint.title).to eq 'Show Test of Authorization details'
-      end
-    end
-
-    context 'if endpoint connected with list of resources' do
-      let(:params) do
-        {
-          project: project,
-          url: '/tests',
+          url: '/test/:name',
           http_method: 'GET'
         }
       end
 
       it 'creates title for list of resources' do
         endpoint = endpoint_creator.call
-        expect(endpoint.title).to eq 'Show Tests'
+        expect(endpoint.title).to eq 'Show Test details'
       end
     end
   end
